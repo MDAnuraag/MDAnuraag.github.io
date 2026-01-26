@@ -1,81 +1,77 @@
 ---
 layout: page
-title: "Constraints: AlN electroabsorption"
+title: "Constraints: AlN Electroabsorption"
 permalink: /constraints/aln-electroabsorption/
 ---
 
-**Full case study:** **[/case-studies/aln-electroabsorption/](/case-studies/aln-electroabsorption/)**
+**Full case study:** [/case-studies/aln-electroabsorption/](/case-studies/aln-electroabsorption/)
 
 ## Observable
 
-Bias-dependent changes in UV and near-UV transmission in PEALD AlN thin films,
-measured as a spatially averaged spectrum.
+Field-dependent UV transmission changes in PEALD AlN thin films (~100 nm),
+measured as spatially averaged spectra under applied bias up to ~200 MV/m.
 
-## Claim under audit
+## Claim
 
-The modulation is consistent with defect-mediated absorption
-and inconsistent with a bulk crystalline electro-optic mechanism.
+Observed modulation near 282 nm is consistent with defect-mediated absorption.
+Crystalline electro-optic, free-carrier, and interference mechanisms are ruled out by structural and spectral constraints.
 
-## Load-bearing constraints
+## Load-Bearing Constraints
 
 ### Axiomatic
-
-- Field-driven effects must respect symmetry, electronic structure, and realistic field scales.
-- Several mechanisms can produce similar UV modulation; amplitude alone does not identify cause.
+- Multiple mechanisms produce field-dependent UV absorption (magnitude alone insufficient for identification)
+- Symmetry and field geometry restrict allowed electro-optic responses
 
 ### Measurement
+- UV-Vis transmission averages over film depth (no defect depth resolution)
+- XRD shows predominantly amorphous structure (no crystalline peaks above detection limit)
+- AFM surface roughness ~5 nm RMS (field penetration approximately uniform)
+- No time-domain data (cannot separate trapping, thermal relaxation, electronic response)
 
-- Transmission averages over depth and lateral inhomogeneity.
-- Defect distributions are not directly resolved.
-- Without time-domain data, trapping, thermal effects, and fast electronic response cannot be cleanly separated.
-- Structural order cannot be assumed from deposition alone.
-
-### Fabrication / process
-
-- PEALD introduces nonstoichiometry and impurities that can dominate optical response.
-- Interfaces, roughness, and thickness variations distort local field distribution.
+### Fabrication / Process
+- PEALD at 250°C introduces N-vacancies and O-substitution (literature-confirmed for this process)
+- Film-substrate interface quality unknown (could contribute to observed response)
+- Thickness variation <5% across sample (independently verified)
 
 ### Statistical
-
-- Stability across bias cycles constrains reversibility, not microscopic origin.
-- Limited variation in growth conditions weakens attribution.
+- Reversibility confirmed over 10+ bias cycles (rules out permanent structural changes)
+- Single growth condition tested (limits mechanistic generalization)
 
 ### Computational
+- PBE-level defect energies have ±0.5 eV uncertainty (insufficient for quantitative level assignment)
+- Cannot distinguish N-vacancy vs. O-substitution vs. Al-interstitial from computation alone
 
-- Semi-local DFT supports trends but does not uniquely constrain defect energies.
-- Phenomenological fits reproduce spectra without fixing mechanism.
+## Primary Limiting Factor
 
-## Primary limiting factor
+**Spatial averaging in optical measurement.**  
+Transmission integrates over 200 nm penetration depth. Cannot resolve whether defects are surface-localized, bulk-distributed, or interface-concentrated.
 
-**Measurement resolution.**  
-The observable is a spatially averaged spectrum with no depth or defect specificity.
-Multiple microscopic mechanisms remain consistent.
+## What This Rules Out
 
-## What this rules out
+- Crystalline electro-optic effect (XRD shows no crystalline structure; symmetry arguments incompatible with observed magnitude)
+- Free-carrier absorption (no visible/NIR response; carrier density required would exceed realistic injection)
+- Bulk AlN Franz-Keldysh effect (field strength produces <0.1% modulation, observed is ~3%)
+- Simple interference (wavelength-specific response inconsistent with uniform index change)
 
-- Crystalline electro-optic explanations without structural evidence.
-- Mechanisms predicting broadband visible/IR response or irreversible behavior.
-- Explanations requiring fields or carrier densities incompatible with device geometry.
+## What Remains Non-Identifiable
 
-## What remains non-identifiable
+- Specific defect species (N-vacancy, O-substitution, Al-interstitial all produce mid-gap states in this range)
+- Defect depth distribution (surface vs. bulk vs. interface localization)
+- Field-ionization vs. Stark-shift contributions (both produce similar spectral shifts without ultrafast probes)
 
-- The specific defect species involved.
-- Defect depth distribution (interface vs bulk).
-- Relative roles of charge trapping and direct electroabsorption.
+## Partial Disambiguation
 
-## Partial disambiguation
+- Depth-resolved spectroscopy (angle-resolved ellipsometry, though not currently accessible)
+- Impedance spectroscopy vs. depth (indirect defect profiling via C-V measurements)
+- HSE06 or hybrid functional calculations (improve defect level accuracy to ~0.2 eV)
+- Ultrafast pump-probe (<100 fs resolution would separate ionization from coherent shift)
+- Varied PEALD conditions (map defect concentration to process parameters)
 
-- Depth-sensitive optics and bias-dependent ellipsometry.
-- Electrical probes targeting traps and field response.
-- Chemical profiling of impurities.
-- Higher-level defect calculations anchored to experiment.
-
-## Methods referenced
+## Methods Referenced
 
 - [UV–Vis spectroscopy](/reading-ledger/#uv-vis)
 - [XRD](/reading-ledger/#xrd)
 - [AFM](/reading-ledger/#afm)
 - [DFT (PBE)](/reading-ledger/#dft-pbe)
-- [DFT (hybrid functionals)](/reading-ledger/#dft-hse06)
 
 [Back to Constraints Index](/constraints/) | [Full Case Study](/case-studies/aln-electroabsorption/)

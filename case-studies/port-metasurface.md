@@ -4,97 +4,71 @@ title: Passive mmWave Metasurface for Port NLoS Recovery
 permalink: /case-studies/port-metasurface/
 ---
 
-## The question
+## Problem
 
-Can a fully passive metasurface restore usable mmWave connectivity in a container port when line-of-sight paths are intermittently blocked?
+Can a fully passive metasurface restore usable mmWave connectivity (band n258: 24.25–27.5 GHz) in a container port when line-of-sight is intermittently blocked?
 
-The target application is private 5G in band n258 (24.25–27.5 GHz).  
-The limiting factor is link continuity, not peak throughput.
+**Limiting factor**: Link continuity, not peak throughput
 
----
+**Forward map**: Unit-cell geometry + substrate + periodicity + incidence  
+→ reflection phase/magnitude vs. frequency/angle  
+→ link-level recovery under blockage
 
-## The forward claim
-
-A passive metasurface redirects incident mmWave energy through engineered reflection.
-
-The forward map is:
-
-unit-cell geometry + substrate + periodicity + incidence  
-→ reflection magnitude and phase versus frequency and angle  
-→ predicted link-level recovery under blockage
-
-The modeling pipeline is split into two stages:
-
-- **Periodic unit cell:** Floquet-boundary simulations of reflection response versus frequency and angle.
-- **Finite array and deployment geometry:** predicted redirection gain and spatial coverage under blocked paths.
-
-This defines a deterministic map from surface design to expected link metrics under assumed environments.
+**Modeling pipeline**:
+1. Periodic unit cell (Floquet-boundary simulations)
+2. Finite array + deployment geometry → redirection gain and coverage
 
 ---
 
-## Where ambiguity enters
+## Ambiguities
 
-Several non-uniquenesses limit inference from simulation or single-point measurement:
+- Distinct unit-cell designs yield similar ΔS₂₁ at specific locations
+- Narrow resonances appear optimal at one frequency, fail across n258
+- Angular sensitivity dominates under realistic placement
+- Deployment geometry can outweigh unit-cell optimization
 
-- Distinct unit-cell designs can yield similar ΔS21 at a specific receiver location.
-- Narrow resonant responses can appear optimal at one frequency yet fail across n258.
-- Angular sensitivity can dominate performance under realistic placement.
-- Deployment geometry can outweigh unit-cell optimization.
-
-Peak gain at a single frequency and location is therefore not a sufficient performance metric.
+Peak gain at single frequency/location is insufficient.
 
 ---
 
-## What was constrained
+## Constraints Applied
 
-The design space was restricted by robustness requirements tied to the failure mode:
+- **Bandwidth**: Performance across full n258 band (3.25 GHz)
+- **Spectral smoothness**: Broadband response over narrow resonances
+- **Passivity**: No biasing, tuning, or active control
+- **Fabrication**: PCB-style copper on low-loss dielectric
+- **Angular tolerance**: Stable under oblique incidence (port deployment)
 
-- **Bandwidth:** performance evaluated across the full n258 band.
-- **Spectral smoothness:** broadband response favored over narrow resonances.
-- **Passivity:** no biasing, tuning elements, or active control.
-- **Fabrication realism:** PCB-style copper patterns on low-loss dielectric substrates.
-- **Angular tolerance:** stability under oblique incidence consistent with port deployment.
-
-These constraints deliberately exclude solutions that perform well only under idealized laboratory conditions.
+Deliberately excludes lab-only solutions.
 
 ---
 
-## What survived (so far)
+## Status
 
-Several aspects are fixed:
+**Fixed**:
+- Objective: NLoS recovery under dynamic blockage (not general coverage)
+- Evaluation priority: bandwidth, angular tolerance, spatial robustness over peak gain
+- Workflow: unit cell → array → blocked-link test
 
-- The objective is NLoS recovery under dynamic blockage, not general coverage enhancement.
-- Evaluation must prioritize bandwidth, angular tolerance, and spatial robustness over peak gain.
-- The simulation-to-measurement workflow is defined: unit cell → array → blocked-link test.
-
-Several aspects remain non-identifiable without hardware:
-
-- Optimal unit-cell geometry within the constrained design class.
-- Array size and placement that balance gain against spatial uniformity.
-- Real-world ΔS21 recovery magnitude prior to measurement.
-
-This is an expected limitation, not a deficiency.
+**Awaiting measurement**:
+- Optimal unit-cell geometry within design class
+- Array size/placement balancing gain vs. spatial uniformity  
+- Real-world ΔS₂₁ recovery magnitude
 
 ---
 
-## Validation plan
+## Validation Plan
 
-Inference will be restricted to what controlled measurements can support:
+Controlled measurements:
+- Two-horn link with deliberate LoS blockage
+- Frequency sweep across n258 (ΔS₂₁ or ΔPrx improvement)
+- Receiver-grid scan (spatial robustness, not single-point optimization)
 
-- Two-horn link test with deliberate LoS blockage.
-- Frequency sweep across n258 reporting ΔS21 or ΔPrx improvement.
-- Receiver-grid scans to quantify spatial robustness and exclude single-point optimization.
-
-No claims will be made beyond what these measurements can disambiguate.
-
----
-
-## What generalized
-
-In cluttered RF environments, performance claims are meaningful only relative to the dominant failure mode.
-
-For blockage-limited links, robustness—bandwidth, angular tolerance, and spatial uniformity—must be enforced as primary constraints. Designs optimized for peak response without these constraints do not transfer to real deployments.
+Claims restricted to what these measurements disambiguate.
 
 ---
 
-*Status: design and simulation pipeline established; fabrication and measurement pending.*
+*Design and simulation pipeline established; fabrication and measurement pending.*
+
+**Constraint analysis**: [/constraints/port-metasurface/](/constraints/port-metasurface/)  
+**Methods**: [EM simulation](/reading-ledger/#em-sim), [RCWA](/reading-ledger/#rcwa)

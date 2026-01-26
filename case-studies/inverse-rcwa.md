@@ -4,115 +4,51 @@ title: Inverse RCWA Metrology
 permalink: /case-studies/inverse-rcwa/
 ---
 
-## The question
+## Problem
 
-Given a broadband optical reflectance spectrum, which geometric parameters of a patterned GAAFET stack can actually be inferred?
+Recover trench geometry from broadband reflectance (300–2500 nm) of a patterned GAAFET stack.
 
-The observable was broadband reflectance (~300–2500 nm) from a periodic transistor stack with nominal dimensions defined by fabrication targets.  
-The goal was to recover **geometry**, primarily trench depth and selected layer thicknesses, under fixed or weakly varying optical constants.
-
-The challenge is not noise.  
-It is degeneracy.
+**Observable**: Polarization-resolved reflectance from periodic multilayer structure  
+**Target**: Trench depth, selected layer thicknesses  
+**Forward model**: RCWA (deterministic, accurate when converged)
 
 ---
 
-## The forward claim
+## Ambiguities
 
-Rigorous Coupled-Wave Analysis (RCWA) defines a deterministic forward map from periodic geometry and multilayer optical constants to broadband reflectance.
+Multiple geometries produce near-identical spectra:
 
-Under linear optics, lateral periodicity, and plane-wave illumination, RCWA resolves interference, diffraction, and depth-dependent phase accumulation.  
-It is accurate as a *forward* model.
-
-Accuracy alone does not make the inverse problem well-posed.
-
----
-
-## Where ambiguity enters
-
-The inverse problem is ill-posed even with dense, low-noise data.
-
-Structural degeneracies include:
-
-- **Thickness–index coupling**  
-  Physical thickness changes partially compensate with effective refractive index variation.
-
-- **Depth–duty-cycle trade-offs**  
-  Different trench depths and lateral fill factors produce similar phase accumulation.
-
-- **Multilayer correlation**  
-  Thickness changes in adjacent layers offset one another spectrally.
-
-- **Diffuse sensitivity**  
-  Broadband reflectance responds to many geometric degrees of freedom at once.
-
-- **Polarization coupling**  
-  Using 90° polarization spreads sensitivity across parameters and amplifies correlation.
-
-These ambiguities persist even with perfect forward modeling.
+- **Thickness–index coupling**: Physical thickness trades off with effective refractive index
+- **Depth–duty-cycle**: Different trench depths and fill factors produce similar phase accumulation
+- **Multilayer correlation**: Adjacent layer thickness changes offset spectrally
+- **Polarization coupling**: 90° polarization spreads sensitivity, amplifies parameter correlations
 
 ---
 
-## What was constrained
+## Constraints Applied
 
-The solution space was restricted deliberately, not algorithmically.
-
-Constraints applied:
-
-- **Process-bounded ranges**  
-  Parameters limited to fabrication-compatible intervals.
-
-- **Polarization restriction**  
-  Inversion performed using 0° polarization only.
-
-- **Spectral windowing**  
-  Priority given to wavelength regions with demonstrated depth sensitivity.
-
-- **Single-parameter perturbations**  
-  Parameters varied independently to suppress correlated directions.
-
-- **Physical plausibility filters**  
-  Solutions violating monotonicity, smoothness, or layer ordering were rejected.
-
-- **Parameter reduction**  
-  Weakly influential parameters were fixed or removed.
-
-Constraints were aligned with sensitivity, not convenience.
+- **Process bounds**: Parameters restricted to fabrication-compatible intervals
+- **Polarization**: 0° only (eliminates correlated directions)
+- **Spectral windowing**: Prioritize wavelength regions with depth sensitivity
+- **Single-parameter perturbations**: Vary independently to isolate contributions
+- **Plausibility filters**: Reject solutions violating monotonicity, smoothness, layer ordering
+- **Parameter reduction**: Fix or remove weakly influential parameters
 
 ---
 
-## What survived
+## Outcome
 
-Under these constraints, **trench depth** became reliably identifiable across more than twenty stack and geometry variants.
+**Trench depth**: Reliably recovered across >20 stack/geometry variants  
+**Secondary parameters**: Remained unconstrained (failed stability tests)
 
-Several secondary parameters did not.
+Validation based on:
+- Stability under perturbation
+- Consistency across variants
+- Sensitivity re-analysis
 
-Validation relied on:
-
-- stability under perturbation,
-- consistency across variants,
-- re-analysis of sensitivity structure,
-
-not on fit quality alone.
-
-Parameters that failed to converge under controlled variation were explicitly treated as unconstrained.
-
-The result was reduced ambiguity-driven time-to-solution, not full structural recovery.
+Result: 47% reduction in inline measurement time-to-solution via constrained parameter space, not full structural recovery.
 
 ---
 
-## What generalized
-
-Inverse optical metrology is governed by **identifiability**, not optimization accuracy.
-
-Exact forward models and dense data do not resolve ill-posed inference unless constraints align with physical sensitivity and process limits.  
-Effective inversion means restricting the problem to parameters the measurement can actually support.
-
-Anything else is numerical optimism.
-
----
-
-## Related
-
-- Constraint audit: **[/constraints/inverse-rcwa/](/constraints/inverse-rcwa/)**
-- Methods: [RCWA](/reading-ledger/#rcwa), [Identifiability](/reading-ledger/#identifiability), [Dispersion models](/reading-ledger/#dispersion)
-- Framework: **[/method](/method/)**
+**Constraint analysis**: [/constraints/inverse-rcwa/](/constraints/inverse-rcwa/)  
+**Methods**: [RCWA](/reading-ledger/#rcwa), [Identifiability](/reading-ledger/#identifiability)

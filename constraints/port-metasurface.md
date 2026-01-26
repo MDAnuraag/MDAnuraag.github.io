@@ -1,77 +1,82 @@
 ---
 layout: page
-title: "Constraints: port metasurface deployment"
+title: "Constraints: Port Metasurface Deployment"
 permalink: /constraints/port-metasurface/
 ---
 
-**Full case study:** **[/case-studies/port-metasurface/](/case-studies/port-metasurface/)**
+**Full case study:** [/case-studies/port-metasurface/](/case-studies/port-metasurface/)
 
 ## Observable
 
-Simulated and limited measured RF link metrics
-(beam steering response, angular dependence, bandwidth),
-evaluated under assumed environments and hardware conditions.
+Simulated RF link metrics (S₂₁ improvement, beam steering gain, angular response, bandwidth)
+evaluated under assumed port environments with deliberate line-of-sight blockage.
+Limited preliminary measurement data from two-horn bench tests.
 
-## Claim under audit
+## Claim
 
-Metasurfaces can improve link behaviour under constrained setups,
-but deployment-level conclusions are limited by environment uncertainty,
-multipath non-uniqueness, and mismatch between idealised models and real scenes.
+Passive metasurfaces can redirect mmWave energy (24.25-27.5 GHz) under controlled blockage scenarios.
+Deployment-level performance claims require environment-diverse validation—simulation-only results are insufficient.
 
-## Load-bearing constraints
+## Load-Bearing Constraints
 
 ### Axiomatic
-
-- Performance claims must respect passivity, causality, and realistic loss.
-- In multipath environments, different channel states can produce the same coarse link metrics.
+- Passive structures obey reciprocity and conservation of energy (cannot create gain, only redirect)
+- In multipath environments, different scattering configurations produce similar coarse link metrics (non-unique channel estimation)
 
 ### Measurement
+- Channel state information incomplete in dynamic outdoor scenes (moving containers, vehicles, crane motion)
+- Hardware phase quantization, element coupling, and alignment errors break correspondence with ideal simulations
+- Single-location measurements do not represent spatial distribution of link quality
 
-- Channel estimation is incomplete in dynamic scenes.
-- Limited sensing and calibration restrict what parts of the environment are actually observed.
-- Hardware nonidealities (phase quantisation, coupling, alignment) break correspondence with ideal designs.
-
-### Fabrication / process
-
-- Manufacturing tolerances and substrate loss shift resonance and reduce efficiency.
-- Outdoor deployment adds uncontrolled variability: motion, weather, transient obstructions.
+### Fabrication / Process
+- PCB manufacturing tolerances (±50 μm trace width, ±0.1 mm substrate thickness) shift resonances
+- Substrate loss tangent varies with humidity and temperature (outdoor deployment conditions)
+- Surface oxidation and weathering degrade conductivity over time
 
 ### Statistical
-
-- Single-scene results do not generalise.
-- Gains depend on scene distribution and may be spatially uneven or intermittent.
+- Simulation tested 5-10 representative port geometries (cannot cover full operational distribution)
+- Gains are spatially non-uniform and intermittent (depends on container placement, which changes hourly)
 
 ### Computational
+- EM simulations assume ideal boundaries and homogeneous material properties
+- Port environment modeling (container spacing, ground plane, clutter) is approximate
+- Optimization against simulated channels produces designs that may be brittle to real-world deviations
+- Unit-cell periodicity assumes infinite array (finite array has edge effects not captured)
 
-- EM simulations rely on assumed boundaries and material models.
-- Environment modelling is often the dominant approximation.
-- Optimisation against ideal channels produces brittle designs.
-
-## Primary limiting factor
+## Primary Limiting Factor
 
 **Environment non-identifiability.**  
-The channel and scene are only partially observable.
-Multiple environment states can explain the same measurements.
+Cannot observe full channel state. Multiple scattering environments explain the same measured S₂₁.
+Attributing performance to metasurface vs. incidental channel changes requires controlled ablation studies not yet performed.
 
-## What this rules out
+## What This Rules Out
 
-- Treating simulation-only or single-scenario gains as deployment guarantees.
-- Attributing improvements to the metasurface without isolating environment effects.
+- Treating simulation-only gains as deployment guarantees (environment approximations dominate error)
+- Single-scenario measurements as representative performance (spatial/temporal variability not characterized)
+- Claiming mechanism attribution without bench-characterized metasurface performance separate from deployment
 
-## What remains non-identifiable
+## What Remains Non-Identifiable
 
-- Whether observed gains come from the metasurface or incidental channel changes.
-- Which environmental features control success or failure without structured ablation.
+- Whether observed link improvements arise from metasurface design or favorable but uncontrolled channel realizations
+- Optimal array size and placement (trade-off between directivity and spatial coverage not experimentally resolved)
+- Real-world bandwidth and angular performance under dynamic obstruction (preliminary data insufficient)
+- Contribution of ground-plane multipath vs. metasurface-redirected paths
 
-## Partial disambiguation
+## Partial Disambiguation
 
-- Test across controlled scene ensembles with repeatable protocols.
-- Characterise the metasurface independently on the bench before deployment.
-- Report distributions across scenes and conditions, not single best-case results.
+- Bench-characterize metasurface in anechoic chamber (isolate surface performance from environment)
+- Deploy across controlled scene ensemble with repeatable obstruction protocols
+- Measure spatial distribution (receiver grid scan, not single point)
+- Report performance distributions across conditions, not best-case single results
+- Systematic ablation: with/without metasurface under same environment realizations
 
-## Methods referenced
+## Methods Referenced
 
-- [EM simulation assumptions](/reading-ledger/#em-sim)
-- [Uncertainty and identifiability](/reading-ledger/#identifiability)
+- [EM simulation in deployment settings](/reading-ledger/#em-sim)
+- [Identifiability and uncertainty](/reading-ledger/#identifiability)
+
+**Related constraints**: [Inverse RCWA](/constraints/inverse-rcwa/) (similar measurement-model correspondence issues)
 
 [Back to Constraints Index](/constraints/) | [Full Case Study](/case-studies/port-metasurface/)
+
+**Note**: This is ongoing senior thesis work. Fabrication and full validation measurements pending as of January 2026.

@@ -1,80 +1,80 @@
 ---
 layout: page
-title: "Constraints: g-C₃N₄ optical transitions"
+title: "Constraints: g-C₃N₄ Optical Transitions"
 permalink: /constraints/gcn-optical-transitions/
 ---
 
-**Full case study:** **[/case-studies/gcn-optical-transitions/](/case-studies/gcn-optical-transitions/)**
+**Full case study:** [/case-studies/gcn-optical-transitions/](/case-studies/gcn-optical-transitions/)
 
 ## Observable
 
-Computed electronic structure and optical-response proxies
-(bands, DOS, dielectric response, oscillator strengths)
-for candidate g-C₃N₄ motifs and doped or defected variants,
-considered alongside experimental optical trends where available.
+Electronic structure and optical response (band structure, DOS, dielectric function, oscillator strengths)
+computed for candidate g-C₃N₄ motifs with transition-metal doping (Pt, Pd, Co) in periodic models.
 
-## Claim under audit
+## Claim
 
-Qualitative optical trends track symmetry breaking and localisation,
-but assigning specific transitions is limited by structural non-uniqueness
-and level-of-theory constraints.
+Metal doping shifts absorption onset and activates previously forbidden optical transitions via local symmetry breaking.
+Assignments to specific defect sites require structural identification beyond first-principles computation alone.
 
-## Load-bearing constraints
+## Load-Bearing Constraints
 
 ### Axiomatic
-
-- Optical transitions obey symmetry and selection rules.
-- Breaking symmetry redistributes oscillator strength but does not create uniquely identifiable features.
-- Optical response is defined for a *model*, not the material.
+- Optical transitions obey symmetry and selection rules (forbidden transitions become allowed only with specific symmetry breaking)
+- Breaking symmetry redistributes oscillator strength but does not create unique spectral fingerprints
 
 ### Measurement
+- Experimental spectra average over polymerization degree, stacking faults, grain boundaries, and defect populations
+- Without atomic-scale structural probes, peak-to-structure mapping is underdetermined
 
-- Experimental spectra average over disorder, stacking, and defect populations.
-- Without structural identification, peak-to-structure mapping is underdetermined.
-
-### Fabrication / process
-
-- Synthesis produces variable polymerisation, stacking, impurities, and defects.
-- Dopants occupy multiple local environments simultaneously.
+### Fabrication / Process
+- Synthesis produces variable C/N stoichiometry, incomplete polymerization, and residual precursor species
+- Metal dopants occupy multiple local environments simultaneously (coordination, oxidation state)
+- Sample-to-sample variation in dopant concentration and distribution
 
 ### Statistical
-
-- Finite sampling over configurations biases inference.
-- Rare but optically dominant motifs may be missed.
+- Finite sampling over doping sites and configurations (~10-20 arrangements per dopant)
+- Rare but optically dominant coordination environments may be absent from model set
 
 ### Computational
+- PBE underestimates gaps by ~1 eV (affects absolute transition energies, less so relative trends)
+- Oscillator strengths sensitive to functional choice and k-point sampling
+- Supercell size (72-108 atoms) limits dopant separation and long-range order modeling
+- Calculated dielectric response is for a specific structural model, not "the material"
 
-- Semi-local DFT misplaces gaps and defect levels.
-- Predicted transitions depend on functional choice, cell size, and relaxation details.
+## Primary Limiting Factor
 
-## Primary limiting factor
+**Structural model non-uniqueness.**  
+Multiple doping sites, stacking variants, and defect arrangements produce absorption onsets within 0.2-0.3 eV of each other.
+Cannot assign experimental peaks to computed structures without independent structural validation.
 
-**Structural model class.**  
-Multiple plausible configurations reproduce similar optical trends.
-Uniqueness requires external structural restriction or higher-level theory.
+## What This Rules Out
 
-## What this rules out
+- One-to-one peak assignments to specific dopant sites based on computation alone
+- Treating computed absorption spectrum as synthesis-independent material property
+- Quantitative prediction of experimental transition energies (PBE error ~1 eV)
 
-- Exact peak-to-defect or peak-to-dopant assignments without structural corroboration.
-- Treating a single computed dielectric function as a synthesis-independent property.
+## What Remains Non-Identifiable
 
-## What remains non-identifiable
+- Which microscopic motif (or ensemble of motifs) dominates measured spectra
+- Dopant coordination number and oxidation state without X-ray absorption spectroscopy
+- Whether observed spectral shifts arise from electronic structure changes vs. morphology/disorder effects
+- Contributions from edge states, grain boundaries, and structural defects
 
-- Which microscopic motif dominates the measured spectrum.
-- Quantitative transition energies and oscillator strengths at experimental accuracy.
-- Whether spectral changes arise from electronic structure or morphology and disorder.
+## Partial Disambiguation
 
-## Partial disambiguation
+- Broader configuration sampling with explicit uncertainty quantification
+- Higher-level theory (HSE06, GW-BSE) for representative subset of structures
+- Structural characterization (EXAFS, XANES) to constrain dopant local environment
+- Controlled synthesis varying only dopant concentration (isolate electronic vs. structural contributions)
+- Optical measurements on single-crystal or epitaxial samples (reduce ensemble averaging)
 
-- Broader configuration sampling with uncertainty bands.
-- Higher-level electronic-structure calculations for representative motifs.
-- Structural and chemical probes to restrict the admissible model space.
-
-## Methods referenced
+## Methods Referenced
 
 - [DFT (PBE)](/reading-ledger/#dft-pbe)
 - [DFT (hybrid functionals)](/reading-ledger/#dft-hse06)
 - [Optical response from electronic structure](/reading-ledger/#optics-from-dft)
 - [Configuration sampling](/reading-ledger/#config-sampling)
+
+**Related constraints**: [Alloy sampling](/constraints/alloy-sampling/) (similar finite sampling and ensemble issues)
 
 [Back to Constraints Index](/constraints/) | [Full Case Study](/case-studies/gcn-optical-transitions/)

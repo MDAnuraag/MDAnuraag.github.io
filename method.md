@@ -4,89 +4,54 @@ title: Method
 permalink: /method/
 ---
 
-This site is organized around a single recurring problem:
+# Method
 
-*given a structure, what signal should exist — and given a signal, what structure can actually be inferred?*
+**Core problem**: Given a structure, what signal should exist? Given a signal, what structure can be inferred?
 
-Every project here treats that question as an inverse problem, whether or not it is framed that way in the literature.
+Every project treats this as an inverse problem. The goal is controlled inference under real constraints, not model performance in isolation.
 
-The goal is not model performance in isolation, but controlled inference under real constraints.
-
----
-
-## Core stance
-
-- Agreement with data is insufficient without mechanism.
-- Non-unique explanations are assumed until proven otherwise.
-- Claims are only as strong as the alternatives they exclude.
-
-A result is meaningful only if competing explanations are actively ruled out, not silently ignored.
+**Operating principle**: Claims are only as strong as the alternatives they exclude.
 
 ---
 
-## Working procedure
+## Workflow
 
-1. **Start from the observable**  
-   Define exactly what is measured, how it is measured, and what is *not* accessible.
+1. **Define the observable**  
+   What is measured, how, and what is inaccessible.
 
 2. **Write the forward map**  
-   Specify the causal chain the proposed mechanism claims — without defaulting to a full simulation.
+   Specify the causal chain without defaulting to simulation.
 
 3. **Enumerate competing explanations**  
-   Geometry, defects, boundary conditions, preprocessing choices, effective parameters, numerical artefacts.
+   Geometry, defects, boundaries, preprocessing, parameters, numerical artifacts.
 
-4. **State constraints explicitly**  
-   Measurement limits, fabrication tolerances, modelling assumptions, priors, and computational shortcuts.
+4. **State constraints**  
+   Measurement limits, fabrication tolerances, modeling assumptions, priors, computational shortcuts.
 
 5. **Test identifiability**  
-   Ask which parameters or mechanisms are uniquely recoverable under those constraints.
+   Which parameters or mechanisms are uniquely recoverable under these constraints?
 
 6. **Stop if underdetermined**  
-   If the data cannot support the inference, the correct outcome is to say so.
+   If data cannot support the inference, say so.
 
 7. **Report constrained conclusions**  
-   Claims are framed in terms of what is supported, what is ambiguous, and what would resolve it.
+   What is supported, what is ambiguous, what would resolve it.
 
 ---
 
-## Common failure modes
-
-- Treating good fits as evidence of uniqueness.
-- Allowing effective parameters to substitute for physical mechanisms.
-- Ignoring sensitivity to priors chosen for convenience.
-- Confusing numerical stability with physical validity.
-- Upgrading “consistent with” to “demonstrates.”
-
-These failures typically appear *after* a model has run successfully.
-
----
-
-## Definition of success
+## Success criterion
 
 A conclusion is acceptable if it:
-
-- survives reasonable changes in modelling choices,
-- respects all known constraints,
-- states remaining ambiguities explicitly,
-- and motivates a concrete measurement or perturbation that would reduce them.
-
-Anything else remains provisional.
+- Survives reasonable changes in modeling choices
+- Respects all known constraints  
+- States remaining ambiguities explicitly
+- Motivates a concrete measurement that would reduce them
 
 ---
 
-## Where this is applied
+## Applications
 
-- **[Case Studies](/case-studies/)**  
-  Concrete problems where this process held up — or failed.
-
-- **[Constraints](/constraints/)**  
-  Limits that dominated inference more than model choice.
-
-- **[Reading Ledger](/reading-ledger/)**  
-  Tools, papers, and techniques, including their failure modes.
-
-- **[Notes](/notes/)**  
-  Local clarifications where intuition breaks down.
-
-This page defines the procedure.  
-The rest of the site is evidence that it is actually followed.
+**[Case Studies](/case-studies/)** — Where this process held up or failed  
+**[Constraints](/constraints/)** — Limits that dominated inference  
+**[Reading Ledger](/reading-ledger/)** — Methods and their failure modes  
+**[Notes](/notes/)** — Clarifications where intuition breaks
