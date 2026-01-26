@@ -18,26 +18,26 @@ With fabrication priors and restricted measurement diversity, trench depth is re
 
 ## Load-Bearing Constraints
 
-### [Axiomatic]
+### Axiomatic
 - RCWA forward map (geometry + materials → spectrum) is deterministic but many-to-one
 - Multiple (thickness, index, geometry) combinations produce near-identical far-field spectra
 
-### [Measurement]
+### Measurement
 - Instrument: bandwidth, spot-size (~10-50 μm), spectral resolution limit detail
 - Real samples: roughness, line-edge roughness, thickness variation violate periodic assumptions
 - Single polarization used: reduces sensitivity, amplifies parameter correlations
 
-### [Fabrication]
+### Fabrication
 - Process windows define feasible ranges (used as hard bounds in inversion)
 - Sidewall profiles and roughness produce effective responses not captured by rectangular geometries
 - Stack composition known from process flow (reduces free parameters)
 
-### [Statistical]
+### Statistical
 - Identifiability determined by covariance structure, not fit quality
 - Multi-start optimization showed multiple local minima with similar χ²
 - Parameter correlations >0.7 for secondary parameters
 
-### [Computational]
+### Computational
 - RCWA convergence verified (50-100 Fourier orders needed)
 - Dispersion models can absorb modeling error and hide geometric degeneracies
 

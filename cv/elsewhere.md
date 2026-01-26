@@ -58,17 +58,46 @@ Music I listen to while waiting for convergence.
 Media that handle causality, time, or power well.
 
 <div class="media-grid">
-  <img src="/assets/images/elsewhere/media/lotl.jpg" />
-  <img src="/assets/images/elsewhere/media/rot.jpg" />
-  <img src="/assets/images/elsewhere/media/gk.jpg" />
-  <img src="/assets/images/elsewhere/media/op.jpg" />
-  <img src="/assets/images/elsewhere/media/jjk.jpg" />
-  <img src="/assets/images/elsewhere/media/mistborn.jpg" />
-  <img src="/assets/images/elsewhere/media/andor.jpg" />
-  <img src="/assets/images/elsewhere/media/landman.jpg" />
-  <img src="/assets/images/elsewhere/media/isaw.jpg" />
-  <img src="/assets/images/elsewhere/media/dtl.jpg" />
-</div>
+  <img src="/assets/images/elsewhere/media/lotl.jpg"
+       srcset="/assets/images/elsewhere/media/lotl.jpg 1x, /assets/images/elsewhere/media/lotl@2x.jpg 2x"
+       alt="LOTl" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/rot.jpg"
+       srcset="/assets/images/elsewhere/media/rot.jpg 1x, /assets/images/elsewhere/media/rot@2x.jpg 2x"
+       alt="Rot" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/gk.jpg"
+       srcset="/assets/images/elsewhere/media/gk.jpg 1x, /assets/images/elsewhere/media/gk@2x.jpg 2x"
+       alt="GK" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/op.jpg"
+       srcset="/assets/images/elsewhere/media/op.jpg 1x, /assets/images/elsewhere/media/op@2x.jpg 2x"
+       alt="OP" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/jjk.jpg"
+       srcset="/assets/images/elsewhere/media/jjk.jpg 1x, /assets/images/elsewhere/media/jjk@2x.jpg 2x"
+       alt="JJK" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/mistborn.jpg"
+       srcset="/assets/images/elsewhere/media/mistborn.jpg 1x, /assets/images/elsewhere/media/mistborn@2x.jpg 2x"
+       alt="Mistborn" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/andor.jpg"
+       srcset="/assets/images/elsewhere/media/andor.jpg 1x, /assets/images/elsewhere/media/andor@2x.jpg 2x"
+       alt="Andor" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/landman.jpg"
+       srcset="/assets/images/elsewhere/media/landman.jpg 1x, /assets/images/elsewhere/media/landman@2x.jpg 2x"
+       alt="Landman" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/isaw.jpg"
+       srcset="/assets/images/elsewhere/media/isaw.jpg 1x, /assets/images/elsewhere/media/isaw@2x.jpg 2x"
+       alt="I Saw" loading="lazy" decoding="async" />
+
+  <img src="/assets/images/elsewhere/media/dtl.jpg"
+       srcset="/assets/images/elsewhere/media/dtl.jpg 1x, /assets/images/elsewhere/media/dtl@2x.jpg 2x"
+       alt="DTL" loading="lazy" decoding="async" />
+</div>  
 
 <style>
 .media-grid{

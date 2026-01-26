@@ -7,153 +7,109 @@ permalink: /cv/
 # Anuraag Sharma
 
 **Graduating**: Summer 2026 (B.Eng., Microelectronics)  
-**Current focus**: Applying to PhD programs at the intersection of physics, materials science, and computational science
+**Focus**: PhD programs in physics / materials / computational science
 
-This CV is intentionally paired with process documentation.  
-How I think and work: [/method](/method)  
-What actually happened in projects: [/case-studies](/case-studies)  
-Constraints I ran into and could not resolve: [/constraints](/constraints)  
-Personal interests, opinions, and non-academic favorites: [/elsewhere](/cv/elsewhere)
+This CV is deliberately incomplete without the rest of the site.
+
+- How I reason about models: [/method](/method)  
+- Where inference broke in practice: [/constraints](/constraints)  
+- Projects as failure cases, not success stories: [/case-studies](/case-studies)
+- Crossing borders and topics led me: [/elsewhere](/cv/elsewhere)  
 
 ---
 
 ## Contact
 
-**Email**: anuraag.sharma22 [at] student.xjtlu.edu.cn  
-**Phone**: +1 (518) 937-2183  
-**Location**: Schenectady, NY (home) → Taicang, China (current) → TBD Fall 2026  
-**Status**: U.S. Permanent Resident
+Email: anuraag.sharma22 [at] student.xjtlu.edu.cn  
+Phone: +1 (518) 937-2183  
+Status: U.S. Permanent Resident  
+Location: Taicang, China → TBD Fall 2026  
 
 ---
 
 ## Education
 
-**Xi’an Jiaotong–Liverpool University** (Taicang, China)  
+**Xi’an Jiaotong–Liverpool University**  
 B.Eng., Microelectronic Science and Engineering  
-Expected Summer 2026 | Direct Year 2 Entry  
+Expected Summer 2026 (Direct Year 2 Entry)
 
-**University of Liverpool** (UK)  
-B.Eng. (Honors), Microelectronic Science and Engineering  
-(Double Degree Program, with Contemporary Entrepreneurialism)
+**University of Liverpool**  
+B.Eng. (Hons), Microelectronic Science and Engineering  
+(Double Degree Program)
 
-**Formal coursework** (non-exhaustive):  
-Semiconductor Devices · IC Design & Fabrication · Electromagnetism · RF Engineering  
-
-*Note*: My training is engineering-heavy. Most physics depth came from research-driven self-study rather than coursework.
+*Note*: My formal training is engineering-heavy. Most physics depth came from research-driven self-study prompted by model failures rather than coursework.
 
 ---
 
 ## Research Experience
 
-### XJTLU — School of CHIPS (Taicang, China)  
-**Undergraduate Research Assistant**  
-Advisor: Assoc. Prof. Jangyong Kim  
-Fall 2024 – Present  
-**Status**: Manuscript submitted
+### AlN electroabsorption under bias  
+**XJTLU — School of CHIPS**  
+Advisor: Assoc. Prof. Jangyong Kim | 2024–present  
 
-- Studied field-dependent UV transmission in PEALD AlN thin films under applied bias.
-- Systematically tested crystalline electro-optic and free-carrier explanations using XRD, AFM, and spectral constraints.
-- Could not support those mechanisms with available data; defect-mediated electroabsorption remained consistent with observations.
-- Left multiple secondary mechanisms unresolved due to sample and bias-range limits.
-- First project where I explicitly documented what the data *could not* determine.
+- Studied field-dependent UV transmission in PEALD AlN thin films.
+- Tested crystalline electro-optic and free-carrier mechanisms against structural and spectral constraints.
+- Those mechanisms could not be supported by available data.
+- Defect-mediated electroabsorption remained consistent but not uniquely identifiable.
+- First project where I explicitly documented what the data could *not* determine.
 
-Related [/notes:](/case-studies/aln-electroabsorption)  
-Constraints [/encountered:](/constraints/aln-electroabsorption)
+Related: [/case-studies/aln-electroabsorption](/case-studies/aln-electroabsorption)  
+Constraints: [/constraints/aln-electroabsorption](/constraints/aln-electroabsorption)
 
 ---
 
-### XJTLU — Department of Chemistry & Materials Science (Suzhou, China)  
-**Undergraduate Research Assistant**  
-Advisor: Prof. Heechae Choi  
-Spring 2024 – Present  
-**Status**: Ongoing
+### Optical transitions in doped g-C₃N₄  
+**XJTLU — Chemistry & Materials Science**  
+Advisor: Prof. Heechae Choi | 2024–present  
 
-- Computed dielectric response and optical transitions in metal-doped g-C₃N₄ using DFT.
-- Initially relied on single relaxed geometries; learned this was insufficient for optical claims.
-- Shifted toward small-ensemble sampling after observing configuration-dependent transitions.
-- This project is where I learned to distrust clean spectra from undersampled configuration spaces.
+- Computed dielectric response and optical transitions using DFT.
+- Initially relied on single relaxed geometries; this proved insufficient.
+- Transition energies and selection rules depended strongly on local configuration.
+- Shifted to small-ensemble sampling after observing unstable optical conclusions.
 
-Workflow [/notes:](/case-studies/gcn-optical-transitions)  
-What I still [/don’t know:](/constraints/gcn-optical-transitions)
-
----
-
-### XJTLU — Summer Undergraduate Research Fellowship (SURF)  
-**Advisor**: Prof. Heechae Choi  
-Summer 2024  
-**Status**: Completed
-
-- Screened MXene-supported single-atom catalysts for hydrogen evolution.
-- Learned PBE-level DFT largely by failure: broken jobs, non-converging slabs, and unphysical adsorption sites.
-- First sustained experience running calculations on a shared HPC cluster.
-- Poster selected for SURF Excellent Poster List (86 / 399 submissions).
+Related: [/case-studies/gcn-optical-transitions](/case-studies/gcn-optical-transitions)  
+Open issues: [/constraints/gcn-optical-transitions](/constraints/gcn-optical-transitions)
 
 ---
 
 ## Industry Experience
 
-### KLA Corporation (Ann Arbor, Michigan)  
-**Applications Engineering Intern**  
-Summer 2025
+### Inverse optical metrology  
+**KLA Corporation — Applications Engineering Intern**  
+Summer 2025  
 
-- Built an inverse-RCWA pipeline linking broadband reflectance (300–2500 nm) to trench geometry.
-- Recovered trench depth reliably across >20 stack variants.
-- Explicitly avoided over-fitting secondary parameters when the data could not constrain them.
-- Reduced inline measurement time by ~47% by narrowing the parameter space rather than increasing model complexity.
+- Built an inverse RCWA pipeline mapping broadband reflectance to trench geometry.
+- Found trench depth to be reliably constrained; secondary parameters were not.
+- Reduced measurement time by narrowing the admissible parameter space rather than increasing model complexity.
+- Reinforced that identifiability matters more than model sophistication.
 
-Process [notes:](/case-studies/inverse-rcwa)  
-Model [limitations:](/constraints/inverse-rcwa)
+Related: [/case-studies/inverse-rcwa](/case-studies/inverse-rcwa)  
+Limits: [/constraints/inverse-rcwa](/constraints/inverse-rcwa)
 
 ---
 
 ## Publications
 
-1. S. Ji, H-Y. Ahn, M. Dreger, **A. Sharma**, M. Je, S-H. Cho, H. Choi  
+1. S. Ji, H-Y. Ahn, M. Dreger, **A. Sharma**, et al.  
    *Mixing Anions in Metal Chalcogenides for Effective Band Gap Engineering with Temperature*  
-   ACS Applied Optical Materials **2**(8), 1559–1565 (2024)
+   ACS Applied Optical Materials 2(8), 1559–1565 (2024)
 
 2. **A. Sharma**, W. Chen, A. Kandwal, C. C. Kit, J. Kim  
    *Electric Field-Induced Optical Effects in AlN Thin Films for Transparent Electronic Interfaces*  
-   Scientific Reports — submitted (January 2026)
+   Scientific Reports — submitted (2026)
 
 ---
 
-## Invited Presentations
+## Tools & Methods (compressed)
 
-- **Invited Talk** — *Band-gap engineering in metal chalcogenides*  
-  Cera4S Conference, IIT Madras (2024)
+- **Electronic structure**: VASP (PBE, occasional HSE06)  
+- **Inverse modeling**: RCWA  
+- **Computation**: Slurm-based HPC clusters  
+- **Analysis**: Python (NumPy, SciPy, ASE, Pandas, Matplotlib)  
+- **Characterization**: XRD, SEM, AFM, IV–CV (primarily for exclusion, not confirmation)
 
-- **Invited Poster** — *Cu₂GeS₃ alloy optical properties*  
-  MSE Congress, TU Darmstadt (2024)
-
----
-
-## Technical Skills
-
-I mostly work with computational and optical models, and I’m comfortable moving between code, theory, and data when something breaks.
-
-On the computation side, I use **VASP** (mostly PBE, sometimes HSE06) for electronic structure and optical response, and **RCWA** for inverse problems in thin-film and nanostructured optics. I’m used to running and debugging jobs on shared **HPC clusters** (Slurm), including when convergence or sampling becomes the bottleneck rather than compute time.
-
-I write most of my analysis in **Python** (NumPy, SciPy, ASE, Pandas, Matplotlib), usually building small pipelines rather than polished libraries.
-
-Experimentally, I’ve worked hands-on with **XRD, SEM, AFM, and IV–CV**, mainly to rule things out rather than claim definitive mechanisms.
-
-I’ve also used **CST Studio** for EM simulations and **Cadence Virtuoso (45 nm PDK)** for coursework-level IC design—enough to understand constraints, not enough to claim process expertise.
-
-Languages: English (native), Hindi (native), Chinese (HSK 4), French (intermediate)
+Languages: English, Hindi; Chinese (HSK-4); French (intermediate)
 
 ---
 
-## Other Experience
-
-**XEC Chips Club — R&D Officer** (XJTLU, Fall 2023 – Present)
-
-- Developed educational material on semiconductor device testing.
-- Taught LabVIEW for basic data acquisition.
-- First experience explaining technical uncertainty to non-specialists.
-
----
-
-**PDF version**: available on request  
-**Website last updated**: January 2026
-About this [**site**](/about)  
+Last updated: January 2026

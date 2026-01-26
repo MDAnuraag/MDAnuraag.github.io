@@ -18,24 +18,24 @@ Metal doping shifts absorption onset and activates forbidden optical transitions
 
 ## Load-Bearing Constraints
 
-### [Axiomatic]
+### Axiomatic
 - Optical transitions obey symmetry and selection rules
 - Breaking symmetry redistributes oscillator strength but doesn't create unique spectral fingerprints
 
-### [Measurement]
+### Measurement
 - Experimental spectra average over polymerization, stacking, grain boundaries, defects
 - No atomic-scale structural probes available
 
-### [Fabrication]
+### Fabrication
 - Synthesis: variable C/N stoichiometry, incomplete polymerization, residual precursors
 - Metal dopants: multiple local environments (coordination, oxidation state)
 - Sample-to-sample variation in dopant concentration and distribution
 
-### [Statistical]
+### Statistical
 - Finite sampling: ~10-20 arrangements per dopant
 - Rare but optically dominant coordination environments may be absent
 
-### [Computational]
+### Computational
 - PBE: underestimates gaps by ~1 eV (affects absolute energies, less so relative trends)
 - Oscillator strengths: sensitive to functional choice and k-point sampling
 - Supercell size: 72-108 atoms (limits dopant separation modeling)

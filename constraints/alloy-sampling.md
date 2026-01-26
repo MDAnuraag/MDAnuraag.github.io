@@ -18,24 +18,24 @@ Computed band-gap vs. composition trends are consistent with Boltzmann-weighted 
 
 ## Load-Bearing Constraints
 
-### [Axiomatic]
+### Axiomatic
 - Composition discards atomic arrangement information (many configs per stoichiometry)
 - At synthesis temperatures, k_B T ~ ΔE_config (multiple arrangements thermally accessible)
 
-### [Measurement]
+### Measurement
 - Experimental spectra average over grain boundaries, defects, configuration distributions
 - No single-structure probe available
 
-### [Fabrication]
+### Fabrication
 - Growth conditions can lock in non-equilibrium configurations (not sampled here)
 - Impurity content varies across synthesis batches
 
-### [Statistical]
+### Statistical
 - Sampled ~50 from >10⁶ combinatorially possible arrangements
 - Band-gap spread at fixed composition: up to 0.3 eV within sampled set
 - Rare motifs with high optical weight may be absent
 
-### [Computational]
+### Computational
 - PBE: underestimates absolute gaps by ~1 eV (affects calibration, not relative trends)
 - Supercell size: 48-96 atoms (limits configuration diversity)
 - Convergence varies with local atomic order

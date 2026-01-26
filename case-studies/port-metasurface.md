@@ -6,126 +6,128 @@ permalink: /case-studies/port-metasurface/
 
 ## Problem
 
-Can a passive metasurface restore mmWave connectivity (24.25-27.5 GHz) in a container port when line-of-sight gets blocked?
+Can a fully passive metasurface help restore mmWave connectivity (24.25–27.5 GHz, n258)
+when line-of-sight is blocked in a container port?
 
-**Context**: Private 5G for port automation. Containers move around, block direct paths. Need link continuity, not peak throughput.
+**Context**  
+Private 5G is being trialed for port automation and teleoperation. In these settings,
+containers, cranes, and vehicles regularly block direct paths. The practical requirement
+is link continuity under blockage, not peak throughput.
 
-**Approach**: Design reflective metasurface to redirect RF around obstacles.
+This project asks whether a passive surface can create a usable reflected path under
+those conditions, without relying on active repeaters or dense infrastructure.
 
-This is my senior thesis—still in progress as of January 2026.
-
----
-
-## What I've done so far
-
-**Simulation pipeline**:
-1. **Unit cell design** (Floquet boundary conditions, sweep geometry/frequency/angle)
-2. **Array response** (finite array with edge effects)
-3. **Deployment scenarios** (simulated port environments with deliberate blockage)
-
-**Results so far**:
-- Unit cell shows broadband reflection with reasonable phase control
-- Array simulations predict ΔS₂₁ improvement of 10-15 dB under certain blockage geometries
-- Sensitivity analysis shows angular tolerance is limiting factor (not resonance bandwidth)
-
-Sounds promising. But I don't trust these numbers yet.
+This is my senior thesis and is still in progress as of January 2026.
 
 ---
 
-## Why I'm skeptical
+## What I’ve done so far
 
-**Environment modeling is approximate**:
+### Simulation workflow
 
-I'm simulating "a container port" based on:
-- Estimated ground plane properties (concrete, but which type? dry or wet?)
-- Assumed container spacing (changes hourly in real port)
-- Simplified clutter (no cranes, forklifts, people)
+I’ve set up a three-stage simulation pipeline:
 
-Any mismatch between simulated environment and real deployment could dominate error more than unit cell optimization.
+1. **Unit cell design**  
+   Periodic simulations (Floquet boundaries) to study reflection magnitude and phase as a
+   function of geometry, frequency, and incidence angle.
 
-**Optimization might be overfitting**:
+2. **Finite array response**  
+   Finite-sized arrays to account for aperture effects and non-ideal periodicity.
 
-If I optimize for one specific blockage scenario, does the design generalize to other container placements? Unknown without testing multiple scenarios systematically.
+3. **Deployment-style geometries**  
+   Simplified port-like scenes where the direct path is deliberately blocked and a
+   reflected path is created via the metasurface.
 
-**Hardware nonidealities not captured**:
-
-Real PCB fabrication has:
-- ±50 μm trace width tolerance
-- Substrate loss that varies with humidity
-- Element-to-element coupling not perfectly modeled
-
-These could shift resonances enough to matter.
+The goal so far has been to understand sensitivity and failure modes, not to optimize a
+single “best” design.
 
 ---
 
-## What I'm doing about it
+## What the simulations suggest (with caveats)
 
-**Not claiming deployment performance from simulation alone.**
+- The unit cell can be tuned to produce broadband reflection across n258 rather than a
+  sharp resonance.
+- Array-level simulations show potential improvement in link metrics (ΔS₂₁ on the order
+  of 10–15 dB) for certain blockage and placement geometries.
+- Angular stability appears more limiting than bandwidth: designs that look wideband
+  often fail under modest angle changes.
 
-Instead:
-1. **Bench characterization** (two-horn test in anechoic chamber—isolate metasurface performance from environment)
-2. **Controlled outdoor tests** (repeatable blockage scenarios, measure spatial distribution not single point)
-3. **Report distributions** (performance across positions, not best case)
-
-**Status**: Simulation and design complete. PCB fabrication pending (expected February 2026). Measurements planned for March 2026.
-
-Until I have real measurements with controlled ablation studies, I'm treating simulation results as "what might happen" not "what will happen."
-
----
-
-## What I've learned so far
-
-**Design constraints matter more than peak performance**:
-
-Early on, I optimized for maximum gain at one frequency/angle. That produced narrow resonances that looked great in simulation but would be brittle to fabrication tolerances.
-
-Switched to optimizing for:
-- Broadband response (flat across 3+ GHz)
-- Angular tolerance (stable ±20° from design angle)
-- Fabrication robustness (±50 μm tolerance shouldn't kill it)
-
-This reduced peak performance but increased confidence the design might actually work.
-
-**Simulation-to-measurement workflow matters**:
-
-I can't just simulate one scenario and claim success. I need:
-- Bench characterization (unit cell + array) separate from deployment
-- Multiple deployment scenarios (not just one)
-- Spatial measurements (receiver grid, not single point)
-
-Otherwise I won't know if performance comes from the metasurface or lucky channel realization.
+These results are internally consistent within the simulation setup, but I do not yet
+trust them as predictors of real deployment performance.
 
 ---
 
-## What I'll report in thesis
+## Why I don’t trust the numbers yet
 
-**Confident claims**:
-- Unit cell design methodology (broadband + angular tolerance prioritized)
-- Simulation workflow (unit cell → array → deployment scenarios)
-- Expected limiting factors (environment uncertainty > device optimization)
+### Environment modeling dominates uncertainty
 
-**Contingent claims** (pending measurements):
-- Actual ΔS₂₁ improvement in controlled tests
-- Spatial coverage vs. single-point gain
-- Fabrication tolerance sensitivity
+The “port” in simulation is a coarse approximation:
+- ground properties are assumed,
+- container spacing is fixed,
+- clutter is simplified or omitted.
 
-**Won't claim**:
-- Deployment-ready performance (need long-term field testing)
-- Generalization to other port environments (only testing one site)
-- Comparison to active solutions (outside thesis scope)
+Small changes in geometry can completely change available paths. I cannot tell whether
+predicted gains come from the metasurface or from a favorable but unrealistic channel
+realization.
+
+### Optimization may be brittle
+
+Designs can be tuned to perform well for one blockage scenario while failing in slightly
+different ones. I have not yet sampled enough geometries to assess generalization.
+
+### Hardware effects are not fully captured
+
+Current simulations assume:
+- ideal material properties,
+- perfect alignment,
+- simplified coupling between elements.
+
+At mmWave, fabrication tolerances and loss variation are likely to matter, but I don’t yet
+know how much.
 
 ---
 
-**Status**: Senior thesis in progress. Simulation complete, fabrication pending (Feb 2026), measurements planned (Mar 2026). Will update case study after measurements.
+## What I’m doing instead of over-claiming
 
-**What I'm learning**: Simulation can guide design, but environment uncertainty dominates prediction error. Measurements with controlled ablation are necessary before claiming mechanism attribution.
+I am explicitly separating **device behavior** from **environment behavior**.
+
+Planned next steps focus on isolation rather than realism:
+1. **Bench characterization** using a two-horn setup to measure the metasurface response
+   independent of a port environment.
+2. **Controlled outdoor tests** with repeatable blockage geometries.
+3. **Spatial measurements** (receiver grids) rather than single-point metrics.
+
+Until those are done, I’m treating simulations as design guidance, not evidence of
+deployment readiness.
 
 ---
 
-**Constraint analysis**: [/constraints/port-metasurface](/constraints/port-metasurface/)  
-**Methods**: [EM simulation](/reading-ledger/#em-sim), [Identifiability](/reading-ledger/#identifiability)
+## What I’ve learned so far
 
-**Project date**: Fall 2024 - Spring 2026 (ongoing)  
-**My experience level**: First RF/EM project, first hardware design project. Learning about simulation-measurement correspondence.
+- Maximizing peak gain in simulation often produces narrow, fragile responses.
+- Designs that trade peak performance for bandwidth and angular tolerance feel more
+  defensible, even if they look worse on paper.
+- Without controlled ablation (with/without surface under identical conditions), it’s
+  impossible to attribute performance to the metasurface rather than the channel.
 
-**Expected completion**: May 2026 (thesis defense)
+---
+
+## What I will and won’t claim in the thesis
+
+**Will claim**
+- A design and simulation workflow for passive metasurfaces targeting n258.
+- Identification of dominant sensitivities (angle, placement, environment).
+- Why environment uncertainty limits simulation-only conclusions.
+
+**Will not claim**
+- Deployment-ready performance.
+- Generalization across different ports.
+- Superiority over active or network-level solutions.
+
+---
+
+**Status**  
+Simulation complete. Fabrication pending (expected Feb 2026). Measurements planned
+(Mar 2026).
+
+**Constraint analysis**: [/constraints/port-metasurface](/constraints/port-metasurface/)

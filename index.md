@@ -4,24 +4,28 @@ title: Anuraag Sharma
 permalink: /
 ---
 
-I'm finishing my undergraduate degree in microelectronics and trying to figure out how to think clearly about inverse problems in materials and optics.
+I’m finishing an undergraduate degree in microelectronics and trying to understand how inverse problems actually behave in materials and optics.
 
-Most of my work so far has involved situations where:
-- multiple mechanisms fit the same data,
-- models work but for unclear reasons,
-- and knowing what you *can't* conclude matters more than what you can.
+In most of my work so far, I keep running into the same pattern:
+- different mechanisms explain the same data,
+- models work before I understand why they should,
+- and the most important part is often knowing what the data *cannot* tell me.
 
-This site is my attempt to document that process as I learn it. Treat it not as a portfolio of solved problems, but a record of where interpretation gets difficult and why.
+This site exists because I don’t have a clean framework for that yet.
 
-**Current status**: Graduating summer 2026, applying to physics/materials PhD programs.
+I’m using it to record where interpretation breaks down, what assumptions I relied on without noticing, and how my thinking changes when those assumptions stop holding. Some entries are careful, some are incomplete, and some are probably wrong.
+
+This is not a portfolio of solved problems. It’s a public record of where I get stuck and how I try to get unstuck.
+
+**Current status**: graduating summer 2026, applying to physics/materials PhD programs.
 
 ---
 
-[Case Studies](/case-studies/) — Projects where I tried to apply this thinking  
-[Method](/method/) — The framework I'm building (version 1.0)  
-[Constraints](/constraints/) — What actually limited inference in each project  
-[Reading Ledger](/reading-ledger/) — What I've learned about when to trust methods  
-[Notes](/notes/) — Specific confusions I've encountered  
-[CV](/cv/) — Background and contact
+[Case Studies](/case-studies/) — projects treated as inference problems  
+[Method](/method/) — the framework I’m trying to build (still unstable)  
+[Constraints](/constraints/) — what actually limited inference  
+[Reading Ledger](/reading-ledger/) — when methods helped vs misled  
+[Notes](/notes/) — specific confusions I haven’t resolved  
+[CV](/cv/) — background and contact
 
-**Note**: This site reflects my current understanding as of January 2026. Expect it to change as I do more work and make more mistakes.
+*This site reflects my current understanding. I expect parts of it to age badly.*

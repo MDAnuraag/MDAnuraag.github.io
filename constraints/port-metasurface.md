@@ -8,95 +8,92 @@ permalink: /constraints/port-metasurface/
 
 ## Observable
 
-Simulated RF link metrics (S₂₁ improvement, beam steering, angular response, bandwidth) evaluated under assumed port environments with deliberate line-of-sight blockage.
+Primarily simulation-derived link metrics (ΔS₂₁, angular response, bandwidth) under
+simplified blockage scenarios.
 
-Limited preliminary measurement data from two-horn bench tests.
-
-## Claim
-
-Passive metasurfaces can redirect mmWave energy (24.25-27.5 GHz) under controlled blockage scenarios. Deployment-level performance claims require environment-diverse validation—simulation-only results insufficient.
+Limited bench-style measurements are planned but not yet complete.
 
 ---
 
-## Load-Bearing Constraints
+## Working claim (tentative)
 
-### [Axiomatic]
-- Passive structures obey reciprocity, conservation (cannot create gain, only redirect)
-- In multipath, different scattering configurations produce similar coarse link metrics
-
-### [Measurement]
-- Channel state information incomplete in dynamic scenes (moving containers, vehicles, cranes)
-- Hardware: phase quantization, element coupling, alignment errors break simulation correspondence
-- Single-location measurements don't represent spatial distribution
-
-### [Fabrication]
-- PCB tolerances (±50 μm trace, ±0.1 mm substrate) shift resonances
-- Substrate loss varies with humidity/temperature (outdoor deployment)
-- Surface oxidation and weathering degrade conductivity over time
-
-### [Statistical]
-- Simulation: tested 5-10 representative geometries (cannot cover operational distribution)
-- Gains are spatially non-uniform and intermittent (depends on container placement)
-
-### [Computational]
-- EM simulations: assume ideal boundaries, homogeneous materials
-- Port environment modeling (spacing, ground plane, clutter) is approximate
-- Optimization against simulated channels produces brittle designs
-- Unit-cell periodicity assumes infinite array (finite array has edge effects)
+Passive metasurfaces can redirect mmWave energy in controlled geometries.
+Whether this translates into reliable improvement in real port environments remains
+undetermined without controlled measurement.
 
 ---
 
-## Primary Limiting Factor
+## Load-bearing constraints
+
+### Physical
+
+- Passive structures obey reciprocity and conservation: they can only redirect energy,
+  not amplify it.
+- In cluttered environments, multiple reflection paths coexist and interfere.
+
+### Environmental
+
+- The true channel state in a port is not observable or repeatable.
+- Small geometric changes (container placement, crane motion) can dominate link behavior.
+- Simulation environments necessarily under-sample this variability.
+
+### Measurement
+
+- Single-point measurements cannot distinguish device effect from channel luck.
+- Without baseline comparisons under identical conditions, attribution is ambiguous.
+
+### Fabrication
+
+- PCB tolerances and material losses at mmWave may shift response.
+- These effects are not fully captured in early simulations.
+
+### Computational
+
+- Periodic unit-cell simulations assume infinite arrays.
+- Finite arrays introduce edge effects that complicate scaling.
+- Optimization against a small set of scenes risks overfitting.
+
+---
+
+## Primary limiting factor
 
 **Environment non-identifiability.**
 
-Cannot observe full channel state. Multiple scattering environments explain same measured S₂₁. Attributing performance to metasurface vs. incidental channel changes requires controlled ablation—not yet performed.
+Multiple channel realizations can explain the same observed improvement.
+Without systematic ablation, I cannot tell whether performance arises from the metasurface
+or the environment.
 
 ---
 
-## What This Ruled Out
+## What this ruled out for me
 
-- Treating simulation-only gains as deployment guarantees (environment error dominates)
-- Single-scenario measurements as representative (spatial/temporal variation not characterized)
-- Mechanism attribution without bench-characterized metasurface (separate from deployment)
-
----
-
-## What Remains Non-Identifiable
-
-- Whether improvements arise from metasurface design or favorable channel realizations
-- Optimal array size and placement (directivity vs. coverage trade-off not experimentally resolved)
-- Real-world bandwidth and angular performance under dynamic obstruction
-- Ground-plane multipath vs. metasurface-redirected path contributions
+- Treating simulation-only gains as evidence of deployment performance.
+- Using a single blockage scenario as representative.
+- Claiming mechanism attribution without isolating the metasurface response.
 
 ---
 
-## What Would Help
+## What remains unresolved
 
-- Bench-characterize in anechoic chamber (isolate surface from environment)
-- Deploy across controlled scene ensemble with repeatable protocols
-- Measure spatial distribution (receiver grid, not single point)
-- Report performance distributions across conditions (not best-case only)
-- Systematic ablation: with/without metasurface under same environment
+- How robust any improvement is across realistic scene variation.
+- How fabrication tolerances interact with angular sensitivity.
+- Optimal trade-off between aperture size and coverage uniformity.
 
 ---
 
-## Methods Referenced
+## What would reduce uncertainty
 
-- [EM simulation in deployment settings](/reading-ledger/#em-sim)
-- [Identifiability](/reading-ledger/#identifiability)
-
-**Related constraints**: [Inverse RCWA](/constraints/inverse-rcwa/) (similar measurement-model correspondence issues)
-
----
-
-**Status**: Ongoing senior thesis work. Fabrication and validation measurements pending (Feb-Mar 2026).
-
-**Analysis date**: Fall 2024 - Present  
-**My experience**: First RF/EM project, first hardware design, learning about simulation-measurement gaps
-
-The constraint that surprised me most here was environment non-identifiability. I initially thought: "simulate the port, optimize the design, deploy it." But I can't know the actual channel well enough to predict performance from simulation alone. The metasurface might help, or the channel might just be favorable that day. Without controlled ablation, I can't tell.
+- Bench characterization in a controlled environment.
+- Repeated measurements across a defined scene ensemble.
+- Spatial power maps instead of single-link metrics.
+- Explicit with/without-surface comparisons.
 
 ---
 
-[Back to Constraints](/constraints/) | [Full Case Study](/case-studies/port-metasurface/)
+**Status**  
+Senior thesis in progress. Measurements pending.
+
+**What surprised me**  
+I initially thought simulation fidelity would be the main challenge. Instead, the dominant
+issue is not knowing the channel well enough to attribute cause. That shifted my focus
+from optimization to identifiability.

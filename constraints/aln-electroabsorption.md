@@ -18,26 +18,26 @@ Observed modulation near 282 nm is consistent with defect-mediated absorption. C
 
 ## Load-Bearing Constraints
 
-### [Axiomatic]
+### Axiomatic
 - Multiple mechanisms produce field-dependent UV absorption (magnitude alone insufficient)
 - Symmetry and field geometry restrict allowed electro-optic responses
 
-### [Measurement]
+### Measurement
 - UV-Vis: transmission averages over film depth (~200 nm penetration, no defect depth resolution)
 - XRD: predominantly amorphous structure (no crystalline peaks above detection limit)
 - AFM: surface roughness ~5 nm RMS (field penetration approximately uniform)
 - No time-domain data (cannot separate trapping, thermal, electronic response)
 
-### [Fabrication]
+### Fabrication
 - PEALD at 250°C introduces N-vacancies and O-substitution (literature-confirmed)
 - Film-substrate interface quality unknown (could contribute)
 - Thickness variation <5% across sample (verified)
 
-### [Statistical]
+### Statistical
 - Reversibility confirmed over 10+ cycles (rules out permanent changes)
 - Single growth condition tested (limits mechanistic generalization)
 
-### [Computational]
+### Computational
 - PBE defect energies have ±0.5 eV uncertainty (insufficient for quantitative level assignment)
 - Cannot distinguish N-vacancy vs. O-substitution vs. Al-interstitial from computation alone
 
