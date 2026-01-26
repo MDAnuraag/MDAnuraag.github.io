@@ -44,4 +44,4 @@ B.Eng. (Hons), Microelectronic Science and Engineering
 How I tend to think: [/method](/method)  
 Where that thinking fails: [/constraints](/constraints)  
 What I’ve actually tested: [/case-studies](/case-studies)  
-The rest of my work and thoughts: [/elsewhere](/elsewhere)
+The rest of my work and thoughts: [/cv/elsewhere](/elsewhere)
