@@ -6,16 +6,11 @@ permalink: /reading-ledger/
 
 # Reading Ledger
 
-This ledger catalogs method capabilities and failure modes based on direct experience.
+This tracks what I've learned about method capabilities and failure modes through direct use.
 
-Each entry documents:
-- What a method constrains well
-- What it cannot distinguish  
-- Assumptions paid upfront
-- Conditions under which it fails
-- Evidence required to trust conclusions
+Each entry documents what a method constrains well, what it can't distinguish, and when I've seen it fail (or almost fail) in my own work.
 
-**Method-general assessments only.** Project-specific applications appear in [/constraints](/constraints/).
+**Not exhaustive**. Not authoritative. Just what I've encountered so far across 5 undergraduate projects and 1 industry internship.
 
 ---
 
@@ -33,7 +28,8 @@ Each entry documents:
 - [Configuration sampling](#config-sampling)
 - [EM simulation in deployment settings](#em-sim)
 
-**Last updated**: January 2026
+**Last updated**: January 2026  
+**My experience**: ~2 years computational materials science, 1 summer semiconductor metrology
 
 ---
 
@@ -476,4 +472,19 @@ Each entry documents:
 
 ---
 
-**[Back to top](#contents)**
+## Notes on this ledger
+
+**What this is**: My working reference for methods I've actually used. Built from mistakes I've made or almost made.
+
+**What this isn't**: 
+- A comprehensive methods review (I don't have that experience)
+- Authoritative assessments (I'm 22, finishing undergrad)
+- Static (I expect to revise as I learn more)
+
+**How to use it**: If you're encountering similar problems, this might help. If you're an expert, you'll probably find things I got wrong—let me know.
+
+**Contact**: anuraag.sharma22 [at] student.xjtlu.edu.cn
+
+---
+
+[Back to top](#contents)

@@ -1,64 +1,66 @@
 ---
 layout: page
-title: Spectra are constraints, not fingerprints
+title: Spectra Are Constraints, Not Fingerprints
 permalink: /notes/spectra-constraints/
 ---
 
-## The confusion
+## The confusion I had
 
-**Mistaken intuition**: "My model reproduces the spectrum, therefore the mechanism is correct."
+Early in my AlN project, I thought: "My model reproduces the spectrum, so the mechanism must be right."
 
-**Why it's wrong**: Many distinct mechanisms produce indistinguishable spectra once you average over disorder, geometry, and instrumental limits.
-
----
-
-## What actually happened
-
-You found a model **consistent** with the data. This is necessary but insufficient.
-
-A spectrum is a compressed observable:
-$$
-I(\lambda) = \int \text{d}V \int \text{d}\Omega \int \text{d}t \, \alpha(\lambda, \mathbf{r}, \Omega, t) \cdot f_{\text{instrument}}(\lambda)
-$$
-
-That integral destroys information. Many microscopic states $\alpha(\mathbf{r})$ map to the same $I(\lambda)$.
+**Why that was wrong**: Many mechanisms produce similar spectra once you average over disorder, geometry, and instrument limits.
 
 ---
 
-## The correct use
+## What I learned
 
-Spectra **rule out** mechanisms, they don't **identify** them.
+Matching a spectrum means your model is **consistent** with the data. That's necessary but not enough.
 
-**Example (from AlN work)**:
-- No visible/NIR response → rules out free-carrier absorption
-- UV-localized response → rules out bulk interference effects
-- Amorphous XRD + UV modulation → rules out crystalline electro-optic effect
+A spectrum compresses information:
+- Averages over depth
+- Integrates over time
+- Smears over instrumental bandwidth
 
-After ruling these out, **defect-mediated absorption** survives—not because it fits, but because alternatives don't.
+That compression destroys information. Multiple microscopic states produce the same measured curve.
+
+---
+
+## How I use this now
+
+Spectra **rule out** mechanisms—they don't **identify** them.
+
+**Example (AlN electroabsorption)**:
+- No visible/NIR response → ruled out free carriers
+- UV-localized modulation → ruled out bulk interference
+- XRD + UV response → ruled out crystalline electro-optic
+
+After eliminating alternatives, defect-mediated absorption survived—not because it fit best, but because other options failed.
 
 ---
 
 ## The working rule
 
-If your interpretation depends on spectral agreement alone:
-1. List alternative mechanisms that also fit
-2. Find a measurement that distinguishes them
-3. Don't claim mechanism identification until (2) is done
+Before claiming "mechanism X is responsible":
+1. List alternatives that also fit
+2. Find measurements that distinguish them
+3. Don't claim identification until (2) is done
 
-If you can't do (2), you have a **consistency check**, not evidence.
+If I can't do (2), I have consistency, not evidence.
 
 ---
 
-## When this confusion causes real problems
+## When I've seen this go wrong
 
 - Claiming defect species from absorption onset (many defects have similar energies)
-- Assigning optical peaks to specific atomic configurations (structure is underdetermined)
-- Using fitted dispersion models as physical insight (effective parameters absorb error)
+- Assigning peaks to atomic configurations (structure is underdetermined)
+- Interpreting dispersion models as physics (effective parameters absorb error)
 
-All of these substitute "agrees with data" for "uniquely determined by data."
+All substitute "fits data" for "uniquely determined by data."
 
 ---
 
-**Related**: [AlN constraints](/constraints/aln-electroabsorption/) (mechanism disambiguation), [g-C₃N₄ constraints](/constraints/gcn-optical-transitions/) (peak assignment limits)
+**Related**: [AlN constraints](/constraints/aln-electroabsorption/), [g-C₃N₄ constraints](/constraints/gcn-optical-transitions/)
+
+**Date written**: January 2026 (based on Fall 2024 project experience)
 
 [Back to Notes](/notes/)

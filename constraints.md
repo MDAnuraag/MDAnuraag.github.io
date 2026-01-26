@@ -6,64 +6,54 @@ permalink: /constraints/
 
 # Constraints
 
-Project-level analysis of what limited interpretation more than computation or resolution.
+For each project, this section documents what limited interpretation more than my modeling ability.
 
-Each page documents:
-- What was measured or computed
-- What was claimed
-- Which constraints dominated
-- What survived vs. what remains non-identifiable
+Usually it wasn't computation or resolution—it was identifiability, measurement averaging, or fabrication uncertainty.
 
 ---
 
 ## Projects
 
-- **[AlN electroabsorption](/constraints/aln-electroabsorption/)**  
-  Field-dependent UV modulation—ruling out crystalline, free-carrier, and interference mechanisms
+- **[AlN Electroabsorption](/constraints/aln-electroabsorption/)**  
+  Spatial averaging in UV-Vis prevented depth-resolved mechanism assignment
 
-- **[Inverse RCWA metrology](/constraints/inverse-rcwa/)**  
-  Trench depth recovery under parameter degeneracy and limited measurement diversity
+- **[Inverse RCWA](/constraints/inverse-rcwa/)**  
+  Parameter degeneracy—many geometries produced nearly identical spectra
 
-- **[g-C₃N₄ optical transitions](/constraints/gcn-optical-transitions/)**  
-  Metal doping and symmetry breaking—structural non-uniqueness limits peak assignment
+- **[g-C₃N₄ Optical](/constraints/gcn-optical-transitions/)**  
+  Structural non-uniqueness—multiple doping sites gave similar absorption onsets
 
-- **[Alloy configuration sampling](/constraints/alloy-sampling/)**  
-  Ensemble-averaged band gaps—finite sampling of combinatorial configuration space
+- **[Alloy Sampling](/constraints/alloy-sampling/)**  
+  Finite configuration sampling—50 structures from >10⁶ possible
 
-- **[Port metasurface](/constraints/port-metasurface/)**  
-  NLoS link recovery—environment non-identifiability dominates design optimization
-
----
-
-## Constraint Types
-
-These categories recur across projects:
-
-**[Axiomatic]**: Conservation laws, symmetry restrictions, self-consistency requirements  
-**[Measurement]**: SNR, resolution (spatial/temporal/spectral), calibration, averaging  
-**[Statistical]**: Finite sampling, rare-event coverage, convergence limits  
-**[Fabrication]**: Process tolerances, defects, interfaces, uncontrolled chemistry  
-**[Computational]**: Basis sets, functional choice, supercell size, boundary conditions
-
-Most interpretive limits involve multiple constraint types simultaneously.
+- **[Port Metasurface](/constraints/port-metasurface/)**  
+  Environment non-identifiability—can't separate metasurface gain from channel changes
 
 ---
 
-## Structure
+## Constraint types I've encountered
 
-Each constraint page follows:
-1. **Observable**: What was actually measured/computed
-2. **Claim**: What the analysis supports
-3. **Load-bearing constraints**: Which limits dominated (organized by type)
-4. **Primary limiting factor**: The constraint that matters most
-5. **What this rules out**: Mechanisms eliminated by constraints
-6. **What remains non-identifiable**: Surviving ambiguities
-7. **Partial disambiguation**: What would help resolve ambiguities
+**[Axiomatic]**: Symmetry, conservation laws  
+**[Measurement]**: Resolution, SNR, averaging  
+**[Statistical]**: Finite sampling, rare events  
+**[Fabrication]**: Tolerances, defects, interfaces  
+**[Computational]**: Basis sets, functional choice, supercell size
+
+Most projects hit multiple types simultaneously.
 
 ---
 
-**Method-level capabilities**: [Reading Ledger](/reading-ledger/)  
-**General framework**: [Method](/method/)  
-**Applied examples**: [Case Studies](/case-studies/)
+**How these pages work**:
+1. What was measured/computed
+2. What I claimed
+3. Which constraints mattered
+4. What survived vs. what remained ambiguous
+5. What would help resolve it
+
+---
+
+**Framework**: [/method](/method/)  
+**Examples**: [/case-studies](/case-studies/)  
+**Methods**: [/reading-ledger](/reading-ledger/)
 
 **Last updated**: January 2026

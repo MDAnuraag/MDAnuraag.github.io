@@ -4,75 +4,92 @@ title: "Constraints: Inverse RCWA Metrology"
 permalink: /constraints/inverse-rcwa/
 ---
 
-**Full case study:** [/case-studies/inverse-rcwa/](/case-studies/inverse-rcwa/)
+**Full case study**: [/case-studies/inverse-rcwa](/case-studies/inverse-rcwa/)
 
 ## Observable
 
-Broadband reflectance (300-2500 nm) from periodic or quasi-periodic GAAFET stacks,
-measured with fixed angle/polarization using inline optical metrology tools.
+Broadband reflectance (300-2500 nm) from periodic GAAFET stacks, measured with inline optical tools.
 
 ## Claim
 
-Under fabrication priors and restricted measurement diversity, trench depth is reliably recoverable.
-Secondary parameters remain degenerate—inverse problem is non-unique without additional constraints.
+With fabrication priors and restricted measurement diversity, trench depth is recoverable. Secondary parameters remain degenerate.
+
+---
 
 ## Load-Bearing Constraints
 
-### Axiomatic
-- Forward RCWA map (geometry + materials → spectrum) is deterministic but many-to-one by construction
+### [Axiomatic]
+- RCWA forward map (geometry + materials → spectrum) is deterministic but many-to-one
 - Multiple (thickness, index, geometry) combinations produce near-identical far-field spectra
 
-### Measurement
-- Instrument bandwidth, spot-size averaging (~10-50 μm), and spectral resolution limit retrievable detail
-- Real samples violate periodic assumptions (roughness, line-edge roughness, thickness nonuniformity)
-- Single polarization reduces parameter sensitivity and amplifies covariance
+### [Measurement]
+- Instrument: bandwidth, spot-size (~10-50 μm), spectral resolution limit detail
+- Real samples: roughness, line-edge roughness, thickness variation violate periodic assumptions
+- Single polarization used: reduces sensitivity, amplifies parameter correlations
 
-### Fabrication / Process
-- Process windows define feasible geometry ranges (used as hard bounds in inversion)
-- Sidewall profiles and interfacial roughness produce effective responses not captured by ideal rectangular geometries
-- Stack layer count and composition known from process flow (reduces free parameters)
+### [Fabrication]
+- Process windows define feasible ranges (used as hard bounds in inversion)
+- Sidewall profiles and roughness produce effective responses not captured by rectangular geometries
+- Stack composition known from process flow (reduces free parameters)
 
-### Statistical
-- Parameter identifiability determined by sensitivity and covariance structure, not fit quality alone
-- Flexible dispersion models absorb modeling error and hide geometric degeneracies
-- Multi-start optimization shows multiple local minima with similar χ²
+### [Statistical]
+- Identifiability determined by covariance structure, not fit quality
+- Multi-start optimization showed multiple local minima with similar χ²
+- Parameter correlations >0.7 for secondary parameters
 
-### Computational
-- RCWA convergence must be verified (50-100 Fourier orders needed for high-aspect-ratio features)
-- Numerical artifacts from insufficient truncation can mimic physical effects
+### [Computational]
+- RCWA convergence verified (50-100 Fourier orders needed)
+- Dispersion models can absorb modeling error and hide geometric degeneracies
+
+---
 
 ## Primary Limiting Factor
 
-**Intrinsic ill-posedness of inverse problem.**  
-Single-polarization broadband reflectance underdetermines geometry. Depth–duty-cycle trade-offs and thickness–index coupling produce parameter covariances >0.7 for secondary parameters.
+**Intrinsic ill-posedness of inverse problem.**
 
-## What This Rules Out
+Single-polarization broadband reflectance underdetermines geometry. Depth-duty-cycle trade-offs and thickness-index coupling produce high covariances for secondary parameters.
 
-- Unique geometry recovery from spectral fit quality alone
-- Sub-resolution feature inference beyond measurement sensitivity limits
-- Parameter claims without explicit uncertainty and covariance analysis
+---
+
+## What This Ruled Out
+
+- Unique geometry recovery from fit quality alone (multiple solutions with χ² < 0.03 found)
+- Sub-resolution feature inference (beyond measurement sensitivity)
+- Secondary parameter claims without explicit covariance analysis
+
+---
 
 ## What Remains Non-Identifiable
 
-- Thickness–refractive-index trade-offs (both affect optical path length similarly)
-- Depth vs. duty-cycle separation for non-primary parameters (produce similar phase accumulation)
-- Roughness-driven scattering vs. effective index changes (require angle-resolved or scatter measurements to separate)
+- Thickness-refractive-index trade-offs (both affect optical path length similarly)
+- Depth vs. duty cycle for secondary parameters (similar phase accumulation)
+- Roughness-driven scattering vs. effective index changes
 - Sidewall profile details (45° vs. 50° taper produces <1% spectral difference)
 
-## Partial Disambiguation
+---
+
+## What Would Help
 
 - Add measurement diversity (multiple angles, polarizations, azimuthal rotations)
 - Encode fabrication knowledge as explicit priors (not just bounds)
-- Perform identifiability analysis (parameter sensitivity matrix, posterior sampling, multi-start clustering)
 - Cross-validate with orthogonal metrology (CD-SEM, AFM, TEM on calibration samples)
-- Reduce free parameters by fixing weakly sensitive values to process targets
+- Run full identifiability analysis (posterior sampling, multi-start clustering)
+
+---
 
 ## Methods Referenced
 
 - [RCWA](/reading-ledger/#rcwa)
-- [Identifiability and uncertainty](/reading-ledger/#identifiability)
+- [Identifiability](/reading-ledger/#identifiability)
 - [Dispersion models](/reading-ledger/#dispersion)
 
-**Related constraints**: [Port metasurface](/constraints/port-metasurface/) (similar measurement-model mismatch issues)
+---
 
-[Back to Constraints Index](/constraints/) | [Full Case Study](/case-studies/inverse-rcwa/)
+**Analysis date**: Summer 2025  
+**My experience**: First industry internship, first large-scale inverse problem
+
+This analysis reflects what I learned during the internship about when inverse optical metrology works and when it doesn't. The constraint analysis (ill-posed inverse problem as primary limit) was surprising to me initially—I thought more optimization would solve it.
+
+---
+
+[Back to Constraints](/constraints/) | [Full Case Study](/case-studies/inverse-rcwa/)

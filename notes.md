@@ -6,42 +6,26 @@ permalink: /notes/
 
 # Notes
 
-Short clarifications addressing specific interpretive errors.
+Short notes on confusions I've encountered—either mistakes I made myself or patterns I've seen often enough to recognize.
 
-These notes exist because:
-- I made this mistake myself, or
-- I've seen it made often enough to recognize the pattern, or
-- Standard intuition breaks in a non-obvious way.
+Each note addresses one specific error in interpretation and why the intuitive answer is wrong.
 
-**Not tutorials.** For method capabilities and limits, see [Reading Ledger](/reading-ledger/).  
-**Not project analysis.** For constraint-specific inference, see [Constraints](/constraints/).
-
-Each note addresses **one confusion** and states why the intuitive answer is wrong.
+**Current count**: 1 (building slowly as I encounter more)
 
 ---
 
-## Contents
+## Inference errors
 
-**Inference errors**:
-- [Spectra are constraints, not fingerprints](/_notes/spectra-constraints)
-- [Good fits don't imply identifiability](/_notes/good-fits)
-- [Sensitivity is not identifiability](/_notes/sensitivity)
-- [Convergence is not validation](/_notes/convergence)
+- [Spectra are constraints, not fingerprints](#spectra-constraints) — when agreement doesn't mean identification
 
-**Measurement interpretation**:
-- [Averaging destroys information irreversibly](/_notes/averaging)
-- [Reproducibility is not correctness](/_notes/reproducibility)
-- [Resolution limits are not information limits](/_notes/resolution)
-
-**Modeling traps**:
-- [When priors dominate inference](/_notes/priors)
-- [Where agreement comes from error cancellation](/_notes/agreement)
-- [Why adding parameters makes things worse](/_notes/parameters)
-
-**Simulation trust boundaries**:
-- [When I stop trusting my own simulations](/_notes/simulation-trust)
-- [What I check before believing a plot](/_notes/plot-checks)
+**Coming eventually**:
+- Good fits don't imply identifiability
+- Sensitivity is not identifiability  
+- Averaging destroys information
+- When priors do most of the work
 
 ---
+
+**Note**: I'm adding these as I encounter them in real work, not writing them all at once. If the list is short, that's because I'm still learning—not because I've solved everything.
 
 [Back to home](/)
