@@ -1,0 +1,224 @@
+{
+  "main": {
+    "id": "ac31dce6c1d79b57",
+    "type": "split",
+    "children": [
+      {
+        "id": "e6e30bd2611a5eb4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7d88e73905bfe578",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "about.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "about"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c367556331644f1c",
+    "type": "split",
+    "children": [
+      {
+        "id": "105e37b0e653ad8b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "41090e1145d10138",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "e1960304ebbde1b0",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "37e120e2bc89fe76",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "6847694f56008acb",
+    "type": "split",
+    "children": [
+      {
+        "id": "68dad25b1aa978e1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "af8db5cd0d7e6e84",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "constraints/inverse-rcwa.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for inverse-rcwa"
+            }
+          },
+          {
+            "id": "1bc6130256c84cfd",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "constraints/inverse-rcwa.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from inverse-rcwa"
+            }
+          },
+          {
+            "id": "c5e2e922044091ab",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "f8fa2db53d3576f4",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "f25dde306ea0a979",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "constraints/inverse-rcwa.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of inverse-rcwa"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "7d88e73905bfe578",
+  "lastOpenFiles": [
+    "method.md",
+    "index.md",
+    "notes.md",
+    "reading-ledger.md",
+    "constraints/alloy-sampling.md",
+    "constraints/inverse-rcwa.md",
+    "constraints/port-metasurface.md",
+    "constraints/gcn-optical-transitions.md",
+    "_site/cv/index.html",
+    "_site/cv",
+    "_site/notes/index.html",
+    "_site/reading-ledger/index.html",
+    "_site/reading-ledger",
+    "_site/constraints/aln-electroabsorption/index.html",
+    "_site/constraints/aln-electroabsorption",
+    "_site/case-studies/index.html",
+    "_site/cv.html",
+    "_site/notes.html",
+    "case-studies.md",
+    "about.md",
+    "constraints/aln-electroabsorption.md",
+    "case-studies/aln-electroabsorption 1.md",
+    "_site/case-studies/aln-electroabsorption 1.md",
+    "constraints.md",
+    "_site/constraints.md",
+    "_site/Untitled.md",
+    "notes 1.md",
+    "cv.md",
+    "case-studies/port-metasurface.md",
+    "case-studies/aln-electroabsorption.md",
+    "case-studies/inverse-rcwa.md",
+    "case-studies/gcn-optical-transitions.md",
+    "math-test.md",
+    "2026-01-24.md",
+    "_site/2026-01-24.md"
+  ]
+}
