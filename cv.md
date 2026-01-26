@@ -4,30 +4,27 @@ title: CV
 permalink: /cv/
 ---
 
-I work on problems where the model fits but the explanation doesn’t survive contact with measurement.
+I work on inverse problems where the data fits easily, but the explanation doesn’t.
 
 ## Contact
 
-- anuraag.sharma22 [at] student.xjtlu.edu.cn
-- Find me on [LinkedIn](https://www.linkedin.com/in/anuraag-sharma-333689241/).  
+- anuraag.sharma22 [at] student.xjtlu.edu.cn  
+- [LinkedIn](https://www.linkedin.com/in/anuraag-sharma-333689241/)
 
-## What I do
+## Focus
 
-Inverse optical problems.  
-
-Figuring out what measurements actually constrain, and where computation can be confidently wrong.
+Inverse optical and electromagnetic problems.  
+Mostly concerned with what measurements actually constrain, and where models overreach.
 
 ## Experience
 
 **KLA Corporation**, Ann Arbor, MI  
 *Applications Engineering Intern*  
-Inverse optical modelling for semiconductor metrology.  
-Spent most of the time asking what parameters are recoverable — and which ones never were.
+Inverse optical modelling for semiconductor metrology, with emphasis on parameter recoverability under broadband reflectance.
 
 **Xi’an Jiaotong–Liverpool University (School of CHIPS)**  
 *Undergraduate Research*  
-Field-dependent optical response in thin films.  
-Separated mechanisms using structure and measurement limits, not curve fitting.
+Field-dependent optical response in thin films, separating competing mechanisms using structural and measurement constraints rather than curve fitting.
 
 ## Education
 
@@ -38,19 +35,13 @@ B.Eng. Microelectronic Science and Engineering (2026)
 B.Eng. (Hons), Microelectronic Science and Engineering  
 (Double degree)
 
-## Things I’m careful with
+## Tools
 
-- Inverse problems that look well-posed but aren’t  
-- Identifiability in EM and materials models  
-- Inference under fabrication, measurement, and model uncertainty
-
-## Tools (used, not advertised)
-
-- RCWA, electronic-structure workflows  
+- RCWA and electronic-structure workflows  
 - Python (NumPy, SciPy), reproducible pipelines  
 - EM simulation, optical spectroscopy, diffraction, surface metrology
 
-For how I think: [/method](/method)  
-For where it breaks: [/constraints](/constraints)  
-For proof: [/case-studies](/case-studies)  
-For my thoughts: [/elsewhere](/cv/elsewhere)
+How I tend to think: [/method](/method)  
+Where that thinking fails: [/constraints](/constraints)  
+What I’ve actually tested: [/case-studies](/case-studies)  
+The rest of my work and thoughts: [/elsewhere](/elsewhere)

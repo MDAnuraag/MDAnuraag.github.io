@@ -4,91 +4,89 @@ title: Method
 permalink: /method/
 ---
 
-I don’t start with models.  
-I start with questions that don’t collapse the moment they meet real data.
-
-Most of the work here circles the same problem:
+This site is organized around a single recurring problem:
 
 *given a structure, what signal should exist — and given a signal, what structure can actually be inferred?*
 
-Everything below is how I keep myself from answering that question too quickly.
+Every project here treats that question as an inverse problem, whether or not it is framed that way in the literature.
+
+The goal is not model performance in isolation, but controlled inference under real constraints.
 
 ---
 
-## First principles
+## Core stance
 
-- Every project is an inverse problem, whether it admits that or not.
-- Agreement with data is cheap; explanation is not.
-- If two mechanisms explain the same signal, neither gets credit by default.
+- Agreement with data is insufficient without mechanism.
+- Non-unique explanations are assumed until proven otherwise.
+- Claims are only as strong as the alternatives they exclude.
 
-A result only matters if competing explanations are actively ruled out.
+A result is meaningful only if competing explanations are actively ruled out, not silently ignored.
 
 ---
 
-## How I actually work
+## Working procedure
 
 1. **Start from the observable**  
-   What is measured, and what is *not* measured, matters more than the model.
+   Define exactly what is measured, how it is measured, and what is *not* accessible.
 
-2. **Write down the forward map**  
-   Not the full simulation — just the causal chain the mechanism claims.
+2. **Write the forward map**  
+   Specify the causal chain the proposed mechanism claims — without defaulting to a full simulation.
 
-3. **List what else could explain the same thing**  
-   Geometry, defects, boundary conditions, preprocessing, effective parameters, artefacts.
+3. **Enumerate competing explanations**  
+   Geometry, defects, boundary conditions, preprocessing choices, effective parameters, numerical artefacts.
 
-4. **State the constraints out loud**  
-   Measurement limits, fabrication tolerances, modelling assumptions, priors, compute shortcuts.
+4. **State constraints explicitly**  
+   Measurement limits, fabrication tolerances, modelling assumptions, priors, and computational shortcuts.
 
-5. **Ask the uncomfortable question**  
-   What, if anything, is uniquely identifiable?
+5. **Test identifiability**  
+   Ask which parameters or mechanisms are uniquely recoverable under those constraints.
 
-6. **Stop early if it’s underdetermined**  
-   Sometimes the correct move is to say “this cannot be inferred from this data.”
+6. **Stop if underdetermined**  
+   If the data cannot support the inference, the correct outcome is to say so.
 
-7. **Only then report conclusions**  
-   As constrained statements, not victories.
-
-If a step feels unnecessary, that’s usually the one I skipped last time and regretted.
+7. **Report constrained conclusions**  
+   Claims are framed in terms of what is supported, what is ambiguous, and what would resolve it.
 
 ---
 
-## Things that break inference
+## Common failure modes
 
-- Treating non-unique solutions as unique because the fit looks good.
-- Letting effective parameters quietly replace physical mechanisms.
-- Forgetting how sensitive the answer is to priors I picked for convenience.
-- Confusing numerical stability with physical truth.
-- Upgrading “consistent with” to “demonstrates” without earning it.
+- Treating good fits as evidence of uniqueness.
+- Allowing effective parameters to substitute for physical mechanisms.
+- Ignoring sensitivity to priors chosen for convenience.
+- Confusing numerical stability with physical validity.
+- Upgrading “consistent with” to “demonstrates.”
 
-Most failures show up *after* the model runs successfully.
-
----
-
-## What counts as success here
-
-A conclusion is acceptable if:
-
-- it survives reasonable changes in modelling choices,
-- it respects all known constraints,
-- it clearly states what remains ambiguous,
-- and it suggests the next measurement or perturbation that would actually help.
-
-Anything else is provisional, no matter how clean the plot looks.
+These failures typically appear *after* a model has run successfully.
 
 ---
 
-## How this shows up elsewhere
+## Definition of success
+
+A conclusion is acceptable if it:
+
+- survives reasonable changes in modelling choices,
+- respects all known constraints,
+- states remaining ambiguities explicitly,
+- and motivates a concrete measurement or perturbation that would reduce them.
+
+Anything else remains provisional.
+
+---
+
+## Where this is applied
 
 - **[Case Studies](/case-studies/)**  
-  Specific problems where this process held up (or didn’t).
+  Concrete problems where this process held up — or failed.
 
 - **[Constraints](/constraints/)**  
-  The limits that mattered more than the models.
+  Limits that dominated inference more than model choice.
 
 - **[Reading Ledger](/reading-ledger/)**  
-  Tools, papers, and techniques — including what they fail at.
+  Tools, papers, and techniques, including their failure modes.
 
 - **[Notes](/notes/)**  
   Local clarifications where intuition breaks down.
 
-If something on this site skips these steps, that’s a bug, not a feature.
+This page defines the procedure.  
+The rest of the site is evidence that it is actually followed.
