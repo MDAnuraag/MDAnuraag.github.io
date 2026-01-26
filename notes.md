@@ -4,20 +4,44 @@ title: Notes
 permalink: /notes/
 ---
 
-Short clarifications for problems that are commonly over-interpreted.
+# Notes
 
-These are not tutorials or reference material.
-They exist to constrain inference, not to teach techniques.
+Short clarifications addressing specific interpretive errors.
 
-For tools, methods, and their failure modes, see **[Reading Ledger](/reading-ledger/)**.
+These notes exist because:
+- I made this mistake myself, or
+- I've seen it made often enough to recognize the pattern, or
+- Standard intuition breaks in a non-obvious way.
 
-- **[Spectra are constraints, not fingerprints](/notes/spectra-are-constraints-not-fingerprints/)**
-- **[Good fits don’t imply good models](/notes/good-fits-dont-imply-good-models/)**
-- **[Sensitivity is not identifiability](/notes/sensitivity-is-not-identifiability/)**
-- **[Averaging destroys information](/notes/averaging-destroys-information/)**
-- **[When priors do most of the work](/notes/when-priors-do-the-work/)**
-- **[Inverse problems fail quietly](/notes/inverse-problems-fail-quietly/)**
-- **[Resolution is not information](/notes/resolution-is-not-information/)**
-- **[Reproducible does not mean correct](/notes/reproducible-does-not-mean-correct/)**
-- **[Where I stop trusting simulation](/notes/where-i-stop-trusting-simulation/)**
-- **[What I check before believing a plot](/notes/what-i-check-before-believing-a-plot/)**
+**Not tutorials.** For method capabilities and limits, see [Reading Ledger](/reading-ledger/).  
+**Not project analysis.** For constraint-specific inference, see [Constraints](/constraints/).
+
+Each note addresses **one confusion** and states why the intuitive answer is wrong.
+
+---
+
+## Contents
+
+**Inference errors**:
+- [Spectra are constraints, not fingerprints](#spectra-constraints)
+- [Good fits don't imply identifiability](#good-fits)
+- [Sensitivity is not identifiability](#sensitivity)
+- [Convergence is not validation](#convergence)
+
+**Measurement interpretation**:
+- [Averaging destroys information irreversibly](#averaging)
+- [Reproducibility is not correctness](#reproducibility)
+- [Resolution limits are not information limits](#resolution)
+
+**Modeling traps**:
+- [When priors dominate inference](#priors)
+- [Where agreement comes from error cancellation](#agreement)
+- [Why adding parameters makes things worse](#parameters)
+
+**Simulation trust boundaries**:
+- [When I stop trusting my own simulations](#simulation-trust)
+- [What I check before believing a plot](#plot-checks)
+
+---
+
+[Back to home](/)
