@@ -15,7 +15,7 @@ Everything below is how I keep myself from answering that question too quickly.
 
 ---
 
-## First principles (the boring but necessary part)
+## First principles
 
 - Every project is an inverse problem, whether it admits that or not.
 - Agreement with data is cheap; explanation is not.
@@ -52,7 +52,7 @@ If a step feels unnecessary, that’s usually the one I skipped last time and re
 
 ---
 
-## Things that break inference (learned the hard way)
+## Things that break inference
 
 - Treating non-unique solutions as unique because the fit looks good.
 - Letting effective parameters quietly replace physical mechanisms.
