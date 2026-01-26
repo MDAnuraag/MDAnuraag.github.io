@@ -6,108 +6,123 @@ permalink: /case-studies/alloy-sampling/
 
 ## Problem
 
-Cu₂Ge(S₁₋ₓSeₓ)₃ band gaps shift with composition. But at fixed composition, many atomic arrangements are possible. How much does configuration matter vs. just stoichiometry?
+The band gap of Cu₂Ge(S₁₋ₓSeₓ)₃ changes with Se fraction $x$.  
+But for a fixed $x$, there are many symmetry-inequivalent ways to arrange S and Se on the anion sublattice.
 
-**Question**: Can I predict band gap vs. composition for synthesis targets?
+**Question:** Can I predict band gap vs. composition $x$ in a way that is meaningful for synthesis targets?
 
-This was my first computational materials project. I didn't know much about DFT or alloys when I started.
+This was my first computational materials project. At the time, I didn’t yet understand alloys, configurational entropy, or how sensitive DFT results can be to which configuration you pick.
 
 ---
 
 ## What I tried
 
-**Initial approach**: Pick one configuration per composition, compute band gap, plot vs. x, done.
+**Initial approach**  
+Pick one configuration per composition, compute the band gap, plot gap vs. $x$.
 
-Prof. Choi asked: "How do you know that structure is representative?"
+My advisor asked: “How do you know that structure is representative?”
 
-I didn't. So I tried sampling more.
+I didn’t. So I switched to sampling.
 
-**What I learned to do**:
-1. Generate multiple configurations per composition (substitution on anion sites only)
-2. Check thermodynamic plausibility (free energy, not just total energy)
-3. Compute band gaps for all of them
-4. Report ensemble averages with uncertainty
+**Revised approach**
+1. Generate multiple S/Se configurations per composition (substitution on anion sites only).
+2. Compare relative energetics to avoid obviously implausible structures.
+3. Use a free-energy viewpoint (not just total energy) to interpret which configurations could coexist.
+4. Compute band gaps across the sampled set.
+5. Report ensemble trends rather than single-structure claims.
 
-Sounds obvious now, but it wasn't obvious to me at the time.
+---
+
+## What the paper models (the anchor)
+
+The paper treats Cu$_2$Ge(S$_{1-x}$Se$_x$)$_3$ as a random-alloy problem and uses a thermodynamic model for mixing:
+
+$$
+\Delta G_{\mathrm{mix}}(x,T) = \Delta H_{\mathrm{mix}}(x) - T\,\Delta S_{\mathrm{mix}}(x)
+$$
+
+with configurational entropy approximated as:
+
+$$
+\Delta S_{\mathrm{mix}} = k_B\left[x\ln x + (1-x)\ln(1-x)\right]
+$$
+
+In the paper, vibrational entropy is neglected for the bulk mixing free-energy estimate, and the miscibility gap is determined via common-tangent reasoning on $\Delta G_{\mathrm{mix}}(x,T)$. :contentReference[oaicite:0]{index=0}
+
+My configuration sampling was not a cluster expansion; it was a practical attempt to respect the “no single configuration dominates” implication when energy differences are small relative to thermal scales.
 
 ---
 
 ## What I found
 
-**At fixed composition, band gaps varied by up to 0.3 eV** depending on which specific configuration I chose.
+At fixed $x$, the computed band gaps varied by up to about **0.3 eV** depending on which S/Se arrangement I chose.
 
-That's not measurement noise—that's real configurational entropy competing with electronic energy.
+That spread is large compared to typical numerical noise and sits in the same “order-of-magnitude conversation” as thermal energy at synthesis-like temperatures:
 
-At synthesis temperatures (400-600°C), thermal energy k_B T ~ 0.05-0.08 eV. Multiple configurations with similar energies coexist. No single structure dominates.
+$$
+k_B T \approx 0.05\text{–}0.08\ \mathrm{eV}\quad \text{for}\quad 400\text{–}600^\circ\mathrm{C}
+$$
 
-**The observable band gap is an ensemble average**, not a single-structure property.
+So multiple configurations can plausibly contribute under processing conditions, and a single-structure “the band gap at $x$ is …” statement can be misleading.
+
+**Interpretation:** the observable band gap is best treated as an **ensemble-weighted** quantity, not a single-configuration property.
 
 ---
 
 ## What worked
 
-**Ensemble-averaged trends matched experiment** from our collaborators at University of Cologne.
+**Ensemble-averaged trends matched experiment from collaborators.**
 
-They synthesized samples across composition range, measured optical gaps. Our Boltzmann-weighted averages from ~50 configurations per composition reproduced the experimental trend.
+Using Boltzmann-style weighting over my sampled configurations (about 50 per composition), the predicted composition trend aligned with measured optical gaps well enough to support the workflow as “consistent with the system behavior,” not as proof of completeness. :contentReference[oaicite:1]{index=1}
 
-**Validation**: This gave me confidence the sampling approach was working—at least for this system.
-
-**What I learned**: When configurational entropy matters (k_B T ~ ΔE_config), you can't avoid ensemble thinking.
+This was the first time I saw a strong practical payoff from treating alloys as an ensemble rather than a single optimized structure.
 
 ---
 
-## What I couldn't determine
+## What I couldn’t determine
 
-**Whether our 50 configs per composition were enough**:
+**Whether ~50 configurations per composition was enough**  
+The combinatorial space is enormous (easily $>10^6$). I sampled a tiny fraction.
 
-We sampled 50 out of >10⁶ combinatorially possible arrangements. Did we miss important motifs? Probably.
+I didn’t have a systematic way to test convergence or ensure important motifs weren’t missed. Cluster expansion or active-learning sampling would have been the right next tools, but I didn’t know them yet.
 
-But I didn't know how to systematically check—cluster expansion or active learning would have helped, but I didn't know those methods yet.
+**Whether synthesis reached equilibrium**  
+The thermodynamic model assumes equilibrium at the anneal temperature. If kinetics trap metastable configurations, the effective ensemble could differ from Boltzmann weighting.
 
-**Whether synthesis locked in non-equilibrium structures**:
+We couldn’t verify that without deeper synthesis-pathway information.
 
-We assumed Boltzmann weighting at synthesis temperature. But if growth kinetics trapped metastable configurations, our predictions could be wrong.
-
-No way to check without knowing actual synthesis pathways.
-
-**Quantitative gap values**:
-
-PBE underestimates by ~1 eV. We got trends right, but absolute values required experimental calibration.
+**Absolute band-gap accuracy**  
+PBE underestimates gaps substantially; the paper uses HSE06 for band-gap predictions (and shows good agreement with literature values for CGS). My early work leaned on trends rather than claiming accurate absolute gaps. :contentReference[oaicite:2]{index=2}
 
 ---
 
 ## What I learned
 
-**Composition is not structure.** This seems obvious now, but it wasn't obvious to me as an undergrad starting computational materials work.
+**Composition is not structure.**  
+“The band gap at $x$” is incomplete unless you specify a configuration model or an ensemble.
 
-You can't say "the band gap of Cu₂GeSe₃" without specifying (or ensemble-averaging over) atomic configurations.
+**Sampling is hard by default.**  
+“50 structures” sounds large until you compare it to the true configuration space.
 
-**Sampling is hard**: 50 structures sounds like a lot until you realize how big the configuration space actually is. I don't think we sampled enough, but I also didn't know how to do better with the tools I had.
-
-**When to stop computing**: We matched experiment reasonably well with ensemble averages from our 50-config samples. Could we do better with 500? Maybe. Worth the compute cost? Probably not for this project.
-
----
-
-## What I'd do differently
-
-1. **Use cluster expansion** for more systematic sampling (I didn't know this method when I did the project)
-2. **Report uncertainty bands** more carefully (not just one error bar)
-3. **Check convergence** with sample size (run 20, 50, 100 configs, see when trends stabilize)
-
-But for a first project where I learned DFT basics, thermodynamic weighting, and why composition ≠ structure, this worked well enough.
+**Stop conditions matter.**  
+Once the ensemble trend matched experiment at the level needed for the paper’s point, scaling to 500 structures was not obviously worth the compute cost—though I didn’t know how to formalize that decision then.
 
 ---
 
-**Status**: Published in ACS Applied Optical Materials (2024). First computational project, learned a lot about when single-structure calculations aren't enough.
+## What I’d do differently now
 
-**What I learned**: Properties are ensemble averages when configurational entropy competes with electronic energy. Single-structure predictions are almost never enough for alloys.
+1. Use **cluster expansion** to map configuration space systematically.
+2. Run a **convergence check** (e.g., 20 → 50 → 100 structures) to see when the trend stabilizes.
+3. Separate “trend prediction” vs. “absolute-value prediction” more cleanly in the write-up.
 
 ---
 
-**Constraint analysis**: [/constraints/alloy-sampling](/constraints/alloy-sampling/)  
-**Methods**: [Configuration sampling](/reading-ledger/#config-sampling), [DFT-PBE](/reading-ledger/#dft-pbe)
+**Status:** Published (ACS Applied Optical Materials, 2024). :contentReference[oaicite:3]{index=3}  
+**Project date:** Spring 2024  
+**My experience level (then):** first computational project; learning DFT from scratch.
 
-**Project date**: Spring 2024  
-**My experience level**: First computational project, learning DFT from scratch. Lots of trial and error.
+**Constraint analysis:** [/constraints/alloy-sampling](/constraints/alloy-sampling/)  
+**Methods:** [Configuration sampling](/reading-ledger/#config-sampling), [DFT (PBE, HSE06)](/reading-ledger/#dft-pbe)
 
-**Reference**: Ji, S.; Ahn, H.-Y.; Dreger, M.; **Sharma, A.**; Je, M.; Cho, S.-H.; Choi, H. *ACS Applied Optical Materials* **2**(8), 1559-1565 (2024)
+**Reference:**  
+Ji, S.; Ahn, H.-Y.; Dreger, M.; **Sharma, A.**; Je, M.; Cho, S.-H.; Choi, H. *ACS Applied Optical Materials* **2**(8), 1559–1565 (2024). :contentReference[oaicite:4]{index=4}

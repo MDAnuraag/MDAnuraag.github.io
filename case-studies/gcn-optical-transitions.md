@@ -1,72 +1,69 @@
 ---
 layout: page
-title: Optical Transitions in g-C₃N₄
+title: g-C₃N₄ Optical Transitions
 permalink: /case-studies/gcn-optical-transitions/
 ---
 
-## The question
+## Problem
 
-What information about microscopic electronic structure is actually encoded in the optical spectra of graphitic carbon nitride (g-C₃N₄)?
+Metal atoms (Pt, Pd, Co) on graphitic carbon nitride (g-C$_3$N$_4$) photocatalysts shift optical absorption into the visible range.
 
-Where does that mapping stop being identifiable?
+**Observable**: Computed electronic structure and optical response for different dopants and doping sites  
+**Question**: What *mechanism* enables visible absorption—and how much structural detail can optical spectra actually constrain?
 
-The goal was not bandgap extraction.
-It was internal consistency:
-given a structure, what optical response should exist,
-and given a spectrum, what can legitimately be inferred?
+This was my second computational project. The goal was no longer just “get a band gap,” but to understand what information optical spectra do and do not encode about microscopic structure.
 
 ---
 
-## The forward assumption
+## What I tried
 
-The working assumption was a forward chain:
+**Initial approach**  
+Run DFT, compute band structures and dielectric functions, compare absorption spectra, claim insight.
 
-structure → electronic states → dielectric response → optical spectrum
+That approach produced clean-looking spectra—but I couldn’t tell whether the differences were physically meaningful or artifacts of structure choice.
 
-In polymeric and disordered semiconductors, this mapping is many-to-one.
-Optical spectra are projections of electronic structure, not direct structural measurements.
+Problems became obvious quickly:
+1. **Multiple doping sites** exist for each metal—no single “correct” structure.
+2. **PBE band gaps are wrong** by $\sim1\ \mathrm{eV}$—could optical conclusions still be trusted?
+3. **Finite supercells** were required—was I seeing physics or finite-size effects?
 
-The task was to identify which features survive structural variation,
-and which degrees of freedom collapse under inversion.
-
----
-
-## Where ambiguity enters
-
-g-C₃N₄ is a layered, polymeric semiconductor built from heptazine units linked by planar nitrogen bridges.
-
-Key features:
-
-- strong in-plane π conjugation  
-- weak interlayer coupling  
-- large freedom in stacking, spacing, vacancies, termination, and polymerization  
-
-There is no unique structure representative of experiment.
-
-Distinct microscopic configurations can therefore produce nearly identical optical spectra once disorder, thickness, and experimental resolution are accounted for.
+So I backed up and reframed the problem.
 
 ---
 
-## What was constrained
+## How I reframed it
 
-Electronic structure was analyzed using density functional theory with hybrid exchange–correlation functionals to reduce bandgap underestimation.
-
-The Kohn–Sham equation,
+Instead of asking *“which structure is best?”*, I treated the problem as a **forward mapping**:
 
 $$
-\left[
--\frac{\hbar^2}{2m}\nabla^2
-+ V_{\text{ext}}
-+ V_{\text{H}}[\rho]
-+ V_{\text{xc}}[\rho]
-\right]\psi
-= \varepsilon \psi,
+\text{structure} \;\rightarrow\; \text{electronic states} \;\rightarrow\; \text{optical response}
 $$
 
-was used to examine orbital character near the band edges and its sensitivity to structural perturbations.
+In polymeric, weakly ordered semiconductors like g-C$_3$N$_4$, this mapping is **many-to-one**.  
+Optical spectra are projections of electronic structure, not structural fingerprints.
 
-Optical response was treated at the independent-particle level.
-The imaginary part of the dielectric function,
+The task became:
+- identify which optical features are **robust to structural variation**, and
+- recognize where inversion (spectrum $\rightarrow$ structure) becomes non-identifiable.
+
+---
+
+## What I figured out
+
+### Why metal doping shifts absorption
+
+The key mechanism is **symmetry breaking**, not fine energetic tuning.
+
+Pristine g-C$_3$N$_4$ has relatively high symmetry at the electronic level. Many low-energy optical transitions are weak or forbidden by selection rules, limiting visible absorption.
+
+Introducing metal dopants:
+- breaks local symmetry,
+- introduces metal $d$-character near the band edges, and
+- activates transitions that were previously forbidden or weak.
+
+This is visible directly in the transition matrix elements.
+
+At the independent-particle level, optical intensity depends on
 
 $$
 \varepsilon_2(\omega)
@@ -78,26 +75,52 @@ $$
 \delta(\varepsilon_c - \varepsilon_v - \hbar\omega),
 $$
 
-makes explicit that optical intensity depends on transition dipole matrix elements, not eigenvalues alone.
+not on eigenvalues alone.
+
+I verified the mechanism by:
+- computing transition dipole moments, not just band structures,
+- tracking how oscillator strength redistributed after doping,
+- comparing multiple dopants and multiple sites.
+
+**Result**: Visible absorption enhancement is robust. It does *not* depend sensitively on the exact site or functional choice, because it originates from symmetry breaking rather than precise level alignment.
 
 ---
 
-## What survived
+## What survived structural variation
 
-Across plausible configurations, several features were robust:
+Across plausible configurations, several features were consistent:
 
-- a near-UV absorption onset  
+- near-UV absorption onset in pristine g-C$_3$N$_4$  
 - dominance of $\pi \rightarrow \pi^\*$ transitions  
 - strong in-plane versus out-of-plane anisotropy  
-- progressive spectral broadening with disorder  
+- extension of absorption into the visible after metal doping  
 
-These define the material class rather than any specific configuration.
+These define the **material class**, not a specific microscopic structure.
+
+---
+
+## What I couldn’t determine
+
+**Which specific doping site dominates in real samples**
+
+I sampled $\sim10$–$20$ metal positions per dopant. All showed similar absorption onsets (within $\sim0.2$–$0.3\ \mathrm{eV}$).
+
+I do not know which sites are actually occupied experimentally—nor whether multiple sites coexist.
+
+**Quantitative peak positions**
+
+PBE underestimates gaps by $\sim1\ \mathrm{eV}$.  
+While the symmetry-breaking argument is qualitative and robust, precise transition energies would require HSE06 or GW–BSE, which were not feasible at scale on our cluster.
+
+**Effect of real disorder**
+
+Experimental g-C$_3$N$_4$ is polycrystalline, partially polymerized, and compositionally variable. My models assume ideal periodicity. How much disorder reshapes the spectra beyond broadening remains uncertain.
 
 ---
 
 ## What collapsed under inversion
 
-Distinct structural changes mapped to nearly indistinguishable spectra:
+Different structural perturbations produced nearly indistinguishable spectra once disorder and resolution were considered:
 
 - stacking and interlayer spacing  
 - vacancy density versus termination  
@@ -105,27 +128,50 @@ Distinct structural changes mapped to nearly indistinguishable spectra:
 - band curvature changes versus apparent excitonic shifts  
 - thickness versus intrinsic disorder  
 
-The dominant constraint reduced to the transition dipole moment,
+The dominant surviving quantity was the transition dipole moment,
 
 $$
 \mathbf{d}_{vc} = \langle \psi_v | \mathbf{r} | \psi_c \rangle.
 $$
 
-Disorder primarily redistributes oscillator strength.
-Peak positions alone did not constrain structure.
+Peak positions alone could not uniquely constrain structure.
 
 ---
 
-## What generalized
+## What I learned
 
-Optical spectra of g-C₃N₄ constrain families of admissible structures, not unique configurations.
+**Qualitative mechanisms can be robust even when quantitative predictions aren’t.**
 
-Near-UV absorption and $\pi \rightarrow \pi^\*$ character are robust.
-Many structure–property claims inferred from UV–Vis data alone are underdetermined.
+Symmetry breaking explains *why* metal doping helps. That insight survives functional choice, site ambiguity, and finite-size limitations.
 
-Non-identifiability is not a modeling failure.
-It is the correct outcome of the inverse problem.
+But claiming *which* site or *which* dopant is optimal would be overclaiming without experimental structural constraints (e.g., EXAFS, XANES).
 
-Absent orthogonal probes or deliberately engineered spectral discriminants,
-optical spectroscopy must be treated as a bounded inference problem,
-not a structural measurement.
+**When to stop computing**
+
+More configurations, larger cells, and better functionals would not resolve a fundamentally non-identifiable inverse problem.
+
+At some point, additional DFT just samples more structures—not necessarily the right ones.
+
+---
+
+## What I’d do differently
+
+1. Collaborate with experimentalists upfront to constrain plausible sites
+2. Run a small number of HSE06 calculations for calibration
+3. Sample more aggressively only if claiming structure–property specificity
+4. State bounds on what optical spectra can and cannot determine earlier
+
+---
+
+**Status**: Ongoing project, no manuscript yet.
+
+**What I learned**:  
+Computation is better at identifying *mechanisms* (symmetry breaking) than *specific structures* (exact doping sites). Optical spectra constrain families of admissible structures, not unique configurations.
+
+---
+
+**Constraint analysis**: [/constraints/gcn-optical-transitions](/constraints/gcn-optical-transitions/)  
+**Methods**: [DFT-PBE](/reading-ledger/#dft-pbe), [DFT-HSE06](/reading-ledger/#dft-hse06), [Optical response from DFT](/reading-ledger/#optics-from-dft), [Configuration sampling](/reading-ledger/#config-sampling)
+
+**Project date**: Spring 2024 – Present  
+**My experience level**: Second computational project; learning excited-state modeling and where DFT optical predictions remain trustworthy.
