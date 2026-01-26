@@ -4,8 +4,6 @@ title: Method
 permalink: /method/
 ---
 
-# Method
-
 **Version 1.0 — January 2026**
 
 I'm trying to build a consistent way to think about a recurring problem in my work:
@@ -21,7 +19,7 @@ This page documents my current approach. It's not a prescription for others, it'
 When I start a project, I try to:
 
 1. **State what's actually measured**  
-   Not what I wish I'd measured—what the instrument actually reports.
+   Not what I wish I'd measured, but what the instrument actually reports.
 
 2. **Write down the forward physics**  
    How do I think the signal gets generated? What assumptions am I making?

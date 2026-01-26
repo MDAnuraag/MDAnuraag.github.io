@@ -11,7 +11,7 @@ Most of my work so far has involved situations where:
 - models work but for unclear reasons,
 - and knowing what you *can't* conclude matters more than what you can.
 
-This site is my attempt to document that process as I learn it—not a portfolio of solved problems, but a record of where interpretation gets difficult and why.
+This site is my attempt to document that process as I learn it. Treat it not as a portfolio of solved problems, but a record of where interpretation gets difficult and why.
 
 **Current status**: Graduating summer 2026, applying to physics/materials PhD programs.
 

@@ -4,8 +4,6 @@ title: Reading Ledger
 permalink: /reading-ledger/
 ---
 
-# Reading Ledger
-
 This tracks what I've learned about method capabilities and failure modes through direct use.
 
 Each entry documents what a method constrains well, what it can't distinguish, and when I've seen it fail (or almost fail) in my own work.

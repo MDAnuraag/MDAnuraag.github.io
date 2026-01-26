@@ -4,8 +4,6 @@ title: Notes
 permalink: /notes/
 ---
 
-# Notes
-
 Short notes on confusions I've encountered—either mistakes I made myself or patterns I've seen often enough to recognize.
 
 Each note addresses one specific error in interpretation and why the intuitive answer is wrong.

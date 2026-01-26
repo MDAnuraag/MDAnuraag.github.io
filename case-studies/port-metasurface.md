@@ -1,74 +1,131 @@
 ---
 layout: page
-title: Passive mmWave Metasurface for Port NLoS Recovery
+title: Port Metasurface NLoS Recovery
 permalink: /case-studies/port-metasurface/
 ---
 
 ## Problem
 
-Can a fully passive metasurface restore usable mmWave connectivity (band n258: 24.25–27.5 GHz) in a container port when line-of-sight is intermittently blocked?
+Can a passive metasurface restore mmWave connectivity (24.25-27.5 GHz) in a container port when line-of-sight gets blocked?
 
-**Limiting factor**: Link continuity, not peak throughput
+**Context**: Private 5G for port automation. Containers move around, block direct paths. Need link continuity, not peak throughput.
 
-**Forward map**: Unit-cell geometry + substrate + periodicity + incidence  
-→ reflection phase/magnitude vs. frequency/angle  
-→ link-level recovery under blockage
+**Approach**: Design reflective metasurface to redirect RF around obstacles.
 
-**Modeling pipeline**:
-1. Periodic unit cell (Floquet-boundary simulations)
-2. Finite array + deployment geometry → redirection gain and coverage
+This is my senior thesis—still in progress as of January 2026.
 
 ---
 
-## Ambiguities
+## What I've done so far
 
-- Distinct unit-cell designs yield similar ΔS₂₁ at specific locations
-- Narrow resonances appear optimal at one frequency, fail across n258
-- Angular sensitivity dominates under realistic placement
-- Deployment geometry can outweigh unit-cell optimization
+**Simulation pipeline**:
+1. **Unit cell design** (Floquet boundary conditions, sweep geometry/frequency/angle)
+2. **Array response** (finite array with edge effects)
+3. **Deployment scenarios** (simulated port environments with deliberate blockage)
 
-Peak gain at single frequency/location is insufficient.
+**Results so far**:
+- Unit cell shows broadband reflection with reasonable phase control
+- Array simulations predict ΔS₂₁ improvement of 10-15 dB under certain blockage geometries
+- Sensitivity analysis shows angular tolerance is limiting factor (not resonance bandwidth)
 
----
-
-## Constraints Applied
-
-- **Bandwidth**: Performance across full n258 band (3.25 GHz)
-- **Spectral smoothness**: Broadband response over narrow resonances
-- **Passivity**: No biasing, tuning, or active control
-- **Fabrication**: PCB-style copper on low-loss dielectric
-- **Angular tolerance**: Stable under oblique incidence (port deployment)
-
-Deliberately excludes lab-only solutions.
+Sounds promising. But I don't trust these numbers yet.
 
 ---
 
-## Status
+## Why I'm skeptical
 
-**Fixed**:
-- Objective: NLoS recovery under dynamic blockage (not general coverage)
-- Evaluation priority: bandwidth, angular tolerance, spatial robustness over peak gain
-- Workflow: unit cell → array → blocked-link test
+**Environment modeling is approximate**:
 
-**Awaiting measurement**:
-- Optimal unit-cell geometry within design class
-- Array size/placement balancing gain vs. spatial uniformity  
-- Real-world ΔS₂₁ recovery magnitude
+I'm simulating "a container port" based on:
+- Estimated ground plane properties (concrete, but which type? dry or wet?)
+- Assumed container spacing (changes hourly in real port)
+- Simplified clutter (no cranes, forklifts, people)
+
+Any mismatch between simulated environment and real deployment could dominate error more than unit cell optimization.
+
+**Optimization might be overfitting**:
+
+If I optimize for one specific blockage scenario, does the design generalize to other container placements? Unknown without testing multiple scenarios systematically.
+
+**Hardware nonidealities not captured**:
+
+Real PCB fabrication has:
+- ±50 μm trace width tolerance
+- Substrate loss that varies with humidity
+- Element-to-element coupling not perfectly modeled
+
+These could shift resonances enough to matter.
 
 ---
 
-## Validation Plan
+## What I'm doing about it
 
-Controlled measurements:
-- Two-horn link with deliberate LoS blockage
-- Frequency sweep across n258 (ΔS₂₁ or ΔPrx improvement)
-- Receiver-grid scan (spatial robustness, not single-point optimization)
+**Not claiming deployment performance from simulation alone.**
 
-Claims restricted to what these measurements disambiguate.
+Instead:
+1. **Bench characterization** (two-horn test in anechoic chamber—isolate metasurface performance from environment)
+2. **Controlled outdoor tests** (repeatable blockage scenarios, measure spatial distribution not single point)
+3. **Report distributions** (performance across positions, not best case)
+
+**Status**: Simulation and design complete. PCB fabrication pending (expected February 2026). Measurements planned for March 2026.
+
+Until I have real measurements with controlled ablation studies, I'm treating simulation results as "what might happen" not "what will happen."
 
 ---
 
-*Design and simulation pipeline established; fabrication and measurement pending.*
+## What I've learned so far
 
-**Constraint analysis**: [/constraints/port-metasurface/](/constraints/port-metasurface/)  
-**Methods**: [EM simulation](/reading-ledger/#em-sim), [RCWA](/reading-ledger/#rcwa)
+**Design constraints matter more than peak performance**:
+
+Early on, I optimized for maximum gain at one frequency/angle. That produced narrow resonances that looked great in simulation but would be brittle to fabrication tolerances.
+
+Switched to optimizing for:
+- Broadband response (flat across 3+ GHz)
+- Angular tolerance (stable ±20° from design angle)
+- Fabrication robustness (±50 μm tolerance shouldn't kill it)
+
+This reduced peak performance but increased confidence the design might actually work.
+
+**Simulation-to-measurement workflow matters**:
+
+I can't just simulate one scenario and claim success. I need:
+- Bench characterization (unit cell + array) separate from deployment
+- Multiple deployment scenarios (not just one)
+- Spatial measurements (receiver grid, not single point)
+
+Otherwise I won't know if performance comes from the metasurface or lucky channel realization.
+
+---
+
+## What I'll report in thesis
+
+**Confident claims**:
+- Unit cell design methodology (broadband + angular tolerance prioritized)
+- Simulation workflow (unit cell → array → deployment scenarios)
+- Expected limiting factors (environment uncertainty > device optimization)
+
+**Contingent claims** (pending measurements):
+- Actual ΔS₂₁ improvement in controlled tests
+- Spatial coverage vs. single-point gain
+- Fabrication tolerance sensitivity
+
+**Won't claim**:
+- Deployment-ready performance (need long-term field testing)
+- Generalization to other port environments (only testing one site)
+- Comparison to active solutions (outside thesis scope)
+
+---
+
+**Status**: Senior thesis in progress. Simulation complete, fabrication pending (Feb 2026), measurements planned (Mar 2026). Will update case study after measurements.
+
+**What I'm learning**: Simulation can guide design, but environment uncertainty dominates prediction error. Measurements with controlled ablation are necessary before claiming mechanism attribution.
+
+---
+
+**Constraint analysis**: [/constraints/port-metasurface](/constraints/port-metasurface/)  
+**Methods**: [EM simulation](/reading-ledger/#em-sim), [Identifiability](/reading-ledger/#identifiability)
+
+**Project date**: Fall 2024 - Spring 2026 (ongoing)  
+**My experience level**: First RF/EM project, first hardware design project. Learning about simulation-measurement correspondence.
+
+**Expected completion**: May 2026 (thesis defense)

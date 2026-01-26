@@ -4,8 +4,6 @@ title: Case Studies
 permalink: /case-studies/
 ---
 
-# Case Studies
-
 Projects where I tried to apply the framework in [/method](/method/).
 
 Some worked well. Some didn't. All of them taught me something about where interpretation breaks down.

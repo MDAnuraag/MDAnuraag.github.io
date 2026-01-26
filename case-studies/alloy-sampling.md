@@ -10,7 +10,7 @@ Cu₂Ge(S₁₋ₓSeₓ)₃ band gaps shift with composition. But at fixed compo
 
 **Question**: Can I predict band gap vs. composition for synthesis targets?
 
-This was my first computational materials project—I didn't know much about DFT or alloys when I started.
+This was my first computational materials project. I didn't know much about DFT or alloys when I started.
 
 ---
 
