@@ -6,128 +6,191 @@ permalink: /case-studies/port-metasurface/
 
 ## Problem
 
-Can a fully passive metasurface help restore mmWave connectivity (24.25–27.5 GHz, n258)
-when line-of-sight is blocked in a container port?
+Can a passive metasurface restore mmWave connectivity (24.25-27.5 GHz) in a container port when line-of-sight gets blocked?
 
-**Context**  
-Private 5G is being trialed for port automation and teleoperation. In these settings,
-containers, cranes, and vehicles regularly block direct paths. The practical requirement
-is link continuity under blockage, not peak throughput.
+**Context**: Private 5G for port automation. Containers move around, block direct paths between base station and equipment. Need link continuity, not peak throughput.
 
-This project asks whether a passive surface can create a usable reflected path under
-those conditions, without relying on active repeaters or dense infrastructure.
+**Initial question**: Design a reflective metasurface to redirect RF around obstacles.
 
-This is my senior thesis and is still in progress as of January 2026.
+**What it became**: An inverse problem—if I can control boundary conditions (via programmable phase), what can I actually reconstruct about hidden objects from the scattered field?
+
+This is my senior thesis. Still in progress as of February 2026.
 
 ---
 
-## What I’ve done so far
+## What I've done
 
-### Simulation workflow
+### Phase 1: Forward modeling (Fall 2024 - Jan 2026)
 
-I’ve set up a three-stage simulation pipeline:
+**Started with standard approach**:
+1. Unit cell design in CST (periodic boundary conditions)
+2. Sweep geometry/frequency to get reflection phase
+3. Simulate finite arrays
+4. Test in "port-like" scenarios with blockage
 
-1. **Unit cell design**  
-   Periodic simulations (Floquet boundaries) to study reflection magnitude and phase as a
-   function of geometry, frequency, and incidence angle.
+**Results**: 
+- Got broadband reflection across n258 (avoided narrow resonances)
+- Simulations showed potential 10-15 dB improvement for certain geometries
+- Angular stability was more limiting than bandwidth
 
-2. **Finite array response**  
-   Finite-sized arrays to account for aperture effects and non-ideal periodicity.
+**Problem**: I couldn't tell if the performance came from the metasurface or just favorable (but unrealistic) channel geometry.
 
-3. **Deployment-style geometries**  
-   Simplified port-like scenes where the direct path is deliberately blocked and a
-   reflected path is created via the metasurface.
+Environment uncertainty dominates everything:
+- Ground properties? Guessed.
+- Container spacing? Changes hourly in real ports.
+- Clutter (cranes, forklifts)? Simplified or omitted.
 
-The goal so far has been to understand sensitivity and failure modes, not to optimize a
-single “best” design.
-
----
-
-## What the simulations suggest (with caveats)
-
-- The unit cell can be tuned to produce broadband reflection across n258 rather than a
-  sharp resonance.
-- Array-level simulations show potential improvement in link metrics (ΔS₂₁ on the order
-  of 10–15 dB) for certain blockage and placement geometries.
-- Angular stability appears more limiting than bandwidth: designs that look wideband
-  often fail under modest angle changes.
-
-These results are internally consistent within the simulation setup, but I do not yet
-trust them as predictors of real deployment performance.
+Small geometry changes completely alter available propagation paths. Simulation predictions felt meaningless without measurements.
 
 ---
 
-## Why I don’t trust the numbers yet
+## The pivot (January 2026)
 
-### Environment modeling dominates uncertainty
+**Realization**: Instead of optimizing for "best coverage," I could treat this as an inverse scattering problem.
 
-The “port” in simulation is a coarse approximation:
-- ground properties are assumed,
-- container spacing is fixed,
-- clutter is simplified or omitted.
+**New framing**:
+- Metasurface = programmable boundary condition
+- Different phase patterns = different measurements of the same hidden scene
+- Question: How does phase diversity affect observability of hidden objects?
 
-Small changes in geometry can completely change available paths. I cannot tell whether
-predicted gains come from the metasurface or from a favorable but unrealistic channel
-realization.
-
-### Optimization may be brittle
-
-Designs can be tuned to perform well for one blockage scenario while failing in slightly
-different ones. I have not yet sampled enough geometries to assess generalization.
-
-### Hardware effects are not fully captured
-
-Current simulations assume:
-- ideal material properties,
-- perfect alignment,
-- simplified coupling between elements.
-
-At mmWave, fabrication tolerances and loss variation are likely to matter, but I don’t yet
-know how much.
+This turned it from "design optimization" (hard to validate) into "inverse problem analysis" (quantifiable).
 
 ---
 
-## What I’m doing instead of over-claiming
+## What I'm doing now (Feb-Mar 2026)
 
-I am explicitly separating **device behavior** from **environment behavior**.
+### Setting up the inverse problem
 
-Planned next steps focus on isolation rather than realism:
-1. **Bench characterization** using a two-horn setup to measure the metasurface response
-   independent of a port environment.
-2. **Controlled outdoor tests** with repeatable blockage geometries.
-3. **Spatial measurements** (receiver grids) rather than single-point metrics.
+**Geometry** (deliberately simplified):
+- One source (horn/waveguide)
+- One occluding wall (blocks direct path)
+- One hidden scatterer (what I'm trying to find)
+- One metasurface plane (programmable phase boundary)
+- Measurement plane (where I "measure" the field)
 
-Until those are done, I’m treating simulations as design guidance, not evidence of
-deployment readiness.
+**Why simple**: I want to understand the fundamental limit—does phase diversity help?—before adding realistic complexity.
 
----
+**Approach**:
+1. **Generate phase diversity dataset**:
+   - Uniform phase (baseline)
+   - Linear gradients
+   - Binary patterns
+   - Random configurations
+   - ~8-10 different phase distributions
 
-## What I’ve learned so far
+2. **Build sensing matrix**:
+   - Discretize hidden object space into pixels
+   - Each phase configuration → one row of sensing matrix A
+   - Forward model: measured field = A × object
 
-- Maximizing peak gain in simulation often produces narrow, fragile responses.
-- Designs that trade peak performance for bandwidth and angular tolerance feel more
-  defensible, even if they look worse on paper.
-- Without controlled ablation (with/without surface under identical conditions), it’s
-  impossible to attribute performance to the metasurface rather than the channel.
+3. **Test reconstruction**:
+   - Direct inversion (least squares)
+   - Regularized inversion (Tikhonov, L1)
+   - Analyze conditioning: how does number of phase patterns affect κ(A)?
 
----
-
-## What I will and won’t claim in the thesis
-
-**Will claim**
-- A design and simulation workflow for passive metasurfaces targeting n258.
-- Identification of dominant sensitivities (angle, placement, environment).
-- Why environment uncertainty limits simulation-only conclusions.
-
-**Will not claim**
-- Deployment-ready performance.
-- Generalization across different ports.
-- Superiority over active or network-level solutions.
+**Status**: CST simulations running. Python reconstruction pipeline in progress.
 
 ---
 
-**Status**  
-Simulation complete. Fabrication pending (expected Feb 2026). Measurements planned
-(Mar 2026).
+## What I expect to find
 
-**Constraint analysis**: [/constraints/port-metasurface](/constraints/port-metasurface/)
+**Hypothesis**: More phase patterns → better conditioned inverse problem → better reconstruction.
+
+**Metrics I'm tracking**:
+- Condition number κ(A) vs. number of measurements
+- Reconstruction error vs. regularization parameter
+- Resolution limits
+- Noise robustness (add synthetic measurement noise, see what breaks)
+
+**What would be interesting**: 
+- If certain phase patterns are much more informative than others
+- If there's a "sweet spot" number of measurements (beyond which you don't gain much)
+- Where the method fundamentally breaks (too much noise, too many objects, etc.)
+
+**What would be disappointing but still valid**:
+- If reconstruction barely works—that's still a quantitative assessment of the approach's limits
+
+---
+
+## What I'm not doing
+
+❌ **Complex unit cell optimization**: Using ideal phase boundaries in simulation. Real unit cells would add fabrication constraints without changing the fundamental inverse problem.
+
+❌ **Realistic port environments**: One scatterer, one wall. Adding containers/cranes would obscure whether reconstruction fails due to physics or geometry complexity.
+
+❌ **Multi-frequency**: Single frequency (26 GHz). Bandwidth is future work.
+
+❌ **Hardware right now**: Might fabricate simple unit cell for validation if time allows, but the inverse problem analysis doesn't require it.
+
+---
+
+## What I've learned so far
+
+**Simulation-to-measurement gap is real**: 
+
+I initially thought "simulate port, optimize design, claim success." But:
+- Can't simulate the real environment accurately enough
+- Can't separate metasurface effect from channel effect without controlled experiments
+- Optimization might just be overfitting to my approximate simulation
+
+**Shifting to inverse problem helped**:
+
+Instead of claiming "this design works in ports," I can claim "phase diversity improves conditioning of the inverse problem by X%." That's quantifiable and doesn't depend on perfect environment modeling.
+
+**Design trade-offs are real**:
+
+Early on I optimized for maximum gain at one angle/frequency. Got narrow, brittle responses. Switching to optimize for robustness (broadband, angular tolerance) reduced peak performance but felt more defensible.
+
+**Why this matters for inverse problems**: If your forward model is fragile (breaks under small geometry changes), your inverse problem will be ill-conditioned. Robust forward design might actually help inversion.
+
+---
+
+## What I'll claim in thesis
+
+**Confident claims**:
+- Phase diversity improves conditioning of inverse scattering problems (quantitative)
+- Certain phase patterns are more informative than others (show which ones)
+- Reconstruction degrades predictably with noise (characterize the regime)
+
+**Contingent claims** (pending measurements):
+- Real metasurface can implement phase patterns from simulation
+- Hardware tolerances don't destroy the effect
+
+**Won't claim**:
+- This works in real ports (haven't tested)
+- This is better than active solutions (different problem)
+- Deployment-ready performance (need long-term field trials)
+
+---
+
+## What comes next
+
+**Feb-Mar 2026**: Finish inverse problem analysis
+- Complete CST simulations
+- Python reconstruction working
+- Generate all figures
+- Quantify limits
+
+**Mar-Apr 2026** (if time): Minimal fabrication
+- Simple unit cell array
+- Measure phase response
+- Compare to ideal simulation
+- Frame as "forward model validation"
+
+**May 2026**: Write thesis, defend
+
+---
+
+**Status**: Thesis in progress. Simulation phase complete. Inverse problem analysis ongoing. Measurements pending (if fabricated). Will update after results.
+
+**What I'm learning**: How to turn an optimization problem I can't validate (metasurface for ports) into an inverse problem I can quantify (phase diversity for hidden object reconstruction). Also learning when to stop simulating and start measuring.
+
+---
+
+**Constraint analysis**: [/constraints/port-metasurface](/constraints/port-metasurface/)  
+**Methods**: [EM simulation](/reading-ledger/#em-sim), [Identifiability](/reading-ledger/#identifiability)
+
+**Project date**: Fall 2024 - Spring 2026 (ongoing)  
+**My experience level**: First RF/EM project, first hardware design, first inverse scattering problem. Learning about simulation-measurement gaps and when simulation predictions mean something vs. when they don't.
+
+**Expected completion**: May 2026 (thesis defense)
