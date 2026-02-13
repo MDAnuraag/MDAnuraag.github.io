@@ -6,7 +6,7 @@ permalink: /case-studies/port-metasurface/
 
 ## Problem
 
-Can a programmable metasurface help us see around corners in a container port? When a direct 5G mmWave link (24.25‑27.5 GHz) is blocked by stacked containers, the only way to maintain connectivity is to use reflected paths. By placing a metasurface on a visible wall and dynamically controlling its reflection phase, we can shape those multipath reflections to carry information about the hidden scene.
+Can a programmable metasurface help us see around corners in a container port? When a direct 5G mmWave link (24.25–27.5 GHz) is blocked by stacked containers, the only way to maintain connectivity is to use reflected paths. By placing a metasurface on a visible wall and dynamically controlling its reflection phase, we can shape those multipath reflections to carry information about the hidden scene.
 
 **Initial framing**: Design a metasurface to redirect RF around obstacles (a pure optics problem).  
 **What it became**: An inverse problem—if I can program the boundary conditions, what can I actually **reconstruct** about hidden objects from the scattered field?
@@ -71,9 +71,9 @@ This turned the project from "design optimization" (hard to validate) into "inve
 \[
 \mathbf{y} = \mathbf{A} \mathbf{x} + \text{noise}
 \]
-- \(\mathbf{x}\) = discretized reflectivity of the hidden object (what I want)  
-- \(\mathbf{y}\) = measured complex field for all phase patterns and receiver positions  
-- \(\mathbf{A}\) = sensing matrix, built column by column from CST simulations: for each possible hidden scatterer location, I simulate the field at the receivers for every metasurface phase pattern. Each column of \(\mathbf{A}\) is the response of that point.
+- $\mathbf{x}$ = discretized reflectivity of the hidden object (what I want)  
+- $\mathbf{y}$ = measured complex field for all phase patterns and receiver positions  
+- $\mathbf{A}$ = sensing matrix, built column by column from CST simulations: for each possible hidden scatterer location, I simulate the field at the receivers for every metasurface phase pattern. Each column of $\mathbf{A}$ is the response of that point.
 
 **Phase diversity dataset** (8–10 patterns):
 - Uniform phase (baseline)
@@ -82,28 +82,28 @@ This turned the project from "design optimization" (hard to validate) into "inve
 - Random configurations
 
 **Reconstruction methods**:
-- **Least squares** (direct inversion) – usually unstable because \(\mathbf{A}\) is ill‑conditioned.
-- **Tikhonov regularization** (ridge) – adds an \(\ell_2\) penalty \(\lambda \|\mathbf{x}\|^2\) to stabilize the inversion; gives a smooth reconstruction.
+- **Least squares** (direct inversion) – usually unstable because $\mathbf{A}$ is ill‑conditioned.
+- **Tikhonov regularization** (ridge) – adds an $\ell_2$ penalty $\lambda \|\mathbf{x}\|^2$ to stabilize the inversion; gives a smooth reconstruction.
 - **L1 regularization** (LASSO) – assumes the object is sparse (only a few bright points), which fits a port environment (containers, trucks). This is implemented via `sklearn.linear_model.Lasso`.
 - **Total Variation (TV)** – edge‑preserving; planned for March.
 
 **What I compute**:
-- Condition number \(\kappa(\mathbf{A})\) vs. number of phase patterns – tells me how informative the measurements are.
-- Reconstruction error (MSE) vs. regularization parameter \(\lambda\).
-- Noise robustness: add synthetic Gaussian noise to \(\mathbf{y}\) and see how error grows.
+- Condition number $\kappa(\mathbf{A})$ vs. number of phase patterns – tells me how informative the measurements are.
+- Reconstruction error (MSE) vs. regularization parameter $\lambda$.
+- Noise robustness: add synthetic Gaussian noise to $\mathbf{y}$ and see how error grows.
 - Point spread function (PSF) – the resolving power of the system.
 
-**Status**: CST simulations for the minimal geometry are running. Python pipeline (using `numpy`, `scipy`, `sklearn`) is complete and tested on synthetic data. The code builds \(\mathbf{A}\), applies Tikhonov and L1, and produces all the analysis plots.
+**Status**: CST simulations for the minimal geometry are running. Python pipeline (using `numpy`, `scipy`, `sklearn`) is complete and tested on synthetic data. The code builds $\mathbf{A}$, applies Tikhonov and L1, and produces all the analysis plots.
 
 ---
 
 ## What I expect to find
 
-**Hypothesis**: More phase patterns → better conditioned \(\mathbf{A}\) → lower reconstruction error, up to a saturation point where additional patterns give diminishing returns.
+**Hypothesis**: More phase patterns → better conditioned $\mathbf{A}$ → lower reconstruction error, up to a saturation point where additional patterns give diminishing returns.
 
 **Metrics I'm tracking**:
-- \(\kappa(\mathbf{A})\) as a function of number and type of phase patterns.
-- MSE vs. \(\lambda\) for Tikhonov – the classic U‑shaped curve, revealing the optimal \(\lambda\).
+- $\kappa(\mathbf{A})$ as a function of number and type of phase patterns.
+- MSE vs. $\lambda$ for Tikhonov – the classic U‑shaped curve, revealing the optimal $\lambda$.
 - MSE vs. noise level – comparing Tikhonov, L1, and (later) TV.
 - Resolution limit – the smallest separation at which two point scatterers can be distinguished.
 
@@ -151,7 +151,7 @@ If your forward model is fragile (breaks under small geometry changes), your inv
 ## What I'll claim in thesis
 
 **Confident claims**:
-- Phase diversity improves conditioning of the inverse scattering problem (I'll show \(\kappa(\mathbf{A})\) dropping by a factor of 10–100 as I add patterns).
+- Phase diversity improves conditioning of the inverse scattering problem (I'll show $\kappa(\mathbf{A})$ dropping by a factor of 10–100 as I add patterns).
 - L1 regularization recovers sparse objects with < 1% error under moderate noise, while Tikhonov oversmooths (2–5% error).
 - Reconstruction error vs. noise follows a predictable trend – I can characterize the operating regime where the method works.
 - Certain phase patterns (random, binary) are more informative than linear gradients – I'll quantify the information gain.
@@ -172,7 +172,7 @@ If your forward model is fragile (breaks under small geometry changes), your inv
 **Feb–Mar 2026**: Finish inverse problem analysis
 - Complete CST simulations for the minimal geometry.
 - Run the Python pipeline on real simulation data.
-- Generate all figures (condition number, MSE vs. λ, noise sweeps, PSF).
+- Generate all figures (condition number, MSE vs. $\lambda$, noise sweeps, PSF).
 - Quantify limits: resolution, maximum number of scatterers, noise tolerance.
 
 **Mar–Apr 2026** (if time permits): Minimal fabrication
