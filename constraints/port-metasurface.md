@@ -1,25 +1,45 @@
 ---
 layout: page
-title: "Constraints: Port Metasurface Deployment"
+title: "Constraints: Port Metasurface — Boundary Diversity & Identifiability"
 permalink: /constraints/port-metasurface/
 ---
 
 **Full case study**: [/case-studies/port-metasurface](/case-studies/port-metasurface/)
 
+---
+
 ## Observable
 
-Primarily simulation-derived link metrics (ΔS₂₁, angular response, bandwidth) under
-simplified blockage scenarios.
+In the current phase, the observables are not link metrics but **matrix properties** derived from CST simulations:
 
-Limited bench-style measurements are planned but not yet complete.
+- Condition number $\kappa(A)$  
+- Singular value spectrum  
+- Discrimination matrix $D_{i,j}$  
+- Leakage $1 - D_{i,j}$  
+- Reconstruction error under controlled noise  
+
+Bench measurements are planned but not yet completed.  
+All current results are forward-model-based.
 
 ---
 
-## Working claim (tentative)
+## Working claim (bounded)
 
-Passive metasurfaces can redirect mmWave energy in controlled geometries.
-Whether this translates into reliable improvement in real port environments remains
-undetermined without controlled measurement.
+Changing the boundary geometry can alter the conditioning of the inverse scattering problem.
+
+More precisely:
+
+If boundary diversity changes $A$, and
+
+$$
+\kappa(A_{\text{combined}}) < \kappa(A_{\text{flat}})
+$$
+
+or reduces within-group leakage,
+
+then boundary diversity improves identifiability *within this geometry*.
+
+This does **not** imply deployment-level improvement in real container ports.
 
 ---
 
@@ -27,73 +47,158 @@ undetermined without controlled measurement.
 
 ### Physical
 
-- Passive structures obey reciprocity and conservation: they can only redirect energy,
-  not amplify it.
-- In cluttered environments, multiple reflection paths coexist and interfere.
+- Passive structures obey reciprocity and energy conservation.  
+  They can redirect energy but cannot increase total power.
+
+- The Born approximation is assumed:
+
+$$
+\mathbf{y} = A\mathbf{x}
+$$
+
+  This is valid only while scattering remains weak and linear.
+
+- At 26 GHz ($\lambda \approx 11.5$ mm), small geometric shifts change interference patterns significantly.
+
+---
 
 ### Environmental
 
-- The true channel state in a port is not observable or repeatable.
-- Small geometric changes (container placement, crane motion) can dominate link behavior.
-- Simulation environments necessarily under-sample this variability.
+- Real port channels are non-repeatable.
+- Container spacing, crane motion, and ground properties vary.
+- Multiple multipath realizations can produce similar link outcomes.
 
-### Measurement
+This is a **non-identifiability constraint**:
+different environments can explain the same measured improvement.
 
-- Single-point measurements cannot distinguish device effect from channel luck.
-- Without baseline comparisons under identical conditions, attribution is ambiguous.
+That is why I shifted from coverage optimization to conditioning analysis.
 
-### Fabrication
+---
 
-- PCB tolerances and material losses at mmWave may shift response.
-- These effects are not fully captured in early simulations.
+### Modeling
 
-### Computational
+- The domain is deliberately minimal (one wall, one cylinder).
+- Finite PEC boundaries approximate an idealized phase mask.
+- Periodic unit-cell assumptions are not yet included in the inverse study.
+- Only 11 discrete object positions are modeled.
 
-- Periodic unit-cell simulations assume infinite arrays.
-- Finite arrays introduce edge effects that complicate scaling.
-- Optimization against a small set of scenes risks overfitting.
+This means the sensing matrix:
+
+$$
+A \in \mathbb{R}^{4681 \times 11}
+$$
+
+captures a **low-dimensional discrete inverse problem**, not continuous object reconstruction.
+
+---
+
+### Numerical
+
+- $\kappa(A) = 30.02$ (flat boundary baseline).
+- First singular value dominates (~92% variance).
+- Within-Group-B columns have correlations up to 0.99.
+
+This limits discrimination even when the system is full rank.
+
+- Tikhonov regularization assumes quadratic prior.
+- Synthetic ceiling performance uses solver-tested-on-own-columns data.
+
+Thus, 100% reconstruction success under noise establishes theoretical upper bound, not real-world robustness.
+
+---
+
+### Fabrication (pending)
+
+- Ideal PEC boundaries are assumed.
+- Real metasurface unit cells introduce:
+  - phase quantization
+  - loss
+  - fabrication tolerances
+  - angular sensitivity
+
+These are not yet modeled in the inverse framework.
 
 ---
 
 ## Primary limiting factor
 
-**Environment non-identifiability.**
+**Identifiability under structural degeneracy.**
 
-Multiple channel realizations can explain the same observed improvement.
-Without systematic ablation, I cannot tell whether performance arises from the metasurface
-or the environment.
+The main limitation is not noise, nor rank deficiency, but column similarity.
+
+Within-Group-B near-degeneracy produces leakage:
+
+$$
+\text{leakage}_{i,j}
+=
+\frac{|x_j|}{|x_i|}
+$$
+
+Baseline leakage is on the order of $10^{-3}$.
+
+Boundary diversity must reduce this to claim improved discrimination.
+
+If leakage remains unchanged, boundary changes are not informationally useful.
 
 ---
 
 ## What this ruled out for me
 
-- Treating simulation-only gains as evidence of deployment performance.
-- Using a single blockage scenario as representative.
-- Claiming mechanism attribution without isolating the metasurface response.
+- Treating simulated coverage gain as evidence of deployment performance.
+- Claiming improvement without comparing $\kappa(A)$ directly.
+- Adding algorithmic complexity when conditioning is already moderate.
+- Optimizing boundary shape without measuring inverse improvement.
 
 ---
 
 ## What remains unresolved
 
-- How robust any improvement is across realistic scene variation.
-- How fabrication tolerances interact with angular sensitivity.
-- Optimal trade-off between aperture size and coverage uniformity.
+- Whether tilted and stepped configurations reduce $\kappa(A)$.
+- Whether combined matrices reduce within-group leakage.
+- How sensitive conditioning is to boundary angle magnitude.
+- Whether fabrication approximates ideal phase diversity.
+- How results change for continuous object positions (not just 11 discrete samples).
 
 ---
 
 ## What would reduce uncertainty
 
-- Bench characterization in a controlled environment.
-- Repeated measurements across a defined scene ensemble.
-- Spatial power maps instead of single-link metrics.
-- Explicit with/without-surface comparisons.
+- Complete tilted and stepped CST sweeps.
+- Build:
+
+$$
+A_{\text{combined}}
+=
+\begin{bmatrix}
+A_{\text{flat}} \\
+A_{\text{tilted}} \\
+A_{\text{stepped}}
+\end{bmatrix}
+$$
+
+- Compare $\kappa(A_{\text{combined}})$ to 30.02 baseline.
+- Compare discrimination matrices element-wise.
+- Perform cross-configuration reconstruction tests.
+- Validate PEC approximation with simple fabricated boundary sample.
+
+Only then can I claim boundary diversity improves identifiability.
 
 ---
 
-**Status**  
-Senior thesis in progress. Measurements pending.
+## Status
 
-**What surprised me**  
-I initially thought simulation fidelity would be the main challenge. Instead, the dominant
-issue is not knowing the channel well enough to attribute cause. That shifted my focus
-from optimization to identifiability.
+Flat-boundary inverse analysis complete.  
+Tilted and stepped configurations running.  
+Fabrication optional depending on time.
+
+---
+
+## What surprised me
+
+I originally thought fabrication and EM accuracy would dominate difficulty.
+
+Instead, the dominant issue is identifiability:
+
+Even with perfect simulation fidelity, I cannot attribute improvement unless I quantify conditioning changes.
+
+That realization shifted the project from geometry optimization to inverse problem structure.
