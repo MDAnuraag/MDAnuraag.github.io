@@ -1,200 +1,256 @@
 ---
 layout: page
-title: Port Metasurface NLoS Recovery
+title: Port Metasurface — Boundary Diversity & Inverse Reconstruction
 permalink: /case-studies/port-metasurface/
 ---
 
 ## Problem
 
-Can a programmable metasurface help us see around corners in a container port? When a direct 5G mmWave link (24.25–27.5 GHz) is blocked by stacked containers, the only way to maintain connectivity is to use reflected paths. By placing a metasurface on a visible wall and dynamically controlling its reflection phase, we can shape those multipath reflections to carry information about the hidden scene.
+Can a programmable boundary in a mmWave NLoS region make hidden objects *reconstructable*, not just detectable?
 
-**Initial framing**: Design a metasurface to redirect RF around obstacles (a pure optics problem).  
-**What it became**: An inverse problem—if I can program the boundary conditions, what can I actually **reconstruct** about hidden objects from the scattered field?
+The original framing was coverage recovery in container ports (n258 band, 26 GHz).  
+But I couldn’t validate full-port simulations meaningfully. Small geometry assumptions dominated everything.
 
-This is my senior thesis. Still in progress as of February 2026.
+So I narrowed the question:
+
+**If I control the boundary condition, how does that change the conditioning of the inverse scattering problem?**
+
+This is my senior thesis. Ongoing.
 
 ---
 
-## What I've done
+## What I did first (Forward model only)
 
-### Phase 1: Forward modeling (Fall 2024 – Jan 2026)
+I built a minimal CST geometry:
 
-**Started with a standard design flow**:
-1. Unit cell design in CST (periodic boundary conditions)
-2. Sweep geometry/frequency to get reflection phase
-3. Simulate finite arrays
-4. Test in "port-like" blockage scenarios
+- Waveguide source at 26 GHz  
+- PEC occluding wall (creates NLoS)  
+- Single metallic cylinder (hidden object)  
+- PEC “metasurface” boundary  
+- Probe plane (4681 field samples)
 
-**Results**:  
-- Broadband reflection across n258 (avoided narrow resonances)  
-- Simulations showed potential 10–15 dB improvement for certain geometries  
-- Angular stability was more limiting than bandwidth
+Cylinder swept across 11 Y-positions (65–115 mm in 5 mm steps).
 
-**Problem**: I couldn't tell if the performance came from the metasurface or just favorable (but unrealistic) channel geometry.
+For each position, I exported the complex field and built a sensing matrix:
 
-Environment uncertainty dominates everything:
-- Ground properties? Guessed.
-- Container spacing? Changes hourly in real ports.
-- Clutter (cranes, forklifts)? Simplified or omitted.
+$$
+A \in \mathbb{R}^{4681 \times 11},
+$$
 
-Small geometry changes completely alter available propagation paths. Simulation predictions felt meaningless without measurements.
+where column $j$ is the magnitude field when the cylinder is at position $j$.
+
+Flat boundary baseline:
+
+- $\kappa(A) = 30.02$
+- Full rank (11/11)
+- 426× overdetermined
+- First singular value accounts for 91.9% of variance
+
+At this stage, I had a stable forward model.  
+But I still hadn’t answered whether boundary geometry actually improves reconstruction.
 
 ---
 
 ## The pivot (January 2026)
 
-**Realization**: Instead of optimizing for "best coverage," I could treat the metasurface as a programmable boundary that creates diverse measurements of the same hidden scene.
+Instead of optimizing coverage, I reframed the system as:
 
-**New framing**:
-- Metasurface = programmable phase mask
-- Each phase pattern gives me a different "view" of the hidden object  
-- Question: How does phase diversity affect our ability to reconstruct that object from scattered field measurements?
+$$
+\mathbf{y} = A \mathbf{x} + \text{noise}
+$$
 
-This turned the project from "design optimization" (hard to validate) into "inverse problem analysis" (quantifiable and robust to environment uncertainty).
+- $\mathbf{x}$ = hidden object reflectivity (11 candidate positions)
+- $\mathbf{y}$ = measured field at probe
+- $A$ = built from CST simulations
 
----
+Now the question becomes measurable:
 
-## What I'm doing now (Feb–Mar 2026)
+- Does changing the boundary reduce $\kappa(A)$?
+- Does it reduce leakage in the discrimination matrix?
+- Does it improve robustness under noise?
 
-### Setting up the inverse problem
-
-**Geometry** (deliberately minimal):
-- One source (horn/waveguide)
-- One occluding wall (blocks direct path)
-- One hidden scatterer (what I'm trying to find)
-- One metasurface plane (programmable phase boundary)
-- One measurement plane (where I record the field)
-
-**Why simple**: I want to understand the fundamental limit—does phase diversity help?—before adding realistic complexity.
-
-**Mathematical model** (under Born / single‑scatter approximation):
-\[
-\mathbf{y} = \mathbf{A} \mathbf{x} + \text{noise}
-\]
-- $\mathbf{x}$ = discretized reflectivity of the hidden object (what I want)  
-- $\mathbf{y}$ = measured complex field for all phase patterns and receiver positions  
-- $\mathbf{A}$ = sensing matrix, built column by column from CST simulations: for each possible hidden scatterer location, I simulate the field at the receivers for every metasurface phase pattern. Each column of $\mathbf{A}$ is the response of that point.
-
-**Phase diversity dataset** (8–10 patterns):
-- Uniform phase (baseline)
-- Linear gradients
-- Binary patterns (0/π)
-- Random configurations
-
-**Reconstruction methods**:
-- **Least squares** (direct inversion) – usually unstable because $\mathbf{A}$ is ill‑conditioned.
-- **Tikhonov regularization** (ridge) – adds an $\ell_2$ penalty $\lambda \|\mathbf{x}\|^2$ to stabilize the inversion; gives a smooth reconstruction.
-- **L1 regularization** (LASSO) – assumes the object is sparse (only a few bright points), which fits a port environment (containers, trucks). This is implemented via `sklearn.linear_model.Lasso`.
-- **Total Variation (TV)** – edge‑preserving; planned for March.
-
-**What I compute**:
-- Condition number $\kappa(\mathbf{A})$ vs. number of phase patterns – tells me how informative the measurements are.
-- Reconstruction error (MSE) vs. regularization parameter $\lambda$.
-- Noise robustness: add synthetic Gaussian noise to $\mathbf{y}$ and see how error grows.
-- Point spread function (PSF) – the resolving power of the system.
-
-**Status**: CST simulations for the minimal geometry are running. Python pipeline (using `numpy`, `scipy`, `sklearn`) is complete and tested on synthetic data. The code builds $\mathbf{A}$, applies Tikhonov and L1, and produces all the analysis plots.
+That shift made the project quantifiable.
 
 ---
 
-## What I expect to find
+## What the flat boundary baseline shows
 
-**Hypothesis**: More phase patterns → better conditioned $\mathbf{A}$ → lower reconstruction error, up to a saturation point where additional patterns give diminishing returns.
+### Group structure
 
-**Metrics I'm tracking**:
-- $\kappa(\mathbf{A})$ as a function of number and type of phase patterns.
-- MSE vs. $\lambda$ for Tikhonov – the classic U‑shaped curve, revealing the optimal $\lambda$.
-- MSE vs. noise level – comparing Tikhonov, L1, and (later) TV.
-- Resolution limit – the smallest separation at which two point scatterers can be distinguished.
+The 11 positions separate into two regimes:
 
-**What would be interesting**:
-- Certain phase patterns (e.g., random) might be much more informative than others (e.g., linear gradient). I can quantify that.
-- L1 should dramatically outperform Tikhonov when the object is truly sparse – my early synthetic tests already show a 3× improvement in MSE.
-- If there's a "sweet spot" number of measurements beyond which you gain little.
+**Group A (detectable)**  
+75, 85, 95 mm  
+Mean probe magnitude ≈ 27 V/m  
 
-**What would be disappointing but still valid**:
-- If reconstruction barely works—that's still a quantitative assessment of the approach's limits.
+**Group B (weakly detectable)**  
+All others  
+Mean probe magnitude ≈ 62 V/m  
 
----
-
-## What I'm not doing
-
-❌ **Complex unit cell optimization**: Using ideal phase boundaries in simulation. Real unit cells would add fabrication constraints without changing the fundamental inverse problem.
-
-❌ **Realistic port environments**: One scatterer, one wall. Adding containers/cranes would obscure whether reconstruction fails due to physics or geometry complexity.
-
-❌ **Multi-frequency**: Single frequency (26 GHz). Bandwidth is future work.
-
-❌ **Hardware right now**: Might fabricate a simple unit cell for validation if time allows, but the inverse problem analysis doesn't require it.
+Within-Group-B column correlations: 0.93–0.99  
+That near-degeneracy is the main limitation.
 
 ---
 
-## What I've learned so far
+### Inversion method
 
-**Simulation‑to‑measurement gap is real**:  
-I initially thought "simulate port, optimize design, claim success." But:
-- Can't simulate the real environment accurately enough.
-- Can't separate metasurface effect from channel effect without controlled experiments.
-- Optimization might just be overfitting to my approximate simulation.
+I used Tikhonov regularization:
 
-**Shifting to inverse problems helped**:  
-Instead of claiming "this design works in ports," I can claim "phase diversity improves the conditioning of the inverse problem by X% and reduces reconstruction error by Y% under Z dB noise." That's quantifiable and doesn't depend on perfect environment modeling.
+$$
+\hat{x} = \arg\min_x \|Ax - y\|^2 + \lambda \|x\|^2
+$$
 
-**Regularization choice matters**:  
-Tikhonov is a great baseline – simple, fast, stable. But for sparse scenes (containers, vehicles), L1 is dramatically better. TV will likely bridge the gap for extended objects with sharp edges.
+Closed form:
 
-**Why this matters for inverse problems**:  
-If your forward model is fragile (breaks under small geometry changes), your inverse problem will be ill‑conditioned. Robust forward design might actually help inversion – that's a connection I want to explore further.
+$$
+\hat{x} = (A^\top A + \lambda I)^{-1} A^\top y
+$$
 
----
+Implemented via SVD filter form:
 
-## What I'll claim in thesis
+$$
+\hat{x}
+=
+\sum_i
+\frac{\sigma_i}{\sigma_i^2 + \lambda}
+(u_i^\top y)\, v_i
+$$
 
-**Confident claims**:
-- Phase diversity improves conditioning of the inverse scattering problem (I'll show $\kappa(\mathbf{A})$ dropping by a factor of 10–100 as I add patterns).
-- L1 regularization recovers sparse objects with < 1% error under moderate noise, while Tikhonov oversmooths (2–5% error).
-- Reconstruction error vs. noise follows a predictable trend – I can characterize the operating regime where the method works.
-- Certain phase patterns (random, binary) are more informative than linear gradients – I'll quantify the information gain.
-
-**Contingent claims** (pending measurements):
-- A real metasurface can approximate the ideal phase patterns used in simulation.
-- Fabrication tolerances don't destroy the diversity effect (I'll test with a few fabricated samples).
-
-**Won't claim**:
-- This works in real ports (haven't tested).
-- This is better than active solutions (different problem).
-- Deployment‑ready performance (need long‑term field trials).
+Optimal $\lambda$ from L-curve:  
+$\lambda_{\text{opt}} = 5.67$
 
 ---
 
-## What comes next
+### Synthetic ceiling performance
 
-**Feb–Mar 2026**: Finish inverse problem analysis
-- Complete CST simulations for the minimal geometry.
-- Run the Python pipeline on real simulation data.
-- Generate all figures (condition number, MSE vs. $\lambda$, noise sweeps, PSF).
-- Quantify limits: resolution, maximum number of scatterers, noise tolerance.
+Using 1% Gaussian noise:
 
-**Mar–Apr 2026** (if time permits): Minimal fabrication
-- Simple unit cell array (e.g., a few elements with pre‑designed phase shifts).
-- Measure phase response in an anechoic chamber.
-- Compare to ideal simulation and update the forward model.
-- Frame as "forward model validation" – does the real hardware behave like my idealized phase mask?
+- 2750 reconstructions (11 positions × 5 noise levels × 50 trials)
+- 100% success rate up to 10% noise
+- Confusion matrix perfectly diagonal
+- PSF sidelobe ≈ −59 dB
+- Residual ≈ 0.995% (matches injected noise)
 
-**May 2026**: Write thesis, defend.
+Important:  
+This is solver-tested-on-its-own-columns performance.  
+It establishes the theoretical ceiling, not real deployment performance.
 
 ---
 
-**Status**: Thesis in progress. Simulation phase complete. Inverse problem analysis ongoing. Measurements pending (if fabricated). Will update after results.
+## What this baseline actually tells me
 
-**What I'm learning**: How to turn an optimization problem I can't validate (metasurface for ports) into an inverse problem I can quantify (phase diversity for hidden object reconstruction). Also learning when to stop simulating and start measuring – and when simulation is enough because the question is fundamentally mathematical.
+- The inverse problem is *not* fundamentally ill-posed.
+- $\kappa = 30$ is moderate, not extreme.
+- The main weakness is within-Group-B discrimination.
+- The Born approximation is valid for this geometry (residual matches noise floor).
+
+So the next step is meaningful:
+
+Does boundary diversity reduce that within-group degeneracy?
+
+---
+
+## What I am running now (Week 4)
+
+Two new boundary configurations (see full technical handoff :contentReference[oaicite:1]{index=1}):
+
+1. **Tilted PEC** (15° rotation)
+2. **Stepped PEC** (±2 mm Z-split offset)
+
+For each:
+
+- Build $A_{\text{tilted}}$, $A_{\text{stepped}}$
+- Compute $\kappa$
+- Compute discrimination matrices
+- Compare leakage:
+
+$$
+\text{leakage}_{i,j}
+=
+\frac{|x_j|}{|x_i|}
+=
+1 - D_{i,j}
+$$
+
+The flat baseline leakage is < $2 \times 10^{-3}$.
+
+If combined matrices
+
+$$
+A_{\text{combined}}
+=
+\begin{bmatrix}
+A_{\text{flat}} \\
+A_{\text{tilted}} \\
+A_{\text{stepped}}
+\end{bmatrix}
+$$
+
+reduce $\kappa$ and reduce within-Group-B leakage, then boundary diversity is quantifiably improving conditioning.
+
+If not, then boundary diversity is less useful than I expected.
+
+Either result is publishable in a thesis context.
+
+---
+
+## What I am not claiming
+
+- That this works in real container ports.
+- That fabrication tolerances preserve ideal phase behavior.
+- That this beats active radar solutions.
+- That sparse L1 methods are necessary (Tikhonov is already stable).
+
+This is still a controlled forward-model study.
+
+---
+
+## What I have learned so far
+
+1. **Environment uncertainty can invalidate optimization.**  
+   I initially tried port-level simulation. It became clear small geometry assumptions dominate outcomes.
+
+2. **Inverse framing forces measurable claims.**  
+   Instead of “coverage improved,” I can report:
+   - $\kappa(A)$
+   - leakage reduction
+   - noise tolerance curves
+
+3. **Well-conditioned problems don’t need exotic solvers.**  
+   With $\kappa=30$, Tikhonov is enough.  
+   The interesting question is geometry, not algorithm complexity.
+
+4. **Synthetic ceiling performance is necessary but not sufficient.**  
+   It establishes upper bound capability.  
+   Boundary diversity tests determine whether that capability generalizes.
+
+---
+
+## What I expect next
+
+Hypothesis:
+
+- More boundary diversity → lower $\kappa(A)$
+- Lower $\kappa(A)$ → lower within-group leakage
+- Diminishing returns beyond some number of configurations
+
+But I am not assuming improvement.  
+The tilted and stepped runs will decide that.
+
+---
+
+## Status
+
+- Flat boundary analysis complete.
+- Robustness analysis complete.
+- Discrimination baseline saved.
+- Tilted and stepped CST sweeps running.
+- Combined matrix analysis next.
 
 ---
 
 **Constraint analysis**: [/constraints/port-metasurface](/constraints/port-metasurface/)  
 **Methods**: [EM simulation](/reading-ledger/#em-sim), [Inverse problems](/reading-ledger/#inverse-problems), [Regularization](/reading-ledger/#regularization)
 
-**Project date**: Late Fall 2025 – Spring 2026 (ongoing)  
-**My experience level**: First RF/EM project, first hardware design, first inverse scattering problem. Learning about simulation‑measurement gaps, the value of regularization, and when a baseline like Tikhonov is enough – and when it isn't.
-
-**Expected completion**: May 2026 (thesis defense)
+**Project date**: Fall 2025 – Spring 2026 (ongoing)  
+**Experience level**: First RF/EM system, first inverse scattering pipeline. Learning where simulation is sufficient, where measurement is required, and how conditioning—not aesthetics—determines reconstruction quality.
