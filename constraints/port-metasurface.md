@@ -94,11 +94,12 @@ captures a **low-dimensional discrete inverse problem**, not continuous object r
 
 ### Numerical
 
-- $\kappa(A) = 30.02$ (flat boundary baseline).
-- First singular value dominates (~92% variance).
-- Within-Group-B columns have correlations up to 0.99.
+- $\kappa(A_{\text{flat}}) = 30.02$ (flat boundary baseline).
+- $\kappa(A_{\text{tilted}}) = 46.38$ (Config 6 — 15° rotation).
+- First singular value dominates (~92% variance in flat; ~94% in tilted).
+- Within-Group-B columns have correlations up to 0.99 in both configs.
 
-This limits discrimination even when the system is full rank.
+Higher per-config $\kappa$ does not impair reconstruction — all singular modes remain well above the noise floor ($\sigma_{\min} = 350$ V/m vs $\sqrt{\lambda_{\text{opt}}} = 2.00$). The relevant quantity is whether the *combined* matrix conditions better, not the per-config value.
 
 - Tikhonov regularization assumes quadratic prior.
 - Synthetic ceiling performance uses solver-tested-on-own-columns data.
@@ -140,6 +141,8 @@ Boundary diversity must reduce this to claim improved discrimination.
 
 If leakage remains unchanged, boundary changes are not informationally useful.
 
+An additional constraint is now visible from the tilted results: the Group B membership itself shifts between configurations (different positions become degenerate under different boundary geometries). This means per-config leakage comparisons are not directly meaningful — the correct comparison is $A_{\text{combined}}$ leakage vs the individual-config baseline.
+
 ---
 
 ## What this ruled out for me
@@ -148,22 +151,25 @@ If leakage remains unchanged, boundary changes are not informationally useful.
 - Claiming improvement without comparing $\kappa(A)$ directly.
 - Adding algorithmic complexity when conditioning is already moderate.
 - Optimizing boundary shape without measuring inverse improvement.
+- Using per-config $\kappa$ as a performance metric — it is a property of the geometry, not a measure of reconstruction quality.
 
 ---
 
 ## What remains unresolved
 
-- Whether tilted and stepped configurations reduce $\kappa(A)$.
-- Whether combined matrices reduce within-group leakage.
+- Whether combined matrices reduce $\kappa(A)$ below the flat baseline.
+- Whether combined matrices reduce within-group leakage beyond per-config performance.
 - How sensitive conditioning is to boundary angle magnitude.
 - Whether fabrication approximates ideal phase diversity.
 - How results change for continuous object positions (not just 11 discrete samples).
+- How cross-configuration reconstruction degrades (train on flat, test on tilted measurement).
 
 ---
 
 ## What would reduce uncertainty
 
-- Complete tilted and stepped CST sweeps.
+- ~~Complete tilted CST sweeps.~~ *(done — Config 6 complete)*
+- Complete stepped CST sweeps (Config 7, in progress).
 - Build:
 
 $$
@@ -177,7 +183,7 @@ A_{\text{stepped}}
 $$
 
 - Compare $\kappa(A_{\text{combined}})$ to 30.02 baseline.
-- Compare discrimination matrices element-wise.
+- Compare discrimination matrices element-wise, focusing on within-Group-B leakage reduction.
 - Perform cross-configuration reconstruction tests.
 - Validate PEC approximation with simple fabricated boundary sample.
 
@@ -188,7 +194,9 @@ Only then can I claim boundary diversity improves identifiability.
 ## Status
 
 Flat-boundary inverse analysis complete.  
-Tilted and stepped configurations running.  
+Config 6 (tilted, 15°) — sensing matrix, inversion, and robustness complete.  
+Config 7 (stepped, ±2 mm) — CST sweeps in progress.  
+Combined matrix analysis pending Config 7 completion.  
 Fabrication optional depending on time.
 
 ---
@@ -202,3 +210,5 @@ Instead, the dominant issue is identifiability:
 Even with perfect simulation fidelity, I cannot attribute improvement unless I quantify conditioning changes.
 
 That realization shifted the project from geometry optimization to inverse problem structure.
+
+A secondary surprise: higher $\kappa$ per configuration does not mean worse reconstruction. Config 6 has $\kappa = 46.38$ and achieves identical PSF and robustness metrics to the flat baseline. The condition number describes the geometry's sensitivity structure — not whether the solver can handle it.
