@@ -10,36 +10,42 @@ permalink: /constraints/port-metasurface/
 
 ## Observable
 
-In the current phase, the observables are not link metrics but **matrix properties** derived from CST simulations:
+At the current stage the observables are **matrix properties derived from simulation**, not deployment metrics.
+
+The quantities I can measure directly are:
 
 - Condition number $\kappa(A)$  
 - Singular value spectrum  
 - Discrimination matrix $D_{i,j}$  
 - Leakage $1 - D_{i,j}$  
-- Reconstruction error under controlled noise  
+- Reconstruction error under controlled noise
 
 Bench measurements are planned but not yet completed.  
-All current results are forward-model-based.
+All results so far are **forward-model-based**.
 
 ---
 
 ## Working claim (bounded)
 
-Changing the boundary geometry can alter the conditioning of the inverse scattering problem.
+Boundary geometry may change the **identifiability** of the inverse scattering problem.
 
-More precisely:
+Formally, if boundary diversity changes the sensing matrix
 
-If boundary diversity changes $A$, and
+$$
+A \rightarrow A_{\text{combined}},
+$$
+
+and
 
 $$
 \kappa(A_{\text{combined}}) < \kappa(A_{\text{flat}})
 $$
 
-or reduces within-group leakage,
+or reduces discrimination leakage,
 
-then boundary diversity improves identifiability *within this geometry*.
+then boundary diversity improves identifiability **within this controlled geometry**.
 
-This does **not** imply deployment-level improvement in real container ports.
+This does **not** imply deployment-level improvement in container ports.
 
 ---
 
@@ -47,87 +53,128 @@ This does **not** imply deployment-level improvement in real container ports.
 
 ### Physical
 
-- Passive structures obey reciprocity and energy conservation.  
-  They can redirect energy but cannot increase total power.
+Passive structures obey reciprocity and energy conservation.
 
-- The Born approximation is assumed:
+They can redirect energy but cannot increase total power.
+
+The reconstruction model assumes the **Born approximation**
 
 $$
-\mathbf{y} = A\mathbf{x}
+\mathbf{y} = A\mathbf{x}.
 $$
 
-  This is valid only while scattering remains weak and linear.
+This assumption is valid only while scattering remains weak and linear.
 
-- At 26 GHz ($\lambda \approx 11.5$ mm), small geometric shifts change interference patterns significantly.
+At 26 GHz ($\lambda \approx 11.5$ mm), small geometric shifts produce significant phase changes.  
+Interference patterns therefore depend sensitively on boundary orientation.
 
 ---
 
 ### Environmental
 
-- Real port channels are non-repeatable.
-- Container spacing, crane motion, and ground properties vary.
-- Multiple multipath realizations can produce similar link outcomes.
+Real port environments are non-repeatable.
 
-This is a **non-identifiability constraint**:
+Container placement, crane motion, and ground reflections vary across time.  
+Multiple channel realizations may produce similar link measurements.
+
+This introduces a **non-identifiability constraint**:
+
 different environments can explain the same measured improvement.
 
-That is why I shifted from coverage optimization to conditioning analysis.
+That uncertainty is why the project shifted from coverage optimization to conditioning analysis.
 
 ---
 
 ### Modeling
 
-- The domain is deliberately minimal (one wall, one cylinder).
-- Finite PEC boundaries approximate an idealized phase mask.
-- Periodic unit-cell assumptions are not yet included in the inverse study.
-- Only 11 discrete object positions are modeled.
+The simulation domain is deliberately minimal.
 
-This means the sensing matrix:
+- one occluding wall  
+- one hidden cylinder  
+- one boundary panel  
+- one probe plane
+
+The sensing matrix
 
 $$
 A \in \mathbb{R}^{4681 \times 11}
 $$
 
-captures a **low-dimensional discrete inverse problem**, not continuous object reconstruction.
+therefore represents a **low-dimensional discrete inverse problem**.
+
+Additional modeling simplifications:
+
+- PEC boundaries approximate ideal phase masks  
+- metasurface unit-cell physics is not yet included  
+- object position is discretized into 11 candidate locations
+
+Continuous object reconstruction is outside the current scope.
 
 ---
 
 ### Numerical
 
-- $\kappa(A_{\text{flat}}) = 30.02$ (flat boundary baseline).
-- $\kappa(A_{\text{tilted}}) = 46.38$ (Config 6 — 15° rotation).
-- First singular value dominates (~92% variance in flat; ~94% in tilted).
-- Within-Group-B columns have correlations up to 0.99 in both configs.
+Flat boundary baseline:
 
-Higher per-config $\kappa$ does not impair reconstruction — all singular modes remain well above the noise floor ($\sigma_{\min} = 350$ V/m vs $\sqrt{\lambda_{\text{opt}}} = 2.00$). The relevant quantity is whether the *combined* matrix conditions better, not the per-config value.
+```
+κ(A_flat) = 30.02
+```
 
-- Tikhonov regularization assumes quadratic prior.
-- Synthetic ceiling performance uses solver-tested-on-own-columns data.
+Tilted boundary (Config 6):
 
-Thus, 100% reconstruction success under noise establishes theoretical upper bound, not real-world robustness.
+```
+κ(A_tilted) = 46.38
+```
+
+Additional numerical observations:
+
+- First singular mode dominates variance  
+  (~92% flat, ~94% tilted)
+
+- Within-Group-B column correlations reach
+
+```
+0.93 → 0.99
+```
+
+- Minimum singular value remains well above the noise floor
+
+```
+σ_min ≈ 350 V/m
+√λ ≈ 2
+```
+
+Thus the system is **not numerically unstable**.
+
+Higher per-configuration $\kappa$ does not necessarily degrade reconstruction.  
+The relevant question is whether **multiple configurations reduce structural degeneracy when combined**.
+
+Synthetic ceiling tests (solver applied to its own columns) therefore establish an **upper bound**, not deployment robustness.
 
 ---
 
 ### Fabrication (pending)
 
-- Ideal PEC boundaries are assumed.
-- Real metasurface unit cells introduce:
-  - phase quantization
-  - loss
-  - fabrication tolerances
-  - angular sensitivity
+Simulations assume ideal PEC boundaries.
 
-These are not yet modeled in the inverse framework.
+Real metasurfaces introduce additional effects:
+
+- phase quantization  
+- ohmic loss  
+- fabrication tolerances  
+- angular sensitivity
+
+These effects are not yet included in the inverse framework.
 
 ---
 
 ## Primary limiting factor
 
-**Identifiability under structural degeneracy.**
+**Structural degeneracy in the sensing matrix.**
 
-The main limitation is not noise, nor rank deficiency, but column similarity.
+The dominant limitation is column similarity rather than noise or rank deficiency.
 
-Within-Group-B near-degeneracy produces leakage:
+Within-Group-B degeneracy produces leakage:
 
 $$
 \text{leakage}_{i,j}
@@ -135,42 +182,56 @@ $$
 \frac{|x_j|}{|x_i|}
 $$
 
-Baseline leakage is on the order of $10^{-3}$.
+Baseline leakage is approximately
 
-Boundary diversity must reduce this to claim improved discrimination.
+```
+~10⁻³
+```
 
-If leakage remains unchanged, boundary changes are not informationally useful.
+Boundary diversity must reduce worst-case leakage to claim improved discrimination.
 
-An additional constraint is now visible from the tilted results: the Group B membership itself shifts between configurations (different positions become degenerate under different boundary geometries). This means per-config leakage comparisons are not directly meaningful — the correct comparison is $A_{\text{combined}}$ leakage vs the individual-config baseline.
+An additional constraint emerges from the tilted configuration:
+
+Group membership itself changes between configurations.
+
+Different positions become degenerate under different boundaries.
+
+Therefore per-configuration leakage comparisons are not meaningful.  
+The correct comparison is
+
+```
+A_combined leakage vs single-configuration leakage
+```
 
 ---
 
 ## What this ruled out for me
 
-- Treating simulated coverage gain as evidence of deployment performance.
-- Claiming improvement without comparing $\kappa(A)$ directly.
-- Adding algorithmic complexity when conditioning is already moderate.
-- Optimizing boundary shape without measuring inverse improvement.
-- Using per-config $\kappa$ as a performance metric — it is a property of the geometry, not a measure of reconstruction quality.
+- treating simulated coverage gain as deployment evidence  
+- claiming improvement without measuring conditioning  
+- increasing algorithmic complexity when conditioning is moderate  
+- optimizing geometry without evaluating inverse performance  
+- interpreting per-config $\kappa$ as a direct performance metric
 
 ---
 
 ## What remains unresolved
 
-- Whether combined matrices reduce $\kappa(A)$ below the flat baseline.
-- Whether combined matrices reduce within-group leakage beyond per-config performance.
-- How sensitive conditioning is to boundary angle magnitude.
-- Whether fabrication approximates ideal phase diversity.
-- How results change for continuous object positions (not just 11 discrete samples).
-- How cross-configuration reconstruction degrades (train on flat, test on tilted measurement).
+- whether the combined matrix reduces $\kappa(A)$ below the flat baseline  
+- whether boundary diversity reduces worst-case leakage  
+- sensitivity of conditioning to boundary angle  
+- fabrication deviations from ideal PEC behaviour  
+- extension to continuous object positions  
+- cross-configuration reconstruction (train on one geometry, test on another)
 
 ---
 
 ## What would reduce uncertainty
 
-- ~~Complete tilted CST sweeps.~~ *(done — Config 6 complete)*
-- Complete stepped CST sweeps (Config 7, in progress).
-- Build:
+- ~~Complete tilted CST sweeps~~ *(Config 6 complete)*  
+- Complete stepped CST sweeps (Config 7 in progress)
+
+Then construct
 
 $$
 A_{\text{combined}}
@@ -182,33 +243,49 @@ A_{\text{stepped}}
 \end{bmatrix}
 $$
 
-- Compare $\kappa(A_{\text{combined}})$ to 30.02 baseline.
-- Compare discrimination matrices element-wise, focusing on within-Group-B leakage reduction.
-- Perform cross-configuration reconstruction tests.
-- Validate PEC approximation with simple fabricated boundary sample.
+Next steps:
 
-Only then can I claim boundary diversity improves identifiability.
+- compare $\kappa(A_{\text{combined}})$ to the baseline  
+- evaluate discrimination matrices element-wise  
+- measure worst-case leakage reduction  
+- perform cross-configuration reconstruction tests  
+- validate PEC approximation with a simple fabricated boundary
+
+Only after those steps can boundary diversity be claimed to improve identifiability.
 
 ---
 
 ## Status
 
-Flat-boundary inverse analysis complete.  
-Config 6 (tilted, 15°) — sensing matrix, inversion, and robustness complete.  
-Config 7 (stepped, ±2 mm) — CST sweeps in progress.  
-Combined matrix analysis pending Config 7 completion.  
-Fabrication optional depending on time.
+Flat boundary inverse analysis complete.  
+Tilted boundary (Config 6) — sensing matrix, inversion, robustness complete.  
+Stepped boundary (Config 7) — CST sweeps in progress.  
+Combined matrix analysis pending completion of Config 7.
+
+Fabrication remains optional depending on simulation outcome.
 
 ---
 
 ## What surprised me
 
-I originally thought fabrication and EM accuracy would dominate difficulty.
+I initially expected fabrication accuracy and EM modeling fidelity to dominate the difficulty.
 
-Instead, the dominant issue is identifiability:
+Instead the dominant issue is **identifiability**.
 
-Even with perfect simulation fidelity, I cannot attribute improvement unless I quantify conditioning changes.
+Even with perfect simulation fidelity, improvements cannot be attributed unless conditioning changes are measured directly.
 
-That realization shifted the project from geometry optimization to inverse problem structure.
+That realization shifted the project away from geometry optimization and toward **inverse problem structure**.
 
-A secondary surprise: higher $\kappa$ per configuration does not mean worse reconstruction. Config 6 has $\kappa = 46.38$ and achieves identical PSF and robustness metrics to the flat baseline. The condition number describes the geometry's sensitivity structure — not whether the solver can handle it.
+A secondary observation:
+
+Higher per-configuration condition numbers do not necessarily degrade reconstruction.
+
+Config 6 has
+
+```
+κ(A) = 46.38
+```
+
+yet produces the same PSF and robustness metrics as the flat baseline.
+
+The condition number reflects the geometry’s sensitivity structure, not whether the solver can handle it.
