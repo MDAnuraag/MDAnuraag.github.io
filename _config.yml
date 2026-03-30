@@ -23,7 +23,7 @@ description: notes on conservative modeling and physical inference
 author: Anuraag Sharma
 
 baseurl: ""
-url: ""
+url: "https://mdanuraag.github.io"
 
 theme: minima
 plugins:
