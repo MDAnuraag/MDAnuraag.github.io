@@ -10,24 +10,116 @@ Each entry documents what a method constrains well, what it can't distinguish, a
 
 **Not exhaustive**. Not authoritative. Just what I've encountered so far across 5 undergraduate projects and 1 industry internship.
 
+**Last updated**: March 2026 &nbsp;·&nbsp; **Experience**: ~2 years computational materials science, 1 summer semiconductor metrology
+
 ---
 
-## Contents
+## Quick reference
 
-- [DFT (PBE)](#dft-pbe)
-- [DFT (hybrid functionals)](#dft-hse06)
-- [Optical response from electronic structure](#optics-from-dft)
-- [RCWA](#rcwa)
-- [XRD](#xrd)
-- [UV–Vis spectroscopy](#uv-vis)
-- [AFM](#afm)
-- [Dispersion models](#dispersion)
-- [Identifiability and uncertainty](#identifiability)
-- [Configuration sampling](#config-sampling)
-- [EM simulation in deployment settings](#em-sim)
+Filter by domain or click a method to jump to the full entry.
 
-**Last updated**: January 2026  
-**My experience**: ~2 years computational materials science, 1 summer semiconductor metrology
+<div style="margin: 1.5rem 0;">
+  <div style="margin-bottom: 0.75rem;">
+    <button onclick="filterLedger('all')" class="ledger-filter active" data-filter="all">All</button>
+    <button onclick="filterLedger('computational')" class="ledger-filter" data-filter="computational">Computational</button>
+    <button onclick="filterLedger('experimental')" class="ledger-filter" data-filter="experimental">Experimental</button>
+    <button onclick="filterLedger('inverse')" class="ledger-filter" data-filter="inverse">Inverse / statistical</button>
+  </div>
+  <table id="ledger-table" style="width:100%; border-collapse: collapse; font-size: 0.9rem;">
+    <thead>
+      <tr style="border-bottom: 1px solid #ddd; text-align: left;">
+        <th style="padding: 6px 10px; font-weight: 500;">Method</th>
+        <th style="padding: 6px 10px; font-weight: 500;">Primary limit</th>
+        <th style="padding: 6px 10px; font-weight: 500;">Used in</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-domain="computational">
+        <td style="padding: 6px 10px;"><a href="#dft-pbe">DFT (PBE)</a></td>
+        <td style="padding: 6px 10px;">Band gap underestimation, self-interaction error</td>
+        <td style="padding: 6px 10px;">AlN, g-C₃N₄, alloy sampling</td>
+      </tr>
+      <tr data-domain="computational">
+        <td style="padding: 6px 10px;"><a href="#dft-hse06">DFT (HSE06)</a></td>
+        <td style="padding: 6px 10px;">No excitonic effects, cost limits cell size</td>
+        <td style="padding: 6px 10px;">g-C₃N₄, AlN (planned)</td>
+      </tr>
+      <tr data-domain="computational">
+        <td style="padding: 6px 10px;"><a href="#optics-from-dft">Optical response (DFT)</a></td>
+        <td style="padding: 6px 10px;">Independent-particle approximation, frozen lattice</td>
+        <td style="padding: 6px 10px;">g-C₃N₄, AlN</td>
+      </tr>
+      <tr data-domain="inverse">
+        <td style="padding: 6px 10px;"><a href="#rcwa">RCWA</a></td>
+        <td style="padding: 6px 10px;">Inverse non-uniqueness, periodicity assumption</td>
+        <td style="padding: 6px 10px;">Inverse RCWA metrology</td>
+      </tr>
+      <tr data-domain="experimental">
+        <td style="padding: 6px 10px;"><a href="#xrd">XRD</a></td>
+        <td style="padding: 6px 10px;">Amorphous/nanocrystalline ambiguity, thin film limits</td>
+        <td style="padding: 6px 10px;">AlN</td>
+      </tr>
+      <tr data-domain="experimental">
+        <td style="padding: 6px 10px;"><a href="#uv-vis">UV–Vis</a></td>
+        <td style="padding: 6px 10px;">Depth averaging, scattering vs absorption ambiguity</td>
+        <td style="padding: 6px 10px;">AlN</td>
+      </tr>
+      <tr data-domain="experimental">
+        <td style="padding: 6px 10px;"><a href="#afm">AFM</a></td>
+        <td style="padding: 6px 10px;">Surface only, tip convolution, single-area bias</td>
+        <td style="padding: 6px 10px;">AlN</td>
+      </tr>
+      <tr data-domain="inverse">
+        <td style="padding: 6px 10px;"><a href="#dispersion">Dispersion models</a></td>
+        <td style="padding: 6px 10px;">Non-unique mechanism assignment, extrapolation failure</td>
+        <td style="padding: 6px 10px;">Inverse RCWA metrology</td>
+      </tr>
+      <tr data-domain="inverse">
+        <td style="padding: 6px 10px;"><a href="#identifiability">Identifiability</a></td>
+        <td style="padding: 6px 10px;">Model class not tested, single-run optimization</td>
+        <td style="padding: 6px 10px;">Inverse RCWA, port metasurface</td>
+      </tr>
+      <tr data-domain="computational">
+        <td style="padding: 6px 10px;"><a href="#config-sampling">Configuration sampling</a></td>
+        <td style="padding: 6px 10px;">Combinatorial explosion, non-equilibrium synthesis</td>
+        <td style="padding: 6px 10px;">Alloy sampling, g-C₃N₄</td>
+      </tr>
+      <tr data-domain="computational">
+        <td style="padding: 6px 10px;"><a href="#em-sim">EM simulation</a></td>
+        <td style="padding: 6px 10px;">Environment non-identifiability, single-scenario overfit</td>
+        <td style="padding: 6px 10px;">Port metasurface</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<style>
+.ledger-filter {
+  margin-right: 6px; margin-bottom: 6px;
+  padding: 4px 12px; font-size: 0.8rem;
+  border: 1px solid #ccc; border-radius: 3px;
+  background: transparent; cursor: pointer;
+}
+.ledger-filter.active { background: #111; color: #fff; border-color: #111; }
+#ledger-table tr[data-domain] { transition: opacity 0.15s; }
+#ledger-table tr[data-domain].hidden { display: none; }
+#ledger-table tbody tr:hover { background: #f8f8f8; }
+#ledger-table td, #ledger-table th { border-bottom: 1px solid #f0f0f0; }
+</style>
+
+<script>
+function filterLedger(domain) {
+  document.querySelectorAll('.ledger-filter').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('#ledger-table tr[data-domain]').forEach(row => {
+    if (domain === 'all' || row.dataset.domain === domain) {
+      row.classList.remove('hidden');
+    } else {
+      row.classList.add('hidden');
+    }
+  });
+}
+</script>
 
 ---
 
@@ -253,7 +345,7 @@ Each entry documents what a method constrains well, what it can't distinguish, a
 - Scattering dominates (Mie scattering, surface roughness comparable to λ)
 - Strong baseline drift or calibration errors mask real changes
 - Film thickness variations across sample produce effective spectral broadening
-- Absorption length << film thickness (saturation effects)
+- Absorption length « film thickness (saturation effects)
 
 **Trust when**:
 - Reproducibility demonstrated across multiple samples/cycles
@@ -474,15 +566,12 @@ Each entry documents what a method constrains well, what it can't distinguish, a
 
 **What this is**: My working reference for methods I've actually used. Built from mistakes I've made or almost made.
 
-**What this isn't**: 
-- A comprehensive methods review (I don't have that experience)
-- Authoritative assessments (I'm 22, finishing undergrad)
-- Static (I expect to revise as I learn more)
+**What this isn't**: A comprehensive methods review. Authoritative assessments. Static — I expect to revise as I learn more.
 
-**How to use it**: If you're encountering similar problems, this might help. If you're an expert, you'll probably find things I got wrong—let me know.
+**How to use it**: If you're encountering similar problems, this might help. If you're an expert, you'll probably find things I got wrong — let me know.
 
 **Contact**: anuraag.sharma22 [at] student.xjtlu.edu.cn
 
 ---
 
-[Back to top](#contents)
+[Back to top](#quick-reference)

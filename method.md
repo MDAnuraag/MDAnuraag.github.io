@@ -63,4 +63,4 @@ It's built from mistakes I've made (or almost made) across 5 undergraduate proje
 
 ---
 
-**Status**: This reflects my thinking as of January 2026. I'm graduating soon and starting a PhD (somewhere). Expect revisions as I learn more.
+**Status**: This reflects my thinking as of January 2026 (graduation soon). Expect revisions as I learn more.
