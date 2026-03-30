@@ -239,6 +239,9 @@ function update() {
   const svData = [...cfg.sigmas].sort((a,b)=>b-a);
 
   if (svChart) svChart.destroy();
+  Chart.defaults.font.family = getComputedStyle(document.documentElement)
+  .getPropertyValue('--font-sans').trim() 
+  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
   svChart = new Chart(document.getElementById('svChart'), {
     type: 'bar',
     data: {
@@ -260,6 +263,9 @@ function update() {
   });
 
   if (reconChart) reconChart.destroy();
+  Chart.defaults.font.family = getComputedStyle(document.documentElement)
+  .getPropertyValue('--font-sans').trim() 
+  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
   reconChart = new Chart(document.getElementById('reconChart'), {
     type: 'bar',
     data: {
@@ -287,6 +293,9 @@ function update() {
   }
 
   if (hmChart) hmChart.destroy();
+  Chart.defaults.font.family = getComputedStyle(document.documentElement)
+  .getPropertyValue('--font-sans').trim() 
+  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
   hmChart = new Chart(document.getElementById('hmChart'), {
     type: 'scatter',
     data: {

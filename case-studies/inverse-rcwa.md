@@ -41,6 +41,17 @@ The sensing matrix for this problem has a specific structure: depth-sensitive sp
 
 Multi-start optimization from 20+ random initializations converged to geometrically different solutions with χ² < 0.03 in each case. That's the signature of structural non-identifiability, not optimizer failure.
 
+The more interesting observation is that the degeneracy is not polarization-symmetric. Under 0° polarization, a sidewall angle perturbation produces a peak position shift localized to the 400–500 nm window — the signature my depth assignment script used. Under 90°, the difference between degenerate solutions shifts to amplitude changes concentrated below 400 nm, in a region that doesn't overlap with the 0° signal. The two polarizations are sensitive to different aspects of the same geometric perturbation, but neither alone resolves the sidewall/thickness trade-off within the ±5° process control window relevant to TSMC-tier fabrication.
+
+The tool below illustrates this mechanism. The spectra are physically motivated — Fabry-Perot interference with polarization-dependent modulation — but are not direct RCWA output. Treat them as a model of the mechanism, not a reproduction of the measured data.
+
+<div class="tool-embed">
+<div class="tool-label">Interactive — polarization-dependent degeneracy in RCWA inversion</div>
+{% include rcwa-degeneracy-viz.html %}
+</div>
+
+The bottom panel is the key one. The difference spectra for 0° and 90° occupy non-overlapping spectral regions. This is why using both polarizations didn't resolve the degeneracy — the additional information sits outside the region where the existing model was fitting well, so it introduced new parameter correlations rather than constraining the existing ones.
+
 ---
 
 ## What I'd do differently

@@ -1,0 +1,286 @@
+
+<style>
+.rv-root { padding: 1rem 0; font-family: var(--font-sans); }
+.rv-controls { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 1.25rem; align-items: flex-end; }
+.rv-control { display: flex; flex-direction: column; gap: 5px; min-width: 150px; flex: 1; }
+.rv-label { font-size: 12px; color: var(--color-text-secondary); }
+.rv-value { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.rv-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
+.rv-metric { background: var(--color-background-secondary); border-radius: 6px; padding: 0.65rem 0.9rem; }
+.rv-metric-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 3px; }
+.rv-metric-value { font-size: 17px; font-weight: 500; color: var(--color-text-primary); }
+.rv-metric-sub { font-size: 10px; color: var(--color-text-tertiary); margin-top: 2px; }
+.rv-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1rem; }
+.rv-panel { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 10px; padding: 1rem; }
+.rv-panel-title { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 0.6rem; }
+.rv-insight { background: var(--color-background-secondary); border-left: 2px solid #378ADD; border-radius: 0 6px 6px 0; padding: 0.65rem 0.9rem; font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 0.75rem; }
+.rv-legend { display: flex; gap: 16px; margin-bottom: 0.5rem; font-size: 11px; color: var(--color-text-secondary); flex-wrap: wrap; }
+.rv-dot { width: 10px; height: 3px; display: inline-block; margin-right: 4px; vertical-align: middle; border-radius: 1px; }
+.rv-annotation { font-size: 11px; color: var(--color-text-tertiary); margin-top: 0.4rem; }
+@media (max-width: 520px) { .rv-panels { grid-template-columns: 1fr; } }
+</style>
+
+<div class="rv-root">
+  <div class="rv-controls">
+    <div class="rv-control">
+      <span class="rv-label">Sidewall angle perturbation Δθ</span>
+      <input type="range" min="0" max="50" value="25" step="1" id="swSlider" oninput="update()">
+      <span class="rv-value">Δθ = <span id="swVal">2.5</span>°</span>
+    </div>
+    <div class="rv-control">
+      <span class="rv-label">Compensating thickness Δt</span>
+      <input type="range" min="0" max="50" value="25" step="1" id="thSlider" oninput="update()">
+      <span class="rv-value">Δt = <span id="thVal">+5.0</span> nm</span>
+    </div>
+    <div class="rv-control">
+      <span class="rv-label">Trench depth</span>
+      <input type="range" min="0" max="40" value="20" step="1" id="depthSlider" oninput="update()">
+      <span class="rv-value"><span id="depthVal">200</span> nm</span>
+    </div>
+  </div>
+
+  <div class="rv-metrics" id="metricsRow"></div>
+
+  <div class="rv-insight" id="insightBox"></div>
+
+  <div class="rv-legend">
+    <span><span class="rv-dot" style="background:#1D9E75; height:2px; width:18px;"></span>Nominal geometry</span>
+    <span><span class="rv-dot" style="background:#D85A30; height:2px; width:18px;"></span>Perturbed geometry</span>
+    <span><span class="rv-dot" style="background:#888; height:1px; width:18px; border-top: 1px dashed #888;"></span>|Difference| × 5</span>
+  </div>
+
+  <div class="rv-panels">
+    <div class="rv-panel">
+      <div class="rv-panel-title">0° polarization — S-polarized</div>
+      <div style="position:relative; height:200px;"><canvas id="pol0Chart"></canvas></div>
+      <div class="rv-annotation" id="ann0"></div>
+    </div>
+    <div class="rv-panel">
+      <div class="rv-panel-title">90° polarization — P-polarized</div>
+      <div style="position:relative; height:200px;"><canvas id="pol90Chart"></canvas></div>
+      <div class="rv-annotation" id="ann90"></div>
+    </div>
+  </div>
+
+  <div class="rv-panel" style="margin-bottom: 1rem;">
+    <div class="rv-panel-title">Difference spectrum |R_nominal − R_perturbed| — both polarizations overlaid</div>
+    <div style="position:relative; height:160px;"><canvas id="diffChart"></canvas></div>
+    <div class="rv-annotation" id="annDiff"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const NW = 80;
+const WL_MIN = 300, WL_MAX = 900;
+const wavelengths = Array.from({length: NW}, (_, i) => WL_MIN + i * (WL_MAX - WL_MIN) / (NW - 1));
+
+function rcwaModel(wl, depth, sidewall, thickness, pol) {
+  const R = [];
+  for (let i = 0; i < wl.length; i++) {
+    const w = wl[i];
+    const n_eff = 1.5 + 0.3 * (sidewall / 90) + 0.001 * (thickness - 150);
+    const phi = (4 * Math.PI * n_eff * depth) / w;
+
+    // Base Fabry-Perot interference — depth creates fringe pattern
+    const fringeBase = 0.35 + 0.18 * Math.cos(phi) + 0.06 * Math.cos(2 * phi);
+
+    // Polarization-specific modulation
+    let polMod, swMod, thMod;
+
+    if (pol === 0) {
+      // S-pol: sidewall angle creates phase shift in 400-500nm window
+      const inWindow = (w >= 380 && w <= 520) ? 1.0 : 0.15;
+      const windowShape = Math.exp(-Math.pow((w - 450) / 60, 2));
+      swMod = 0.04 * (sidewall / 5) * Math.sin(phi + sidewall * 0.08) * (0.15 + 0.85 * windowShape);
+      thMod = 0.025 * (thickness / 10) * Math.cos(phi * 1.1) * (1 - 0.7 * windowShape);
+      polMod = 1.0;
+    } else {
+      // P-pol: amplitude changes at lower wavelengths, outside 400-500nm window
+      const belowWindow = w < 400 ? Math.exp(-Math.pow((w - 320) / 70, 2)) : 0.1;
+      const aboveWindow = w > 520 ? 0.3 * Math.exp(-Math.pow((w - 650) / 180, 2)) : 0.0;
+      swMod = 0.035 * (sidewall / 5) * Math.cos(phi * 0.9 + sidewall * 0.05) * (belowWindow + aboveWindow);
+      thMod = 0.03 * (thickness / 10) * Math.sin(phi * 0.95) * (belowWindow * 1.2 + aboveWindow * 0.8);
+      polMod = 0.92 + 0.04 * Math.sin(2 * Math.PI * (w - 300) / 600);
+    }
+
+    const val = Math.max(0.02, Math.min(0.98, (fringeBase + swMod + thMod) * polMod));
+    R.push(parseFloat(val.toFixed(4)));
+  }
+  return R;
+}
+
+function rmsDiff(a, b) {
+  let s = 0;
+  for (let i = 0; i < a.length; i++) s += (a[i] - b[i]) ** 2;
+  return Math.sqrt(s / a.length);
+}
+
+function maxDiff(a, b) {
+  return Math.max(...a.map((v, i) => Math.abs(v - b[i])));
+}
+
+function windowRms(a, b, wlMin, wlMax) {
+  let s = 0, n = 0;
+  for (let i = 0; i < wavelengths.length; i++) {
+    if (wavelengths[i] >= wlMin && wavelengths[i] <= wlMax) {
+      s += (a[i] - b[i]) ** 2; n++;
+    }
+  }
+  return n > 0 ? Math.sqrt(s / n) : 0;
+}
+
+let c0, c90, cd;
+
+function update() {
+  const swRaw = parseInt(document.getElementById('swSlider').value);
+  const thRaw = parseInt(document.getElementById('thSlider').value);
+  const depthRaw = parseInt(document.getElementById('depthSlider').value);
+
+  const dSW = (swRaw / 10).toFixed(1);
+  const dTH = ((thRaw / 5) - 5).toFixed(1);
+  const depth = 150 + depthRaw * 2;
+
+  document.getElementById('swVal').textContent = dSW;
+  document.getElementById('thVal').textContent = (parseFloat(dTH) >= 0 ? '+' : '') + dTH;
+  document.getElementById('depthVal').textContent = depth;
+
+  const swNom = 85, thNom = 150;
+  const swPerturb = 85 + parseFloat(dSW);
+  const thPerturb = 150 + parseFloat(dTH);
+
+  const R0_nom = rcwaModel(wavelengths, depth, swNom, thNom, 0);
+  const R0_per = rcwaModel(wavelengths, depth, swPerturb, thPerturb, 0);
+  const R90_nom = rcwaModel(wavelengths, depth, swNom, thNom, 90);
+  const R90_per = rcwaModel(wavelengths, depth, swPerturb, thPerturb, 90);
+
+  const diff0 = wavelengths.map((_, i) => Math.abs(R0_nom[i] - R0_per[i]));
+  const diff90 = wavelengths.map((_, i) => Math.abs(R90_nom[i] - R90_per[i]));
+  const diff0x = diff0.map(v => parseFloat((v * 5).toFixed(4)));
+  const diff90x = diff90.map(v => parseFloat((v * 5).toFixed(4)));
+
+  const rms0 = (rmsDiff(R0_nom, R0_per) * 100).toFixed(2);
+  const rms90 = (rmsDiff(R90_nom, R90_per) * 100).toFixed(2);
+  const win0 = (windowRms(R0_nom, R0_per, 400, 500) * 100).toFixed(2);
+  const win90low = (windowRms(R90_nom, R90_per, 300, 400) * 100).toFixed(2);
+  const isDegenerate = parseFloat(rms0) < 0.8 && parseFloat(rms90) < 0.8;
+
+  document.getElementById('metricsRow').innerHTML = `
+    <div class="rv-metric"><div class="rv-metric-label">RMS diff — 0°</div><div class="rv-metric-value">${rms0}%</div><div class="rv-metric-sub">full spectrum</div></div>
+    <div class="rv-metric"><div class="rv-metric-label">RMS diff — 90°</div><div class="rv-metric-value">${rms90}%</div><div class="rv-metric-sub">full spectrum</div></div>
+    <div class="rv-metric"><div class="rv-metric-label">0° window signal</div><div class="rv-metric-value">${win0}%</div><div class="rv-metric-sub">400–500 nm only</div></div>
+    <div class="rv-metric"><div class="rv-metric-label">90° low-λ signal</div><div class="rv-metric-value">${win90low}%</div><div class="rv-metric-sub">300–400 nm only</div></div>
+    <div class="rv-metric"><div class="rv-metric-label">Degeneracy</div><div class="rv-metric-value" style="color:${isDegenerate?'#D85A30':'#1D9E75'}">${isDegenerate?'High':'Resolvable'}</div><div class="rv-metric-sub">both pol. combined</div></div>
+  `;
+
+  const sw = parseFloat(dSW);
+  let insight;
+  if (sw < 1.0) {
+    insight = 'Near-nominal: spectra are nearly identical under both polarizations. This is the regime where single-polarization fitting would converge to an incorrect geometry without detecting failure.';
+  } else if (sw <= 3.0) {
+    insight = `Δθ = ${dSW}°: 0° polarization shows a peak position shift in the 400–500 nm window — the signature used for depth assignment. 90° shows amplitude changes concentrated below 400 nm. The two polarizations are sensitive to different aspects of the geometric perturbation.`;
+  } else {
+    insight = `Δθ = ${dSW}°: perturbation exceeds typical TSMC process control range (±5°). At this level the degeneracy partially breaks on its own — but within the ±5° process window, neither polarization alone resolves the sidewall/thickness trade-off. The difference spectrum shows why: the signals don't overlap.`;
+  }
+  document.getElementById('insightBox').textContent = insight;
+
+  const wlLabels = wavelengths.map(w => Math.round(w));
+  const chartOpts = (yLabel) => ({
+    responsive: true, maintainAspectRatio: false,
+    animation: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        ticks: { font: { size: 10 }, maxTicksLimit: 8, callback: v => wavelengths[v] ? Math.round(wavelengths[v]) + 'nm' : '' },
+        grid: { color: 'rgba(128,128,128,0.08)' }
+      },
+      y: {
+        min: 0, max: 1,
+        ticks: { font: { size: 10 }, stepSize: 0.2 },
+        title: { display: true, text: yLabel, font: { size: 10 }, color: '#888' },
+        grid: { color: 'rgba(128,128,128,0.08)' }
+      }
+    }
+  });
+
+  const shadePlugin = (wlA, wlB, color) => ({
+    id: 'shade',
+    beforeDraw(chart) {
+      const {ctx, chartArea: {top, bottom}, scales: {x}} = chart;
+      const x1 = x.getPixelForValue(wavelengths.findIndex(w => w >= wlA));
+      const x2 = x.getPixelForValue(wavelengths.findIndex(w => w >= wlB));
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.fillRect(x1, top, x2 - x1, bottom - top);
+      ctx.restore();
+    }
+  });
+
+  if (c0) c0.destroy();
+  Chart.defaults.font.family = getComputedStyle(document.documentElement)
+  .getPropertyValue('--font-sans').trim() 
+  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+  c0 = new Chart(document.getElementById('pol0Chart'), {
+    type: 'line',
+    data: {
+      labels: wlLabels,
+      datasets: [
+        { data: R0_nom, borderColor: '#1D9E75', borderWidth: 1.5, pointRadius: 0, tension: 0.3 },
+        { data: R0_per, borderColor: '#D85A30', borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,2] },
+        { data: diff0x, borderColor: '#888', borderWidth: 1, pointRadius: 0, tension: 0.3, borderDash: [2,3] }
+      ]
+    },
+    options: chartOpts('Reflectance'),
+    plugins: [shadePlugin(400, 500, 'rgba(55,138,221,0.07)')]
+  });
+  document.getElementById('ann0').textContent = 'Shaded: 400–500 nm window where peak position shift (phase) is detectable at 0°.';
+
+  if (c90) c90.destroy();
+  Chart.defaults.font.family = getComputedStyle(document.documentElement)
+  .getPropertyValue('--font-sans').trim() 
+  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+  c90 = new Chart(document.getElementById('pol90Chart'), {
+    type: 'line',
+    data: {
+      labels: wlLabels,
+      datasets: [
+        { data: R90_nom, borderColor: '#1D9E75', borderWidth: 1.5, pointRadius: 0, tension: 0.3 },
+        { data: R90_per, borderColor: '#D85A30', borderWidth: 1.5, pointRadius: 0, tension: 0.3, borderDash: [4,2] },
+        { data: diff90x, borderColor: '#888', borderWidth: 1, pointRadius: 0, tension: 0.3, borderDash: [2,3] }
+      ]
+    },
+    options: chartOpts('Reflectance'),
+    plugins: [shadePlugin(300, 400, 'rgba(213,90,48,0.07)')]
+  });
+  document.getElementById('ann90').textContent = 'Shaded: 300–400 nm region where amplitude changes concentrate at 90°.';
+
+  if (cd) cd.destroy();
+  Chart.defaults.font.family = getComputedStyle(document.documentElement)
+  .getPropertyValue('--font-sans').trim() 
+  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+  cd = new Chart(document.getElementById('diffChart'), {
+    type: 'line',
+    data: {
+      labels: wlLabels,
+      datasets: [
+        { label: '0° |ΔR|', data: diff0, borderColor: '#378ADD', borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: true, backgroundColor: 'rgba(55,138,221,0.08)' },
+        { label: '90° |ΔR|', data: diff90, borderColor: '#D85A30', borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: true, backgroundColor: 'rgba(213,90,48,0.08)' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: { display: true, position: 'top', labels: { font: { size: 11 }, boxWidth: 12, padding: 12 } }
+      },
+      scales: {
+        x: { ticks: { font: { size: 10 }, maxTicksLimit: 8, callback: v => wavelengths[v] ? Math.round(wavelengths[v]) + 'nm' : '' }, grid: { color: 'rgba(128,128,128,0.08)' } },
+        y: { min: 0, ticks: { font: { size: 10 } }, title: { display: true, text: '|ΔR|', font: { size: 10 }, color: '#888' }, grid: { color: 'rgba(128,128,128,0.08)' } }
+      }
+    }
+  });
+  document.getElementById('annDiff').textContent = 'Key observation: the two polarizations are sensitive to non-overlapping spectral regions. Neither alone resolves the sidewall/thickness degeneracy within the ±5° process window.';
+}
+
+update();
+</script>
