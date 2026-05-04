@@ -4,13 +4,14 @@ title: Reading Ledger
 permalink: /reading-ledger/
 ---
 
-This tracks what I've learned about method capabilities and failure modes through direct use.
+This is a working ledger of methods I have used or had to interpret.
 
-Each entry documents what a method constrains well, what it can't distinguish, and when I've seen it fail (or almost fail) in my own work.
+It is not a literature review. It is a memory aid for method limits: what each method constrains, what it cannot determine, and where I have seen interpretation break down.
 
-**Not exhaustive**. Not authoritative. Just what I've encountered so far across 5 undergraduate projects and 1 industry internship.
+The entries are written from use, not authority.
 
-**Last updated**: March 2026 &nbsp;·&nbsp; **Experience**: ~2 years computational materials science, 1 summer semiconductor metrology
+**Last updated:** May 2026  
+**Scope:** undergraduate research projects from 2024–2026, plus one semiconductor metrology internship
 
 ---
 
@@ -24,70 +25,82 @@ Filter by domain or click a method to jump to the full entry.
     <button onclick="filterLedger('computational')" class="ledger-filter" data-filter="computational">Computational</button>
     <button onclick="filterLedger('experimental')" class="ledger-filter" data-filter="experimental">Experimental</button>
     <button onclick="filterLedger('inverse')" class="ledger-filter" data-filter="inverse">Inverse / statistical</button>
+    <button onclick="filterLedger('simulation')" class="ledger-filter" data-filter="simulation">Simulation</button>
   </div>
+
   <table id="ledger-table" style="width:100%; border-collapse: collapse; font-size: 0.9rem;">
     <thead>
       <tr style="border-bottom: 1px solid #ddd; text-align: left;">
         <th style="padding: 6px 10px; font-weight: 500;">Method</th>
-        <th style="padding: 6px 10px; font-weight: 500;">Primary limit</th>
+        <th style="padding: 6px 10px; font-weight: 500;">Main limit</th>
         <th style="padding: 6px 10px; font-weight: 500;">Used in</th>
       </tr>
     </thead>
     <tbody>
       <tr data-domain="computational">
-        <td style="padding: 6px 10px;"><a href="#dft-pbe">DFT (PBE)</a></td>
-        <td style="padding: 6px 10px;">Band gap underestimation, self-interaction error</td>
-        <td style="padding: 6px 10px;">AlN, g-C₃N₄, alloy sampling</td>
+        <td style="padding: 6px 10px;"><a href="#dft-pbe">DFT — PBE</a></td>
+        <td style="padding: 6px 10px;">absolute gaps, defect levels, self-interaction error</td>
+        <td style="padding: 6px 10px;">alloy sampling, g-C₃N₄, AlN</td>
       </tr>
       <tr data-domain="computational">
-        <td style="padding: 6px 10px;"><a href="#dft-hse06">DFT (HSE06)</a></td>
-        <td style="padding: 6px 10px;">No excitonic effects, cost limits cell size</td>
-        <td style="padding: 6px 10px;">g-C₃N₄, AlN (planned)</td>
+        <td style="padding: 6px 10px;"><a href="#dft-hse06">DFT — hybrid functionals</a></td>
+        <td style="padding: 6px 10px;">cost, finite-size limits, missing excitons</td>
+        <td style="padding: 6px 10px;">g-C₃N₄, AlN planning</td>
       </tr>
       <tr data-domain="computational">
-        <td style="padding: 6px 10px;"><a href="#optics-from-dft">Optical response (DFT)</a></td>
-        <td style="padding: 6px 10px;">Independent-particle approximation, frozen lattice</td>
+        <td style="padding: 6px 10px;"><a href="#optics-from-dft">Optical response from DFT</a></td>
+        <td style="padding: 6px 10px;">independent-particle spectra are not structural fingerprints</td>
         <td style="padding: 6px 10px;">g-C₃N₄, AlN</td>
       </tr>
-      <tr data-domain="inverse">
-        <td style="padding: 6px 10px;"><a href="#rcwa">RCWA</a></td>
-        <td style="padding: 6px 10px;">Inverse non-uniqueness, periodicity assumption</td>
-        <td style="padding: 6px 10px;">Inverse RCWA metrology</td>
+      <tr data-domain="computational">
+        <td style="padding: 6px 10px;"><a href="#config-sampling">Configuration sampling</a></td>
+        <td style="padding: 6px 10px;">finite sampling of large configuration spaces</td>
+        <td style="padding: 6px 10px;">alloy sampling, g-C₃N₄</td>
       </tr>
       <tr data-domain="experimental">
-        <td style="padding: 6px 10px;"><a href="#xrd">XRD</a></td>
-        <td style="padding: 6px 10px;">Amorphous/nanocrystalline ambiguity, thin film limits</td>
+        <td style="padding: 6px 10px;"><a href="#uv-vis">UV–Vis spectroscopy</a></td>
+        <td style="padding: 6px 10px;">depth averaging, scattering/absorption ambiguity</td>
         <td style="padding: 6px 10px;">AlN</td>
       </tr>
       <tr data-domain="experimental">
-        <td style="padding: 6px 10px;"><a href="#uv-vis">UV–Vis</a></td>
-        <td style="padding: 6px 10px;">Depth averaging, scattering vs absorption ambiguity</td>
+        <td style="padding: 6px 10px;"><a href="#xrd">XRD</a></td>
+        <td style="padding: 6px 10px;">absence of peaks is not full structural knowledge</td>
         <td style="padding: 6px 10px;">AlN</td>
       </tr>
       <tr data-domain="experimental">
         <td style="padding: 6px 10px;"><a href="#afm">AFM</a></td>
-        <td style="padding: 6px 10px;">Surface only, tip convolution, single-area bias</td>
+        <td style="padding: 6px 10px;">surface-only measurement, tip convolution, sampling bias</td>
         <td style="padding: 6px 10px;">AlN</td>
       </tr>
       <tr data-domain="inverse">
+        <td style="padding: 6px 10px;"><a href="#rcwa">RCWA</a></td>
+        <td style="padding: 6px 10px;">inverse non-uniqueness despite accurate forward modeling</td>
+        <td style="padding: 6px 10px;">inverse RCWA metrology</td>
+      </tr>
+      <tr data-domain="inverse">
         <td style="padding: 6px 10px;"><a href="#dispersion">Dispersion models</a></td>
-        <td style="padding: 6px 10px;">Non-unique mechanism assignment, extrapolation failure</td>
-        <td style="padding: 6px 10px;">Inverse RCWA metrology</td>
+        <td style="padding: 6px 10px;">effective parameters can absorb modeling error</td>
+        <td style="padding: 6px 10px;">inverse RCWA metrology</td>
       </tr>
       <tr data-domain="inverse">
         <td style="padding: 6px 10px;"><a href="#identifiability">Identifiability</a></td>
-        <td style="padding: 6px 10px;">Model class not tested, single-run optimization</td>
-        <td style="padding: 6px 10px;">Inverse RCWA, port metasurface</td>
+        <td style="padding: 6px 10px;">fit quality does not imply parameter uniqueness</td>
+        <td style="padding: 6px 10px;">inverse RCWA, port metasurface</td>
       </tr>
-      <tr data-domain="computational">
-        <td style="padding: 6px 10px;"><a href="#config-sampling">Configuration sampling</a></td>
-        <td style="padding: 6px 10px;">Combinatorial explosion, non-equilibrium synthesis</td>
-        <td style="padding: 6px 10px;">Alloy sampling, g-C₃N₄</td>
+      <tr data-domain="inverse">
+        <td style="padding: 6px 10px;"><a href="#inverse-problems">Regularized inverse problems</a></td>
+        <td style="padding: 6px 10px;">regularization stabilizes estimates but does not create information</td>
+        <td style="padding: 6px 10px;">inverse RCWA, port metasurface</td>
       </tr>
-      <tr data-domain="computational">
+      <tr data-domain="inverse">
+        <td style="padding: 6px 10px;"><a href="#sensing-matrices">Sensing matrices</a></td>
+        <td style="padding: 6px 10px;">column similarity creates ambiguity between hidden states</td>
+        <td style="padding: 6px 10px;">port metasurface</td>
+      </tr>
+      <tr data-domain="simulation">
         <td style="padding: 6px 10px;"><a href="#em-sim">EM simulation</a></td>
-        <td style="padding: 6px 10px;">Environment non-identifiability, single-scenario overfit</td>
-        <td style="padding: 6px 10px;">Port metasurface</td>
+        <td style="padding: 6px 10px;">single-scenario results do not prove deployment behavior</td>
+        <td style="padding: 6px 10px;">port metasurface</td>
       </tr>
     </tbody>
   </table>
@@ -95,22 +108,40 @@ Filter by domain or click a method to jump to the full entry.
 
 <style>
 .ledger-filter {
-  margin-right: 6px; margin-bottom: 6px;
-  padding: 4px 12px; font-size: 0.8rem;
-  border: 1px solid #ccc; border-radius: 3px;
-  background: transparent; cursor: pointer;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
 }
-.ledger-filter.active { background: #111; color: #fff; border-color: #111; }
-#ledger-table tr[data-domain] { transition: opacity 0.15s; }
-#ledger-table tr[data-domain].hidden { display: none; }
-#ledger-table tbody tr:hover { background: #f8f8f8; }
-#ledger-table td, #ledger-table th { border-bottom: 1px solid #f0f0f0; }
+.ledger-filter.active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+#ledger-table tr[data-domain] {
+  transition: opacity 0.15s;
+}
+#ledger-table tr[data-domain].hidden {
+  display: none;
+}
+#ledger-table tbody tr:hover {
+  background: #f8f8f8;
+}
+#ledger-table td,
+#ledger-table th {
+  border-bottom: 1px solid #f0f0f0;
+}
 </style>
 
 <script>
 function filterLedger(domain) {
   document.querySelectorAll('.ledger-filter').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
+
   document.querySelectorAll('#ledger-table tr[data-domain]').forEach(row => {
     if (domain === 'all' || row.dataset.domain === domain) {
       row.classList.remove('hidden');
@@ -123,454 +154,654 @@ function filterLedger(domain) {
 
 ---
 
-## DFT (PBE) {#dft-pbe}
+## DFT — PBE {#dft-pbe}
 
-**Reference**: Perdew, Burke, Ernzerhof, *Phys. Rev. Lett.* **77**, 3865 (1996)
+**Reference:** Perdew, Burke, and Ernzerhof, “Generalized Gradient Approximation Made Simple,” *Physical Review Letters* **77**, 3865–3868 (1996).
 
-**Constrains well**:
-- Relative energies of similar structures (<50 meV/atom when converged)
-- Equilibrium geometries for covalent/ionic solids (~0.02 Å bond lengths)
-- Qualitative orbital character and bonding trends
+### What it constrains well
 
-**Cannot distinguish**:
-- Optical gaps from transport gaps (systematic 30-100% underestimation)
-- Defect ionization energies (±0.5 eV uncertainty)
-- Strongly vs. weakly correlated regimes (self-interaction error)
+PBE is useful for structural relaxation, qualitative bonding trends, relative energy comparisons within a similar structure class, and first-pass electronic-structure interpretation.
 
-**Assumptions**:
-- Ground-state density uniquely determines properties (Hohenberg-Kohn)
-- Non-interacting quasiparticles in effective potential
-- Semi-local exchange-correlation functional
-- Born-Oppenheimer approximation (classical nuclei)
+It is strongest when the claim is comparative:
 
-**Fails when**:
-- Open-shell transition metals, stretched bonds (static correlation)
-- van der Waals interactions dominate (unless dispersion-corrected)
-- Predicting optical spectra without experimental calibration
-- Energy differences <10 meV/atom used as definitive
+> structure A is lower in energy than nearby structure B under the same approximation.
 
-**Trust when**:
-- Comparing energies within same structure class
-- Explicit convergence tests (k-points, cutoff, cell size, smearing)
-- Cross-validated against experiment or higher-level methods for calibration
+### What it does not determine
 
-**Misleading when**:
-- Band gap "agreement" within 0.5 eV claimed as validation (error cancellation)
-- Single relaxed structure treated as representative under disorder
-- Small energy differences used to rank mechanisms without uncertainty
+PBE does not reliably determine absolute band gaps, quantitative defect ionization energies, or precise optical transition energies.
 
-**Used in**: [AlN electroabsorption](/constraints/aln-electroabsorption/), [g-C₃N₄ optical](/constraints/gcn-optical-transitions/), [Alloy sampling](/constraints/alloy-sampling/)
+For my projects, the main risk was treating a PBE spectrum or gap as quantitatively predictive when it was only trend-level evidence.
 
----
+### Failure mode I need to remember
 
-## DFT (hybrid functionals) {#dft-hse06}
+A PBE result can look physically reasonable because errors cancel.
 
-**Reference**: Heyd, Scuseria, Ernzerhof, *J. Chem. Phys.* **118**, 8207 (2003)
+That does not mean the structural model is correct. Agreement with experiment can come from the functional error, structural error, and missing physics compensating each other.
 
-**Constrains well**:
-- Band gaps (typically within 0.2-0.5 eV of experiment for semiconductors)
-- Band-edge placement relative to vacuum level
-- Localized vs. delocalized state character in defect systems
+### Trust more when
 
-**Cannot distinguish**:
-- Excitonic effects (needs BSE or TDDFT)
-- Correct gaps when structural model is wrong
-- Optical vs. fundamental gaps (missing electron-hole interaction)
+- convergence is checked;
+- structures are compared within the same model class;
+- the claim is qualitative or relative;
+- a higher-level method or experiment calibrates the trend.
 
-**Assumptions**:
-- Screened exact exchange improves self-interaction error
-- Mixing parameter (α = 0.25) and screening length (ω) are system-transferable
-- Frozen-ion approximation (no vibronic coupling)
+### Trust less when
 
-**Fails when**:
-- Strong correlation remains (Mott insulators, f-electron systems)
-- Computational cost forces small supercells (finite-size errors)
-- Applied to systems where PBE structural prediction was already wrong
+- absolute gaps are the main claim;
+- defect levels decide the mechanism;
+- one structure is treated as representative of disorder;
+- small energy differences are overinterpreted.
 
-**Trust when**:
-- Finite-size convergence demonstrated (supercell size, k-points)
-- Structural model independently validated
-- Calibrated against experiment for similar material class
+### Used in
 
-**Misleading when**:
-- Better numbers on wrong structure interpreted as improved physics
-- Quantitative optical predictions made without excitonic corrections
-- Computational cost prevents proper convergence testing
-
-**Used in**: [g-C₃N₄ optical](/constraints/gcn-optical-transitions/), [AlN electroabsorption](/constraints/aln-electroabsorption/) (planned)
+- [Alloy Configuration Sampling](/case-studies/alloy-sampling/)
+- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
+- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
 
 ---
 
-## Optical response from electronic structure {#optics-from-dft}
+## DFT — hybrid functionals {#dft-hse06}
 
-**Reference**: Gajdoš et al., *Phys. Rev. B* **73**, 045112 (2006) [for VASP implementation]
+**Reference:** Heyd, Scuseria, and Ernzerhof, “Hybrid functionals based on a screened Coulomb potential,” *Journal of Chemical Physics* **118**, 8207–8215 (2003).
 
-**Constrains well**:
-- Qualitative trends: how symmetry breaking, doping, defects shift absorption onset
-- Relative oscillator strength changes under perturbations
-- Selection rule violations from symmetry breaking
+This entry mostly refers to HSE-type screened hybrid functionals.
 
-**Cannot distinguish**:
-- Specific peak assignments under structural disorder
-- Contributions from different defect species with similar energetics
-- Excitonic vs. single-particle transitions (independent-particle approximation)
+### What it constrains well
 
-**Assumptions**:
-- Independent-particle transitions (no electron-hole interaction)
-- Dipole approximation (long-wavelength limit)
-- Frozen lattice (no vibronic coupling or thermal disorder)
-- Structural model represents measured sample
+Hybrid functionals often improve band gaps and localized-state descriptions relative to semi-local functionals.
 
-**Fails when**:
-- Excitonic effects dominate (requires BSE)
-- Multiple structural motifs contribute to same spectral region
-- Local-field effects are strong (needs full GW-BSE)
-- Disorder averaging is significant but not sampled
+They are useful when PBE gives the right qualitative mechanism but cannot support quantitative energy placement.
 
-**Trust when**:
-- Structural model space tightly constrained by independent measurements
-- Claims restricted to trends, not absolute peak positions
-- Configuration sampling performed when disorder expected
+### What it does not determine
 
-**Misleading when**:
-- Single-configuration spectrum treated as "the material's spectrum"
-- Peak agreement used to validate structural model (circular reasoning)
-- Effective parameters adjusted to match experiment without physical justification
+A better functional does not fix a wrong structural model.
 
-**Used in**: [g-C₃N₄ optical](/constraints/gcn-optical-transitions/), [AlN electroabsorption](/constraints/aln-electroabsorption/) (defect level analysis)
+Hybrid calculations can improve electronic energies while still being applied to a structure that is not representative of the material.
 
----
+They also do not automatically include excitonic effects, vibronic broadening, or thermal disorder.
 
-## RCWA {#rcwa}
+### Failure mode I need to remember
 
-**Reference**: Moharam et al., *J. Opt. Soc. Am. A* **12**, 1068 (1995)
+Higher-level theory can make a weak structural assumption look more precise than it is.
 
-**Constrains well**:
-- Forward spectral response of periodic structures (exact within numerical precision when converged)
-- Sensitivity of reflectance/transmittance to geometric parameters
-- Angle and polarization dependence for periodic media
+If dopant site, defect identity, or configuration distribution is unknown, HSE may improve the number but not the inference.
 
-**Cannot distinguish**:
-- Multiple (geometry, index) pairs producing identical far-field spectra (inverse non-uniqueness)
-- Material dispersion mechanisms (all effective models fit equally well)
-- Sub-wavelength defects (spatial averaging over unit cell)
+### Trust more when
 
-**Assumptions**:
-- Perfect periodicity (Floquet-Bloch boundary conditions)
-- Linear optical response (no saturation, no nonlinear effects)
-- Local material response (no spatial dispersion)
-- Layers laterally infinite (edge effects ignored)
+- the structural model is independently constrained;
+- only a representative subset is upgraded from PBE;
+- the comparison is made within a consistent model class;
+- the result is used to calibrate trends rather than replace uncertainty.
 
-**Fails when**:
-- High aspect ratios without sufficient Fourier orders (need 50-100+)
-- Plasmonic resonances near ε ≈ -1 (numerical instability)
-- Real samples violate periodicity (roughness, line-edge roughness, thickness variation)
-- Convergence not verified (under-resolved features mimic physical effects)
+### Trust less when
 
-**Trust when**:
-- Convergence explicitly tested (<1% change with added Fourier orders)
-- Forward modeling with independently characterized materials
-- Comparing relative trends (design A vs. B), not absolute parameter extraction
+- computational cost forces very small cells;
+- disorder is important but unsampled;
+- optical peak assignment requires excitonic physics;
+- one HSE calculation is used to validate a full mechanism.
 
-**Misleading when**:
-- Inverse fitting without identifiability analysis (covariance, multi-start, posterior)
-- Effective dispersion used to absorb modeling error, then interpreted physically
-- Single best-fit geometry reported without uncertainty or degeneracy analysis
+### Used in
 
-**Used in**: [Inverse RCWA metrology](/constraints/inverse-rcwa/)
+- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
+- [AlN Electroabsorption](/case-studies/aln-electroabsorption/) — planned or interpretive reference
 
 ---
 
-## XRD {#xrd}
+## Optical response from DFT {#optics-from-dft}
 
-**Reference**: Standard X-ray diffraction technique
+**Reference:** Gajdoš et al., “Linear optical properties in the projector-augmented wave methodology,” *Physical Review B* **73**, 045112 (2006).
 
-**Constrains well**:
-- Presence/absence of crystalline phases (above detection limit)
-- Lattice parameters and preferred orientation (well-crystallized samples)
-- Phase identification via peak indexing against databases
+### What it constrains well
 
-**Cannot distinguish**:
-- Amorphous structure details beyond "no crystalline peaks"
-- Thin film crystallinity when substrate peaks dominate
-- Nanocrystalline (<3-5 nm domains) from truly amorphous
+DFT optical response calculations are useful for mechanism-level questions:
 
-**Assumptions**:
-- Sufficient scattering volume and crystallite size
-- Bragg condition satisfied (constructive interference from periodic lattices)
-- Known reference phases for identification
-- Negligible texture (or corrected for)
+- which orbitals contribute near the band edge;
+- whether symmetry breaking activates transitions;
+- whether oscillator strength redistributes after doping or distortion;
+- how optical trends change across related structures.
 
-**Fails when**:
-- Film thickness <50 nm without grazing-incidence geometry
-- Low atomic number contrast (e.g., carbon-based materials, light-element compounds)
-- Mixed amorphous/nanocrystalline regimes without complementary probes
-- Substrate peaks misidentified as film phases
+For my g-C$_3$N$_4$ project, the important quantity was not only eigenvalue spacing but transition strength.
 
-**Trust when**:
-- Appropriate scan geometry for thin films (GIXRD, not symmetric θ-2θ)
-- Detection limits explicitly stated (integration time, background level, signal-to-noise)
-- Multiple reflections confirm phase assignment (not single-peak identification)
+### What it does not determine
 
-**Misleading when**:
-- "No peaks observed = amorphous" without reporting detection limits
-- Quantitative crystallinity claims without Rietveld refinement or calibrated standards
-- Thin film measurements without accounting for substrate contribution
+A computed optical spectrum does not uniquely identify the structure that produced it.
 
-**Used in**: [AlN electroabsorption](/constraints/aln-electroabsorption/)
+Independent-particle spectra also omit electron-hole interaction unless a higher-level method such as GW–BSE is used.
 
----
+### Failure mode I need to remember
 
-## UV–Vis spectroscopy {#uv-vis}
+Peak agreement is seductive.
 
-**Reference**: Standard optical transmission/reflection spectroscopy
+A calculated peak lining up with an experimental feature can make a structural assignment feel confirmed. But if many structures could give similar peaks, the spectrum is only a constraint.
 
-**Constrains well**:
-- Relative spectral changes under controlled perturbations (bias, temperature, processing)
-- Absorption onset identification (when background stable)
-- Spectral weight redistribution under systematic variations
+### Trust more when
 
-**Cannot distinguish**:
-- Depth-localized absorption mechanisms (averages over penetration depth)
-- Surface vs. bulk contributions without angle-resolved measurements
-- Absorption from scattering when both present
+- the structural model space is constrained;
+- several plausible structures are compared;
+- the claim is about a robust mechanism;
+- oscillator strengths and selection rules are analyzed, not just band gaps.
 
-**Assumptions**:
-- Beer-Lambert law applies (linear regime, uniform absorption)
-- Baseline drift and instrument response stable
-- Sample homogeneity over beam spot size
-- Reflected/transmitted intensity accurately measured
+### Trust less when
 
-**Fails when**:
-- Scattering dominates (Mie scattering, surface roughness comparable to λ)
-- Strong baseline drift or calibration errors mask real changes
-- Film thickness variations across sample produce effective spectral broadening
-- Absorption length « film thickness (saturation effects)
+- one spectrum is treated as “the material”;
+- peak positions are interpreted quantitatively from PBE;
+- disorder or multiple motifs are expected but not sampled;
+- optical agreement is used as structural proof.
 
-**Trust when**:
-- Reproducibility demonstrated across multiple samples/cycles
-- Baseline and instrument response carefully characterized
-- Complementary structural probes verify no morphology changes
-- Absorption changes >3× measurement noise
+### Used in
 
-**Misleading when**:
-- Spectral agreement claimed without uncertainty quantification
-- Single measurement treated as definitive without reproducibility check
-- Scattering-driven changes misinterpreted as absorption changes
-- Depth-averaged signal used to infer depth-localized mechanism
-
-**Used in**: [AlN electroabsorption](/constraints/aln-electroabsorption/)
-
----
-
-## AFM {#afm}
-
-**Reference**: Standard atomic force microscopy
-
-**Constrains well**:
-- Surface topography at nm-scale vertical resolution
-- RMS roughness statistics (when sampling representative)
-- Relative morphology changes across processing conditions
-
-**Cannot distinguish**:
-- Bulk vs. surface-localized features (surface-only probe)
-- Material composition (purely topographic)
-- Whether imaged region represents full sample
-
-**Assumptions**:
-- Tip-sample interaction well-modeled (contact, tapping, non-contact modes)
-- Scan parameters (speed, setpoint, gain) properly optimized
-- Surface features within tip bandwidth and z-range
-
-**Fails when**:
-- Tip convolution for high-aspect-ratio features (>3:1 typically)
-- Limited scan area misses dominant length scales
-- Surface contamination or adsorbates alter apparent topography
-- Soft samples deform under tip force
-
-**Trust when**:
-- Multiple scan regions confirm representativity
-- Roughness reported with uncertainty across regions
-- Tip condition verified (sharp, not damaged or contaminated)
-- Scan parameters stable and appropriate for sample
-
-**Misleading when**:
-- Single small-area scan claimed as representative
-- Tip artifacts misidentified as sample features
-- Surface roughness extrapolated to bulk structure claims
-- Quantitative height measurements without calibration
-
-**Used in**: [AlN electroabsorption](/constraints/aln-electroabsorption/)
-
----
-
-## Dispersion models {#dispersion}
-
-**Reference**: Various (Drude, Lorentz, Sellmeier, Tauc-Lorentz, Cauchy, etc.)
-
-**Constrains well**:
-- Compact parametric representation for interpolation within measured range
-- Smooth refractive index/extinction vs. wavelength for forward modeling
-
-**Cannot distinguish**:
-- Physical mechanism uniquely (multiple model forms fit identically)
-- Extrapolation behavior outside fitted range
-- Whether parameters have physical meaning vs. being effective
-
-**Assumptions**:
-- Model functional form captures relevant physics
-- Parameters are wavelength/angle-independent (within model domain)
-- Kramers-Kronig consistency enforced (or assumed negligible violation)
-
-**Fails when**:
-- Over-parameterization hides non-uniqueness (more parameters → better fit, worse identifiability)
-- Extrapolated beyond measurement range (unphysical behavior common)
-- Model selection based only on χ² without complexity penalty
-
-**Trust when**:
-- Model comparison performed (AIC, BIC, or cross-validation)
-- Parameters physically motivated, not just free fits
-- Uncertainty propagated from measurement noise to model parameters
-- Used only for interpolation within measured range
-
-**Misleading when**:
-- Best-fit parameters interpreted physically without justification
-- Multiple models fit equally well but claimed to reveal different physics
-- Dispersion model absorbs systematic errors (geometry, roughness, etc.)
-
-**Used in**: [Inverse RCWA metrology](/constraints/inverse-rcwa/)
-
----
-
-## Identifiability and uncertainty {#identifiability}
-
-**Reference**: Sethian & Wiegmann (concept); Tarantola (inverse problems); see also "Practical identifiability" literature
-
-**Constrains well**:
-- Which parameters data can actually resolve
-- Sensitivity and covariance structure
-- Whether multiple solutions exist with similar fit quality
-
-**Cannot distinguish**:
-- Truth of model class itself (only parameters within chosen model)
-- Out-of-sample generalization without new data
-
-**Assumptions**:
-- Forward model adequately represents system
-- Measurement noise characterized correctly
-- Parameter space explored sufficiently (local vs. global minima)
-
-**Fails when**:
-- Only single optimization run performed (misses multimodality)
-- Covariance ignored (independent-parameter assumption breaks)
-- Sensitivity calculated at single point (not representative of parameter space)
-
-**Trust when**:
-- Multi-start optimization or posterior sampling shows convergence
-- Parameter sensitivity and covariance explicitly reported
-- Failure cases documented (which parameters are non-identifiable)
-- Priors stated explicitly and sensitivity to priors tested
-
-**Misleading when**:
-- Good fit quality equated with unique parameter recovery
-- Uncertainty bars from fit statistics only (ignore model error)
-- Identifiable parameters claimed without covariance analysis
-
-**Used in**: [Inverse RCWA metrology](/constraints/inverse-rcwa/), [Port metasurface](/constraints/port-metasurface/)
+- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
+- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
 
 ---
 
 ## Configuration sampling {#config-sampling}
 
-**Reference**: Various (special quasirandom structures, cluster expansion, Monte Carlo)
+**Reference:** general cluster-expansion, special-quasirandom-structure, Monte Carlo, and ensemble-sampling literature.
 
-**Constrains well**:
-- Representative trends within sampled configuration space
-- Ensemble-averaged properties when sampling weighted by energy
-- Sensitivity to structural motifs within model class
+### What it constrains well
 
-**Cannot distinguish**:
-- Rare but important configurations (if not sampled)
-- True equilibrium distribution without thermodynamic integration
-- Whether sampled space captures experimental reality
+Configuration sampling helps when composition does not uniquely determine structure.
 
-**Assumptions**:
-- Sampled configurations cover relevant configuration space
-- Supercell size sufficient (no strong finite-size effects)
-- Energy landscape adequately explored (no major metastable states missed)
-- Boltzmann weighting appropriate (thermal equilibrium assumed)
+It can show whether a property is stable across plausible configurations or whether local arrangement matters.
 
-**Fails when**:
-- Configuration space grows faster than sampling can cover (combinatorial explosion)
-- Rare motifs with high impact are systematically missed
-- Kinetic barriers trap system in non-equilibrium configurations
-- Supercell too small for target property (artificial periodicity artifacts)
+In the alloy project, sampling showed that band gaps at fixed composition could vary enough that a single structure was not representative.
 
-**Trust when**:
-- Sampling strategy justified by target property and system
-- Convergence with sample size demonstrated
-- Uncertainty quantified across sampled configurations
-- Results compared to experimental distributions where available
+### What it does not determine
 
-**Misleading when**:
-- Single configuration treated as ensemble representative
-- Sample size inadequate for statistical claims (e.g., <10 for variance estimates)
-- Equilibrium sampling applied to non-equilibrium synthesis
+A finite sample does not prove that the full configuration space has been covered.
 
-**Used in**: [Alloy sampling](/constraints/alloy-sampling/), [g-C₃N₄ optical](/constraints/gcn-optical-transitions/)
+It also does not prove that the synthesized material follows the assumed equilibrium distribution.
+
+### Failure mode I need to remember
+
+A sample size that feels large computationally can still be tiny statistically.
+
+Fifty structures may be a lot of DFT calculations, but it is not a proof of ensemble convergence if the true configuration space is enormous.
+
+### Trust more when
+
+- convergence with sample count is tested;
+- the sampling strategy matches the target property;
+- rare motifs are actively searched for;
+- synthesis conditions justify the statistical ensemble;
+- experimental probes constrain local order.
+
+### Trust less when
+
+- a single configuration is used for a disordered material;
+- equilibrium weights are assumed for non-equilibrium synthesis;
+- sampling ignores defect motifs that could dominate optical response;
+- supercells are too small to represent relevant disorder.
+
+### Used in
+
+- [Alloy Configuration Sampling](/case-studies/alloy-sampling/)
+- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
+
+---
+
+## UV–Vis spectroscopy {#uv-vis}
+
+**Reference:** standard UV–visible transmission/reflection spectroscopy and Beer–Lambert-style absorption analysis.
+
+### What it constrains well
+
+UV–Vis spectroscopy constrains spectral changes under controlled perturbations.
+
+It is useful for identifying absorption onsets, relative changes under bias, spectral localization, and reproducible modulation.
+
+In the AlN project, UV–Vis showed that the field-dependent response was localized in the UV rather than broadband.
+
+### What it does not determine
+
+UV–Vis transmission is usually an averaged measurement.
+
+It does not directly identify whether absorption is surface-localized, bulk-distributed, or interface-dominated. It also does not always separate absorption from scattering unless the geometry and sample are controlled.
+
+### Failure mode I need to remember
+
+A depth-averaged optical response can be mistaken for a depth-resolved mechanism.
+
+Seeing field-dependent absorption does not tell me where inside the film the responsible states are located.
+
+### Trust more when
+
+- changes are reproducible over cycles;
+- baseline drift is controlled;
+- scattering is negligible or separately constrained;
+- complementary probes rule out structural changes;
+- the claim is spectral and bounded.
+
+### Trust less when
+
+- a single spectrum is used to identify a defect species;
+- scattering and absorption are not separated;
+- thickness variation is not accounted for;
+- depth localization is inferred from a depth-averaged signal.
+
+### Used in
+
+- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+
+---
+
+## XRD {#xrd}
+
+**Reference:** standard X-ray diffraction for crystalline phase identification and structural analysis.
+
+### What it constrains well
+
+XRD constrains the presence of crystalline phases above the detection limit.
+
+It can support statements about crystallinity, phase formation, orientation, and lattice spacing when the sample gives sufficient diffraction signal.
+
+In the AlN project, XRD was useful because the absence of clear crystalline peaks constrained crystalline electro-optic explanations.
+
+### What it does not determine
+
+No peaks does not mean full structural knowledge.
+
+It can mean amorphous material, nanocrystalline domains below detection, insufficient film volume, substrate masking, or poor signal-to-noise.
+
+### Failure mode I need to remember
+
+“XRD amorphous” is not a microscopic structure.
+
+It is an absence or weakness of long-range crystalline diffraction under the measurement conditions.
+
+### Trust more when
+
+- thin-film geometry is appropriate;
+- substrate peaks are accounted for;
+- detection limits are stated;
+- multiple peaks support phase assignment;
+- XRD is paired with other probes.
+
+### Trust less when
+
+- one weak peak is used for phase identification;
+- absence of peaks is overinterpreted;
+- thin films are measured without considering substrate signal;
+- amorphous and nanocrystalline possibilities are not separated.
+
+### Used in
+
+- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+
+---
+
+## AFM {#afm}
+
+**Reference:** standard atomic-force microscopy for surface topography and roughness.
+
+### What it constrains well
+
+AFM constrains surface topography.
+
+It is useful for roughness estimates, morphology comparison, and checking whether surface structure plausibly explains optical changes.
+
+In the AlN project, AFM helped constrain whether roughness-driven optical effects were likely.
+
+### What it does not determine
+
+AFM does not measure the bulk.
+
+It also does not directly identify composition, defect states, or buried interfaces. Tip convolution and scan-area selection can distort what the image appears to show.
+
+### Failure mode I need to remember
+
+A clean AFM image can make the whole film feel well characterized.
+
+It is not. It is a surface measurement over selected regions.
+
+### Trust more when
+
+- multiple scan areas are measured;
+- tip condition is checked;
+- roughness is reported with uncertainty;
+- scan size matches the relevant length scale;
+- AFM is used only for surface claims.
+
+### Trust less when
+
+- one small scan is treated as representative;
+- steep features approach tip limits;
+- surface roughness is used to infer bulk structure;
+- morphology is used to identify optical mechanisms directly.
+
+### Used in
+
+- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+
+---
+
+## RCWA {#rcwa}
+
+**Reference:** Moharam, Grann, Pommet, and Gaylord, stable and efficient RCWA formulations for periodic gratings, *Journal of the Optical Society of America A* **12** (1995).
+
+### What it constrains well
+
+RCWA is strong as a forward solver for periodic optical structures.
+
+Given a geometry, material model, wavelength, angle, and polarization, it can compute diffraction and reflectance accurately when numerically converged.
+
+### What it does not determine
+
+The inverse problem is not automatically unique.
+
+Multiple geometries or material parameters can produce nearly identical far-field spectra.
+
+### Failure mode I need to remember
+
+An accurate forward solver can produce a non-identifiable inverse problem.
+
+In the KLA project, trench depth was recoverable under process bounds, but secondary geometry parameters were degenerate.
+
+That was not a failure of RCWA as a forward method. It was a limit of the measurement configuration.
+
+### Trust more when
+
+- Fourier-order convergence is checked;
+- material dispersion is independently constrained;
+- periodicity assumptions match the sample;
+- the claim is a forward comparison;
+- inverse claims include covariance or multi-start analysis.
+
+### Trust less when
+
+- best-fit geometry is reported without degeneracy analysis;
+- effective material parameters absorb geometry error;
+- real roughness or line-edge variation violates the periodic model;
+- residual alone is treated as proof of uniqueness.
+
+### Used in
+
+- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+
+---
+
+## Dispersion models {#dispersion}
+
+**Reference:** Drude, Lorentz, Sellmeier, Cauchy, Tauc-Lorentz, and related empirical or semi-physical optical models.
+
+### What they constrain well
+
+Dispersion models provide compact functions for refractive index and extinction versus wavelength.
+
+They are useful for interpolation, smooth forward modeling, and reducing raw optical data to a small parameter set.
+
+### What they do not determine
+
+A dispersion model does not automatically reveal the physical mechanism.
+
+Different functional forms can fit the same wavelength range while implying different extrapolations or parameter interpretations.
+
+### Failure mode I need to remember
+
+Effective parameters can absorb model error.
+
+A fitted dispersion parameter may compensate for roughness, thickness error, geometry mismatch, or unmodeled scattering. Interpreting that parameter physically can be wrong.
+
+### Trust more when
+
+- the fitted range matches the use range;
+- model choice is physically motivated;
+- uncertainty is propagated;
+- competing models are compared;
+- parameters are not overinterpreted.
+
+### Trust less when
+
+- parameters are treated as microscopic truth;
+- extrapolation is used outside the fitted range;
+- extra parameters are added only to reduce residual;
+- multiple models fit equally well.
+
+### Used in
+
+- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+
+---
+
+## Identifiability and uncertainty {#identifiability}
+
+**Reference:** inverse-problem theory and practical identifiability literature, including Tarantola-style model/data-space framing.
+
+### What it constrains well
+
+Identifiability analysis asks which quantities the data can actually resolve.
+
+It separates three different claims:
+
+1. the model fits;
+2. the measurement is sensitive;
+3. the parameter is uniquely or stably recoverable.
+
+Only the third is identifiability.
+
+### What it does not determine
+
+Identifiability analysis is still conditional on the model class.
+
+A parameter can be identifiable inside the chosen model and still be wrong if the model class is wrong.
+
+### Failure mode I need to remember
+
+Good fits and local sensitivity can both coexist with non-identifiability.
+
+The right question is not:
+
+> does the spectrum change when parameter X changes?
+
+The right question is:
+
+> can parameter X be separated from all other allowed changes?
+
+### Trust more when
+
+- multi-start optimization converges consistently;
+- covariance structure is reported;
+- posterior samples are not multimodal;
+- priors are explicit;
+- non-identifiable parameters are named.
+
+### Trust less when
+
+- only one optimization run is shown;
+- uncertainty bars ignore covariance;
+- sensitivity is shown but parameter correlation is not;
+- priors silently determine the result.
+
+### Used in
+
+- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+- [Port Metasurface](/case-studies/port-metasurface/)
+
+---
+
+## Regularized inverse problems {#inverse-problems}
+
+**Reference:** standard inverse-problem methods: least squares, Tikhonov regularization, non-negative least squares, sparse recovery, robust loss functions.
+
+### What they constrain well
+
+Regularized inverse methods stabilize reconstruction when the direct inverse is noisy or ill-conditioned.
+
+They are useful when the forward model is known and the hidden state has structure:
+
+- small norm;
+- non-negativity;
+- sparsity;
+- simplex constraint;
+- smoothness;
+- robustness to outliers.
+
+### What they do not determine
+
+Regularization does not create information.
+
+It selects among possible solutions using assumptions. If the measurement cannot distinguish two states, the regularizer may choose one, but that choice is not automatically physical truth.
+
+### Failure mode I need to remember
+
+A prettier reconstruction can be a stronger prior, not stronger evidence.
+
+In the port metasurface project, Tikhonov worked because the system was moderately conditioned. More exotic solvers were not automatically justified.
+
+### Trust more when
+
+- the prior matches the physical problem;
+- solver comparisons use fixed tuning rules;
+- reconstruction is evaluated on held-out or perturbed cases;
+- leakage and discrimination are reported, not only visual sharpness.
+
+### Trust less when
+
+- solver complexity substitutes for measurement diversity;
+- regularization parameters are tuned until the answer looks right;
+- sparsity is assumed without physical reason;
+- reconstruction success is judged only by plots.
+
+### Used in
+
+- [Port Metasurface](/case-studies/port-metasurface/)
+- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+
+---
+
+## Sensing matrices {#sensing-matrices}
+
+**Reference:** compressed sensing, linear inverse problems, and operator analysis.
+
+### What they constrain well
+
+A sensing matrix makes the inverse problem explicit:
+
+$$
+\mathbf{y} = A\mathbf{x} + \boldsymbol{\varepsilon}.
+$$
+
+The matrix tells me how hidden states map into observations.
+
+Useful diagnostics include:
+
+- singular-value spectrum;
+- condition number;
+- column coherence;
+- Gram matrix;
+- leakage matrix;
+- discrimination matrix;
+- noise robustness.
+
+### What they do not determine
+
+A sensing matrix only represents the modeled measurement system.
+
+If the forward model is wrong, if the discretization is too coarse, or if the real environment differs, matrix diagnostics can look clean while deployment fails.
+
+### Failure mode I need to remember
+
+A system can be full-rank and still practically ambiguous.
+
+If two columns are very similar, their corresponding hidden states are hard to distinguish even if the matrix has no exact null space.
+
+### Trust more when
+
+- the matrix is built from validated forward simulations or measurements;
+- columns correspond to physically meaningful states;
+- conditioning and coherence are interpreted together;
+- synthetic tests are separated from deployment claims;
+- perturbations are tested.
+
+### Trust less when
+
+- full rank is treated as sufficient;
+- condition number alone is treated as the whole story;
+- one geometry is overoptimized;
+- model-generated data is used as proof of real-world recovery.
+
+### Used in
+
+- [Port Metasurface](/case-studies/port-metasurface/)
 
 ---
 
 ## EM simulation in deployment settings {#em-sim}
 
-**Reference**: Various (CST, HFSS, COMSOL, custom FDTD/FEM codes)
+**Reference:** electromagnetic simulation with tools such as CST, HFSS, COMSOL, FDTD, FEM, and related solvers.
 
-**Constrains well**:
-- Forward trends under assumed boundary conditions and material models
-- Sensitivity to design parameters in idealized environments
-- Relative performance comparisons (design A vs. B)
+### What it constrains well
 
-**Cannot distinguish**:
-- Real-world performance under environment variability
-- Whether simulated environment matches deployment
-- Contributions from unmodeled effects (clutter, multipath, time-variation)
+EM simulation constrains forward behavior under specified geometry, materials, boundary conditions, excitation, and frequency.
 
-**Assumptions**:
-- Environment geometry and materials known/assumed
-- Boundary conditions representative of deployment
-- Static or quasi-static scene (no rapid time variation)
-- Linear material response (unless nonlinearity explicitly modeled)
+It is useful for:
 
-**Fails when**:
-- Environment approximation dominates error (unknown clutter, ground properties)
-- Optimization overfits to specific simulated scenario
-- Hardware nonidealities not captured (fabrication tolerances, losses, coupling)
-- Dynamic scenes change faster than simulation update rate
+- comparing designs under controlled assumptions;
+- identifying sensitivity to geometry;
+- generating forward operators;
+- testing whether a proposed mechanism is plausible.
 
-**Trust when**:
-- Simulations validated against controlled measurements
-- Sensitivity to environment assumptions explicitly tested
-- Performance reported across scene ensemble, not single case
-- Hardware limitations included in model
+### What it does not determine
 
-**Misleading when**:
-- Single-scenario simulation treated as deployment guarantee
-- Environment idealized without justification or sensitivity analysis
-- Optimization produces designs brittle to small deviations
+A simulation does not prove deployment performance.
 
-**Used in**: [Port metasurface](/constraints/port-metasurface/)
+Deployment adds uncontrolled variables: geometry changes, material uncertainty, blockage, aging, fabrication tolerance, calibration error, and environmental variation.
+
+### Failure mode I need to remember
+
+A single visually convincing simulation can be overread.
+
+In the port metasurface project, full-port simulations were too dependent on container geometry assumptions. That made broad coverage claims weak. The project became stronger after narrowing to operator conditioning in a controlled geometry.
+
+### Trust more when
+
+- simulation is validated against measurement;
+- geometry assumptions are varied;
+- results are reported over an ensemble of scenarios;
+- hardware nonidealities are included;
+- deployment metrics are separated from model metrics.
+
+### Trust less when
+
+- one scenario is treated as representative;
+- ideal PEC or ideal metasurface behavior is assumed without caveat;
+- performance is optimized for one geometry;
+- field improvement is treated as service-level improvement.
+
+### Used in
+
+- [Port Metasurface](/case-studies/port-metasurface/)
 
 ---
 
-## Notes on this ledger
+## How this ledger connects to the site
 
-**What this is**: My working reference for methods I've actually used. Built from mistakes I've made or almost made.
+The ledger supports three site layers:
 
-**What this isn't**: A comprehensive methods review. Authoritative assessments. Static — I expect to revise as I learn more.
+- [/method/](/method/) — the general framework.
+- [/case-studies/](/case-studies/) — projects where the methods were applied.
+- [/notes/](/notes/) — specific inference errors that recur across projects.
 
-**How to use it**: If you're encountering similar problems, this might help. If you're an expert, you'll probably find things I got wrong — let me know.
+The entries here are intentionally bounded. They say what I learned from using these methods, not everything the methods can do.
 
-**Contact**: anuraag.sharma22 [at] student.xjtlu.edu.cn
+---
+
+## Current gaps
+
+Methods I may add later if they become central:
+
+- ellipsometry;
+- impedance spectroscopy;
+- EXAFS / XANES;
+- GW–BSE;
+- cluster expansion;
+- Monte Carlo sampling;
+- Bayesian posterior sampling;
+- adjoint optimization;
+- experimental uncertainty propagation.
+
+I am not adding them yet unless they become part of a project rather than just something I know exists.
 
 ---
 

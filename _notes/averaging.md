@@ -1,81 +1,102 @@
 ---
 layout: page
-title: Averaging destroys information irreversibly
+title: Averaging Destroys Information Irreversibly
 permalink: /notes/averaging/
 ---
 
-## The confusion
+## The error
 
-**Mistaken intuition**: "I measured the spatially-averaged absorption, so I know the material's absorption coefficient."
+A spatially, temporally, or ensemble-averaged measurement is treated as if it reveals the underlying distribution.
 
-**Why it's wrong**: Once you average, you can't infer the distribution. Many distributions have the same average.
+That is the wrong inference.
+
+An average can constrain a distribution, but it does not determine it.
 
 ---
 
-## What actually happened
+## Why it fails
 
-You measured:
+Averaging is a many-to-one operation.
+
+For a spatially varying quantity $\alpha(\mathbf{r})$, a measurement may report only
+
 $$
-\langle \alpha \rangle = \frac{1}{V} \int \alpha(\mathbf{r}) \, \text{d}V
+\langle \alpha \rangle
+=
+\frac{1}{V}
+\int_V
+\alpha(\mathbf{r})\,dV.
 $$
 
-This tells you nothing about $\alpha(\mathbf{r})$. You've collapsed a function to a scalar.
+Many different functions $\alpha(\mathbf{r})$ can produce the same average.
+
+Once the measurement collapses the distribution into a mean, the lost spatial information cannot be recovered from that mean alone.
 
 ---
 
-## Real example (from AlN electroabsorption)
+## Example: AlN electroabsorption
 
-**Measurement**: UV-Vis transmission through 100 nm film (spatially averaged over ~200 nm penetration depth)
+In the AlN project, UV–Vis transmission measured a depth-averaged optical response.
 
-**What I can claim**: "Field-dependent absorption exists somewhere in the film"
+That allowed the claim:
 
-**What I cannot claim**: 
-- "Defects are uniformly distributed" (could be interface-localized)
-- "Absorption is bulk-dominated" (could be surface-dominated)
-- "Defect concentration is X cm⁻³" (need depth resolution)
+> field-dependent absorption exists in the film stack.
 
-The depth-averaged signal **cannot distinguish** these cases.
+It did not allow the stronger claims:
 
----
+- defects are uniformly distributed;
+- the response is bulk-dominated;
+- the response is interface-dominated;
+- the defect concentration is uniquely determined;
+- the defect depth profile is known.
 
-## Other examples where this matters
-
-**Configuration sampling**: 
-- Measured: ensemble-averaged band gap = 2.1 eV
-- Cannot infer: whether one structure dominates or many contribute equally
-- Configuration entropy lost in the average
-
-**Powder XRD**:
-- Measured: angle-averaged diffraction pattern
-- Cannot infer: texture, preferred orientation, single-crystal structure
-- Grain orientation distribution lost
-
-**Time-averaged spectra**:
-- Measured: steady-state photoluminescence
-- Cannot infer: whether emission is prompt or delayed
-- Temporal dynamics lost
+The measurement integrated over depth. Depth information was not present in the observable.
 
 ---
 
-## The working rule
+## Example: alloy sampling
 
-When you report an average:
-1. State explicitly what was averaged (space, time, angle, ensemble)
-2. Do not infer properties of the distribution from the average alone
-3. If you need the distribution, measure it directly or bound it with constraints
+In alloy sampling, an experimental optical gap is also an averaged quantity.
 
----
+It may reflect many configurations, local environments, grains, defects, and synthesis-dependent distributions.
 
-## When this confusion causes real problems
-
-- Claiming bulk properties from surface-averaged measurements
-- Assigning configurations from ensemble-averaged observables
-- Inferring dynamics from time-integrated signals
-
-In all cases, the measurement **integrated out** the information you're trying to recover.
+A match to an ensemble average does not prove that the sampled ensemble is the actual synthesized ensemble. It only shows consistency with one plausible distribution.
 
 ---
 
-**Related**: [AlN constraints](/constraints/aln-electroabsorption/) (depth averaging), [Alloy constraints](/constraints/alloy-sampling/) (ensemble averaging)
+## Other forms of averaging
 
-[Back to Notes](/notes/)
+The same failure appears in other settings:
+
+**Powder diffraction**  
+Angle averaging can hide texture and orientation information.
+
+**Steady-state photoluminescence**  
+Time averaging can hide prompt versus delayed dynamics.
+
+**Macroscopic spectroscopy**  
+Spot-size averaging can hide grain-scale variation.
+
+**Computed ensemble properties**  
+Boltzmann-weighted averages can hide rare but important configurations.
+
+---
+
+## Working rule
+
+When reporting an average:
+
+1. state what was averaged: space, time, angle, ensemble, disorder, or configuration;
+2. avoid inferring the distribution from the mean alone;
+3. distinguish “average response” from “uniform response”;
+4. add a measurement that resolves the hidden variable if the distribution matters.
+
+---
+
+## Where this appears
+
+- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+- [Alloy Configuration Sampling](/case-studies/alloy-sampling/)
+- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
+
+[Back to notes](/notes/)

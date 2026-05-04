@@ -6,52 +6,59 @@ permalink: /about/
 
 ## What this is
 
-An attempt to think more clearly about inverse problems in materials and optics by documenting my reasoning publicly.
+This site is a public record of how I think through inverse problems in physical sensing.
 
-I'm 22, finishing my undergraduate degree, and trying to figure out how to avoid overclaiming when models fit data well but mechanisms remain ambiguous.
+I am finishing my undergraduate degree in microelectronics and working across optical metrology, electro-optic materials, first-principles optical modeling, and mmWave non-line-of-sight sensing.
 
-This site is my working framework—not finished, not polished, probably naive in places I haven't realized yet.
+The common problem is interpretation. A model can fit the data while the mechanism remains ambiguous. This site is where I document what the measurement constrained, what the model assumed, and what could not be identified.
 
 ---
 
-## Why it's public
+## Why it is public
 
-Making this public forces discipline. It's harder to drift toward overclaiming when past analyses are visible and falsifiable.
+Keeping this public forces discipline.
+
+It is easier to overclaim in private notes. It is harder when the reasoning, assumptions, and revisions remain visible.
 
 The intended audience is:
-1. **Future me** (to maintain standards when publication pressure hits)
-2. **Future collaborators** (to understand how I think about uncertainty)
-3. **Anyone else** working on similar problems who finds the framework useful
+
+1. **Future me** — to preserve standards when publication or career pressure increases.
+2. **Future collaborators** — to show how I think about uncertainty and evidence.
+3. **Readers with similar problems** — to make the framework useful beyond my own projects.
 
 ---
 
 ## What to expect
 
-**This will change.** I'm defending my thesis in May 2026 and starting graduate study shortly after. As I encounter systems this framework doesn't handle, I'll revise it.
+This site will change.
 
-**It's incomplete.** The Reading Ledger has 11 methods but I've only deeply used 5–6. The Notes section is sparse. The structure is ahead of the content because I'm building it as I go.
+I am defending my undergraduate thesis in May 2026 and preparing for graduate study. As I encounter systems that break my current framework, I will revise it.
 
-**It might be wrong.** I'm documenting my current understanding, not universal truths. If you spot errors or inconsistencies, let me know.
+The content is intentionally uneven. Some pages are mature case studies. Others are working notes, unresolved questions, or method fragments. The point is not to present finished certainty. The point is to track how interpretation improves under constraint.
 
 ---
 
-## Maintenance commitment
+## Maintenance
 
-I review this site when new projects change previous constraint analyses, when I discover I was wrong about something, or when I learn new method failure modes.
+I update this site when:
 
-If it stops being updated, either the reasoning fully internalized (success), or I abandoned it under career pressure (failure).
+- a project changes my previous interpretation,
+- I find an error in an earlier analysis,
+- a method fails in a way worth recording,
+- or a new project exposes a limitation in the framework.
 
 ---
 
 ## Last major review
 
-January 2026 (initial build)
+May 2026 — homepage and About page simplified around inverse problems, physical sensing, and identifiability.
 
 ---
 
 ## Contact
 
-**Errors, inconsistencies, questions**:  
+**Errors, inconsistencies, or questions:**  
 anuraag.sharma22 [at] student.xjtlu.edu.cn
 
-**If you're a PI or hiring manager I contacted**: This site reflects my actual thinking process, not a curated portfolio. If it looks too cautious or too ambitious, that's real—not positioning.
+**For PIs, collaborators, or hiring managers:**  
+This site is not a polished portfolio. It is closer to a reasoning trail. The goal is to make my assumptions, limits, and technical direction visible.

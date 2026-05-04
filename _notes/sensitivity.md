@@ -1,82 +1,105 @@
 ---
 layout: page
-title: Sensitivity is not identifiability
+title: Sensitivity Is Not Identifiability
 permalink: /notes/sensitivity/
 ---
 
-## The confusion
+## The error
 
-**Mistaken intuition**: "The spectrum is sensitive to parameter X, therefore I can measure X."
+A measurement changes when parameter $x$ changes, so $x$ is treated as measurable.
 
-**Why it's wrong**: Sensitivity means $\partial y / \partial x \neq 0$. Identifiability requires that **no other parameter** can produce the same $\Delta y$.
+That is incomplete.
 
----
-
-## What actually happened
-
-You showed the measurement **responds** to X. You didn't show it responds **uniquely** to X.
-
-If parameters Y and Z also produce similar $\Delta y$, you've measured a **linear combination**, not X.
+Sensitivity means the observable responds to a parameter. Identifiability means the response is distinguishable from the responses produced by other parameters.
 
 ---
 
-## Concrete example (from my RCWA work)
+## Why it fails
 
-**Scenario**: Broadband reflectance from a multilayer stack.
+Sensitivity asks whether
 
-**Sensitivity analysis**:
-- Spectrum is sensitive to trench depth (∂R/∂d ≠ 0) ✓
-- Spectrum is sensitive to sidewall angle (∂R/∂θ ≠ 0) ✓
-- Spectrum is sensitive to layer 3 thickness (∂R/∂t₃ ≠ 0) ✓
+$$
+\frac{\partial y}{\partial x} \neq 0.
+$$
 
-**Identifiability analysis**:
-- Depth + angle are **strongly correlated** (cov = 0.8)
-- Changing depth by +10 nm and angle by -5° produces nearly identical spectrum
-- Layer 3 thickness trades off with its refractive index
+Identifiability asks whether the response direction is unique relative to the other parameters.
 
-**Result**: Depth is identifiable (because angle was constrained by fabrication priors). Layer 3 thickness is not.
+If two parameters produce similar changes,
 
----
+$$
+\frac{\partial y}{\partial x}
+\approx
+c\frac{\partial y}{\partial z},
+$$
 
-## The mathematical statement
+then the measurement may detect a change but fail to separate its cause.
 
-Sensitivity: $\nabla_\theta y \neq 0$ (Jacobian is non-zero)
-
-Identifiability: $\nabla_\theta y$ has **full rank** and parameters are not in degenerate subspace
-
-You can have sensitivity without identifiability.
+In that case, the observable constrains a combination of parameters, not each parameter independently.
 
 ---
 
-## How to check
+## Example: RCWA metrology
 
-1. **Compute sensitivity matrix** $S_{ij} = \partial y_i / \partial \theta_j$
-2. **Check condition number**: If $\kappa(S^T S) > 10^3$, parameters are poorly separated
-3. **Plot covariance**: Strong off-diagonal terms = degeneracy
+In broadband reflectance, the spectrum can be sensitive to trench depth, sidewall angle, and layer thickness.
 
----
+That does not mean all three are independently recoverable.
 
-## The working rule
+Depth was recoverable because its spectral effect survived the process bounds and did not trade off too strongly with the remaining parameters.
 
-When you say "X is measurable":
-1. Show sensitivity (∂y/∂X ≠ 0)
-2. Show X is not degenerate with other parameters (low covariance)
-3. Show you've actually resolved X, not just detected it
-
-"Sensitive to" ≠ "able to determine"
+Some secondary parameters were sensitive but not identifiable because their spectral effects could be compensated by other geometric or material changes.
 
 ---
 
-## When this confusion causes real problems
+## Example: port metasurface
 
-- Metrology claiming "sub-nm precision" based on sensitivity alone (ignores correlation with index)
-- Spectroscopy assigning peaks to specific defects (many defects have similar energies)
-- Claiming band gap tunability when gap trades off with lattice constant
+In the port metasurface project, changing boundary geometry changes the sensing matrix.
 
-All fail because sensitivity analysis alone is insufficient.
+That proves sensitivity to the boundary condition.
+
+It does not automatically prove improved reconstruction. The relevant question is whether the changed matrix reduces ambiguity between candidate object positions.
+
+Sensitivity:
+
+$$
+A_{\mathrm{flat}} \neq A_{\mathrm{tilted}}.
+$$
+
+Identifiability improvement:
+
+$$
+\text{lower leakage, lower degeneracy, or better-conditioned distinguishable modes}.
+$$
+
+Those are different claims.
 
 ---
 
-**Related**: [Inverse RCWA constraints](/constraints/inverse-rcwa/) (parameter covariance), [Reading Ledger: Identifiability](/reading-ledger/#identifiability)
+## Working rule
 
-[Back to Notes](/notes/)
+When saying a quantity is measurable, show both:
+
+1. **response** — the observable changes when the parameter changes;
+2. **separation** — no other allowed parameter change produces the same response.
+
+Sensitivity is necessary. It is not sufficient.
+
+---
+
+## Useful diagnostics
+
+- Jacobian rank;
+- condition number;
+- covariance matrix;
+- singular-value spectrum;
+- parameter-correlation plot;
+- leakage or discrimination matrix;
+- cross-validation with a different measurement condition.
+
+---
+
+## Where this appears
+
+- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+- [Port Metasurface](/case-studies/port-metasurface/)
+
+[Back to notes](/notes/)

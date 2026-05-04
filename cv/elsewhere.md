@@ -124,3 +124,13 @@ Media that handle causality, time, or power well.
 ## Outlook
 
 Opinions on semiconductors, energy, and where current narratives feel brittle.
+
+The semiconductor industry is treated as an endpoint. It's a fabrication platform. The assumption that advanced nanofabrication exists to produce transistors is historical, not fundamental — the same tools that build logic chips can build nanophotonic structures, biosensors, and energy devices. That application space is underbuilt relative to what the physics allows, mostly for economic reasons that are real but not permanent.
+
+Metrology is where physical limits become visible before anywhere else in the process. Most of what gets called a process problem is a measurement problem first. The field underinvests in the theoretical foundations of what measurements can and cannot recover — identifiability, sensitivity, fundamental estimation limits — relative to how much it invests in tool hardware. That gap widens at each new device generation and compounds into methods that work empirically without anyone being able to say precisely why or where they will fail.
+
+Hardware-software co-design is discussed seriously in computing architecture and almost nowhere else. The same principle applied to physical measurement systems — designing the optical configuration, the forward model, and the reconstruction algorithm as a joint problem rather than sequentially — would change what's recoverable from a measurement without changing the hardware. This work exists in fragments across computational imaging, wavefront sensing, and scatterometry. It hasn't been unified.
+
+Energy transition hardware gets less serious fabrication investment than the physics warrants. Photovoltaic characterization, solid-state battery interfaces, and nanoscale thermal emitters all have measurement problems that semiconductor metrology methods could address with adaptation. The adaptation hasn't happened systematically because the market doesn't yet pull for it at scale. It will.
+
+Quantum computing captures disproportionate attention relative to near-term utility. The domains where quantum hardware has a structural argument — electronic structure calculations for strongly correlated materials, specifically — are real but narrow. Outside those domains the classical sparse and physics-informed methods haven't been pushed to their actual limits yet. The ceiling on what classical computation can do for physical simulation is higher than the current discourse assumes.

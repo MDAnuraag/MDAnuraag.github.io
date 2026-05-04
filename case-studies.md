@@ -4,29 +4,35 @@ title: Case Studies
 permalink: /case-studies/
 ---
 
-Projects where I tried to apply the framework in [/method](/method/).
+Projects where I tested the framework in [/method](/method/) against real interpretive problems.
 
-Some worked well. Some didn't. All of them taught me something about where interpretation breaks down.
+Each case follows the same structure: observable, claim, load-bearing constraints, what was ruled out, what remained non-identifiable, and what evidence would reduce uncertainty.
 
 ---
+
+## Case studies
 
 1. **[Inverse RCWA Metrology](/case-studies/inverse-rcwa/)**  
-   Summer 2025 internship at KLA — recovered trench depth, couldn't resolve secondary parameters
+   Optical spectra constrained trench depth, but secondary geometry parameters remained degenerate.
 
 2. **[AlN Electroabsorption](/case-studies/aln-electroabsorption/)**  
-   Field-dependent UV modulation — ruled out several mechanisms, one survived
+   Field-dependent UV modulation ruled out several mechanisms, but spatial averaging limited defect identification.
 
 3. **[g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)**  
-   Metal doping shifts absorption, but structure is non-unique
+   Metal doping shifted absorption, but computed spectra did not uniquely identify microscopic structure.
 
 4. **[Alloy Configuration Sampling](/case-studies/alloy-sampling/)**  
-   First computational project — learned that composition alone doesn't determine properties
+   Composition trends depended on atomic configuration; one structure per composition was not representative.
 
 5. **[Port Metasurface](/case-studies/port-metasurface/)**  
-   Senior thesis (in progress) — simulation vs. deployment mismatch
+   Boundary geometry changed simulated inverse behavior, but deployment claims require robustness and validation.
 
 ---
 
-**Constraint analysis for each**: [/constraints](/constraints/)
+## Pattern
 
-**Note**: These are undergraduate projects from 2024-2026. Limited scope, limited data, limited experience. I'm documenting them to see if the patterns generalize.
+Across the cases, the repeated failure mode is the same:
+
+> agreement with a model is not the same as unique identification.
+
+[Back to home](/)

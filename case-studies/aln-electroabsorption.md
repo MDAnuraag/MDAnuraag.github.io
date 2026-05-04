@@ -2,6 +2,8 @@
 layout: page
 title: AlN Electroabsorption
 permalink: /case-studies/aln-electroabsorption/
+redirect_from:
+  - /constraints/aln-electroabsorption/
 ---
 
 ![Optical setup]({{ "/assets/images/aln/aln12.png" | relative_url }})
@@ -9,136 +11,146 @@ permalink: /case-studies/aln-electroabsorption/
 
 ## Problem
 
-Plasma-enhanced ALD (PEALD) AlN thin films ($\sim$50–100 nm) showed field-dependent UV transmittance changes under applied electric fields up to $\sim200\ \mathrm{MV/m}$.
+Plasma-enhanced ALD AlN thin films showed field-dependent UV transmission changes under applied electric fields up to roughly $200\ \mathrm{MV/m}$.
 
-The modulation reached several percent in transmission, sharply localized near $282\ \mathrm{nm}$.
+The modulation was several percent in transmission and localized near $282\ \mathrm{nm}$.
 
-**Question:** What physical mechanism produces this field-dependent UV absorption?
+**Question:** what physical mechanism produces the field-dependent UV absorption?
 
-Several possibilities existed a priori:
-- Crystalline electro-optic effects (Pockels, Kerr)
-- Free-carrier absorption
-- Field-induced interference from refractive-index changes
-- Defect-mediated electroabsorption
+Possible explanations included crystalline electro-optic effects, free-carrier absorption, field-induced interference, and defect-mediated electroabsorption. The task was not to force a preferred mechanism. It was to rule out mechanisms that were inconsistent with the constraints.
 
-My task was not to “find the right mechanism,” but to **rule out the ones that were inconsistent with the data**.
+---
 
-This was my first experimental spectroscopy analysis project. The measurements existed; the interpretation did not.
+## Observable
+
+Field-dependent UV–visible transmission spectra from PEALD AlN thin films, supported by structural and morphology checks.
+
+The optical measurement was spatially averaged. It did not directly reveal where inside the film the responsible states were located.
+
+---
+
+## Claim
+
+The observed modulation is most consistent with defect-mediated electroabsorption.
+
+That claim is bounded. The data support a defect-mediated mechanism by elimination of alternatives, but they do not uniquely identify the defect species or depth distribution.
 
 ---
 
 ## What I tried
 
-I started by listing every mechanism I knew that could produce field-dependent optical absorption, then looked for **orthogonal measurements** that would constrain them.
+I treated the interpretation as a constraint problem.
 
-### Step 1: Structural check
+### Structural constraint
 
-X-ray diffraction showed no crystalline peaks above the detection limit.  
-The AlN films are predominantly amorphous.
+X-ray diffraction showed no crystalline peaks above the detection limit. The films were predominantly amorphous.
 
-**Implication:**  
-- Linear electro-optic (Pockels) effect requires non-centrosymmetric crystal symmetry → ruled out.
-- Kerr effect scales too weakly at these fields for amorphous AlN → implausible.
+That made a crystalline Pockels explanation inconsistent with the sample structure. Kerr-type responses remained possible in principle, but the expected magnitude was too small to explain the observed modulation.
 
----
+### Spectral-range constraint
 
-### Step 2: Spectral range check
+The field-dependent response was localized in the UV. No comparable visible or near-IR response was observed.
 
-I examined visible and near-IR transmittance under bias.
+That made free-carrier absorption unlikely, because a free-carrier mechanism should produce broader spectral signatures.
 
-No measurable field-dependent changes were observed outside the UV.
+### Wavelength-selectivity constraint
 
-**Implication:**  
-- Free-carrier absorption would produce broadband absorption, not a narrow UV-localized response → ruled out.
+The effect was concentrated near $282\ \mathrm{nm}$ rather than tracking the full spectrum uniformly.
 
----
+That made a simple interference explanation from a uniform index change unlikely.
 
-### Step 3: Wavelength specificity
+### Reversibility constraint
 
-The modulation is sharply peaked near $282\ \mathrm{nm}$ and does not track uniformly across wavelength.
+The modulation was reversible over repeated bias cycles.
 
-**Implication:**  
-- Simple interference from a uniform refractive-index change would affect the spectrum broadly → ruled out.
+That ruled out a permanent structural or chemical modification as the main cause.
 
 ---
 
-### Step 4: Morphology and field uniformity
+## Constraint analysis
 
-AFM showed smooth films with RMS roughness $\sim0.4$–$1\ \mathrm{nm}$, depending on substrate.
+### Load-bearing constraints
 
-**Implication:**  
-- Field penetration is approximately uniform across the film thickness.
-- The effect is unlikely to be dominated by localized interface roughness or screening.
+**Axiomatic.** Magnitude alone cannot identify a field-dependent optical mechanism. Different mechanisms can produce similar modulation amplitudes.
+
+**Measurement.** UV–visible transmission averages over the optical penetration depth. It cannot distinguish surface, bulk, and interface-localized defect contributions.
+
+**Structural.** The absence of crystalline peaks limits crystalline electro-optic interpretations.
+
+**Spectral.** The lack of a visible/NIR response constrains free-carrier explanations.
+
+**Computational.** Defect-level calculations at ordinary DFT accuracy cannot uniquely separate nitrogen vacancies, oxygen substitution, and aluminum interstitials.
+
+### Primary limiting factor
+
+Spatial averaging in the optical measurement.
+
+The transmission spectrum tells us that some field-sensitive absorptive states contribute. It does not tell us where those states are located inside the film.
 
 ---
 
 ## What survived
 
-After eliminating the alternatives, **defect-mediated electroabsorption** remained the simplest explanation consistent with all constraints.
+Defect-mediated electroabsorption survived the constraints.
 
-**Supporting observations (from the manuscript):**
-- Peak photon energy $\sim4.4\ \mathrm{eV}$ lies well below the AlN band gap ($\sim6.0\ \mathrm{eV}$), consistent with mid-gap defect states.
-- PEALD AlN grown at $\sim300^\circ\mathrm{C}$ is known to incorporate defects (e.g., N vacancies, O-related states).
-- The absorption coefficient increased from $\sim2.1\times10^3\ \mathrm{cm^{-1}}$ (zero field) to $\sim1.4\times10^4\ \mathrm{cm^{-1}}$ at $200\ \mathrm{MV/m}$.
-- The modulation was reversible over repeated bias cycles, ruling out permanent structural changes.
+The supporting logic was:
 
-**Effective electro-absorption coefficient:**
-$$
-\alpha_E \approx 6\times10^{-5}\ \mathrm{cm\cdot m/V}
-$$
+- the photon energy near $282\ \mathrm{nm}$ lies below the AlN band gap;
+- low-temperature PEALD AlN can contain defect states;
+- the response is spectrally localized;
+- the modulation is reversible;
+- crystalline electro-optic, free-carrier, and simple interference explanations are inconsistent with at least one independent constraint.
 
-This magnitude is consistent with defect-mediated processes in amorphous wide-bandgap semiconductors. :contentReference[oaicite:0]{index=0}
+The interpretation is therefore eliminative rather than fingerprint-based.
 
 ---
 
-## What I could not determine
+## What was ruled out
 
-**Specific defect identity**  
-Nitrogen vacancies, oxygen substitution, and aluminum interstitials all introduce states in similar energy ranges. The optical data alone cannot distinguish them.
+- A crystalline Pockels-effect explanation.
+- Free-carrier absorption as the dominant mechanism.
+- A simple uniform-index interference explanation.
+- Permanent material change as the main source of the reversible modulation.
 
-**Defect depth distribution**  
-UV–Vis averages over the optical penetration depth. I could not separate surface, bulk, or interface-localized contributions.
+---
 
-**Field-ionization vs. Stark shift**  
-Both mechanisms can produce similar spectral signatures without time-resolved or field-dependent linewidth measurements.
+## What remained non-identifiable
 
-The manuscript explicitly acknowledges these ambiguities rather than assigning a unique defect species. :contentReference[oaicite:1]{index=1}
+- The specific defect species.
+- Whether the relevant defects are surface, bulk, or interface dominated.
+- Whether the response is mainly field-assisted ionization, Stark shifting, or a mixture.
+- Whether different PEALD recipes would change the mechanism or only the defect density.
+
+---
+
+## What would reduce uncertainty
+
+- Impedance or capacitance-voltage measurements to constrain defect distributions.
+- PEALD recipe variation to correlate modulation strength with defect density.
+- Time-resolved spectroscopy to separate fast electronic shifts from slower trapping or ionization.
+- Higher-level defect calculations for candidate states.
+- Depth-sensitive optical or electrical characterization.
 
 ---
 
 ## What I learned
 
-**Mechanism identification by elimination is powerful**—but only when different measurements constrain different physics.
+Mechanism identification by elimination is legitimate only when the eliminations are constrained by independent measurements.
 
-Here:
-- XRD constrained crystal symmetry.
-- Spectral range constrained carrier type.
-- Wavelength selectivity constrained interference-based explanations.
+Here, XRD constrained symmetry, spectral range constrained carrier mechanisms, wavelength selectivity constrained interference explanations, and reversibility constrained permanent-change explanations.
 
-Without these orthogonal constraints, the result would have been an observation, not an interpretation.
-
-**What spectroscopy gives you:** constraints, not fingerprints.
+The optical spectrum did not uniquely identify a defect. It narrowed the admissible explanations.
 
 ---
 
-## What I’d do differently now
+**Status:** Manuscript submitted, December 2025. First author.  
+**Claim level:** defect-mediated electroabsorption inferred by elimination; defect identity and localization unresolved.  
+**Project date:** Spring 2025 – Winter 2025.  
+**Experience level then:** first experimental spectroscopy analysis project.
 
-If restarting this project:
-1. Add impedance spectroscopy early to constrain defect depth distributions.
-2. Vary PEALD conditions intentionally to correlate modulation strength with defect density.
-3. Use ultrafast pump–probe or field-dependent linewidth measurements to separate Stark shift from field-assisted ionization.
-
----
-
-**Status:** Manuscript submitted (December 2025). First author.  
-**Claim level:** Defect-mediated electroabsorption inferred by elimination of alternatives; specific defect species and localization remain unresolved. :contentReference[oaicite:2]{index=2}
-
-**Constraint analysis:** [/constraints/aln-electroabsorption](/constraints/aln-electroabsorption/)  
-**Methods:** [UV–Vis](/reading-ledger/#uv-vis), [XRD](/reading-ledger/#xrd), [AFM](/reading-ledger/#afm)
-
-**Project date:** Spring 2025 – Winter 2025  
-**Experience level:** First experimental spectroscopy analysis project; documenting how mechanism disambiguation actually works in practice.
+**Methods:** [UV–Vis spectroscopy](/reading-ledger/#uv-vis), [XRD](/reading-ledger/#xrd), [AFM](/reading-ledger/#afm)
 
 **Reference:**  
-Sharma, A.; Chen, W.; Kandwal, A.; Kit, C. C.; Kim, J.  
-*Electric Field-Induced Optical Effects in AlN Thin Films for Transparent Electronic Interfaces* (submitted). :contentReference[oaicite:3]{index=3}
+Sharma, A.; Chen, W.; Kandwal, A.; Kit, C. C.; Kim, J. *Electric Field-Induced Optical Effects in AlN Thin Films for Transparent Electronic Interfaces* (submitted).
+
+[Back to case studies](/case-studies/)

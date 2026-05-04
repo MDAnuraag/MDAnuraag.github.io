@@ -3,121 +3,185 @@ layout: interactive
 status: ongoing
 title: Port Metasurface — Boundary Diversity & Inverse Reconstruction
 permalink: /case-studies/port-metasurface/
+redirect_from:
+  - /constraints/port-metasurface/
 ---
 
 ## Problem
 
-Can a programmable boundary in a mmWave NLoS region make hidden objects *reconstructable*, not just detectable?
+The project began as a senior thesis question about passive mmWave metasurfaces for non-line-of-sight coverage in container-port environments.
 
-The project originally started as a coverage-recovery question for container ports (n258 band, 26 GHz).  
-But I quickly ran into a modelling problem: full-port simulations were dominated by geometry assumptions. Small changes in container placement or crane structure changed the channel more than any metasurface design.
+That framing was too broad. Full-port simulation results were dominated by geometry assumptions: container placement, crane structure, blockage state, and ground reflection could change the channel more than the boundary design itself.
 
-So I narrowed the scope.
+So I narrowed the question.
 
-Instead of asking whether a metasurface improves coverage, I asked a more measurable question:
+**Question:** can controlled boundary diversity improve the identifiability of a hidden object in a simplified NLoS inverse-scattering geometry?
 
-**If I control the boundary condition, how does that change the conditioning of the inverse scattering problem?**
-
-This is my senior thesis. Ongoing.
+The project is no longer claiming deployable port coverage. It is testing whether boundary geometry changes the conditioning and discrimination structure of the sensing operator.
 
 ---
 
-## What I did first (Forward model only)
+## Observable
+
+At the current stage, the observables are matrix properties derived from simulation, not deployment metrics.
+
+The measurable quantities are:
+
+- singular-value spectrum;
+- condition number $\kappa(A)$;
+- column correlations;
+- leakage and discrimination matrices;
+- reconstruction stability under controlled noise.
+
+Bench measurements and deployment metrics are outside the current evidence base.
+
+---
+
+## Claim
+
+Boundary geometry may change the identifiability of the inverse scattering problem.
+
+The bounded version of the claim is:
+
+> If stacking multiple boundary configurations reduces worst-case leakage or improves the conditioning of the sensing matrix, then boundary diversity improves identifiability within the controlled simulation geometry.
+
+This does not imply that a passive metasurface improves real container-port coverage.
+
+---
+
+## Forward model
 
 I built a minimal CST geometry:
 
-- Waveguide source at 26 GHz  
-- PEC occluding wall (creates the NLoS region)  
-- Metallic cylinder (hidden object)  
-- PEC boundary panel (metasurface placeholder)  
-- Probe plane sampling the scattered field
+- waveguide source at 26 GHz;
+- PEC occluding wall creating the NLoS region;
+- hidden metallic cylinder;
+- PEC boundary panel as a metasurface placeholder;
+- probe plane sampling the scattered field.
 
-Cylinder position was swept across 11 Y-locations (65 → 115 mm, 5 mm step). For each position I exported the complex field and built a sensing matrix
-
-$$
-A \in \mathbb{R}^{4681 \times 11},
-$$
-
-where column $j$ contains the probe-plane magnitude field when the cylinder is at position $j$. The inverse problem is then
+The cylinder position was swept across 11 candidate locations. Each CST simulation produced one column of a sensing matrix,
 
 $$
-y = A x,
+A \in \mathbb{R}^{4681 \times 11}.
 $$
 
-with $x$ = object reflectivity across 11 candidate locations and $y$ = measured probe field. Each CST simulation directly produces one column of $A$, converting the scattering problem into a linear inverse system.
+The inverse model is
 
-Flat boundary baseline: $\kappa(A) = 30.02$, full rank (11/11), 426× overdetermined, first singular value explaining 91.9% of variance.
+$$
+\mathbf{y} = A\mathbf{x} + \boldsymbol{\varepsilon},
+$$
 
-At this stage I had a stable forward model. But I still hadn't answered whether boundary geometry improves reconstruction.
+where $\mathbf{x}$ is a sparse object-position vector and $\mathbf{y}$ is the probe-plane field magnitude.
+
+This is a discrete, low-dimensional inverse problem. It is not continuous imaging.
 
 ---
 
-## The pivot (January 2026)
+## What changed in the project
 
-I reframed the system explicitly as an inverse problem:
+The original question was qualitative:
 
-$$
-\mathbf{y} = A\mathbf{x} + \text{noise}.
-$$
+> does the boundary improve coverage?
 
-Instead of qualitative claims about signal strength, I can now measure conditioning $\kappa(A)$, leakage in the discrimination matrix, and reconstruction stability under noise. That shift made the project tractable.
+That question was too vulnerable to geometry assumptions.
+
+The revised question is measurable:
+
+> does the boundary change the sensing matrix in a way that reduces ambiguity?
+
+That shift made the project tractable. Instead of judging pictures of fields, I can report conditioning, leakage, and reconstruction robustness.
 
 ---
 
-## Baseline, Config 6, and combined matrix — interactive
+## Interactive diagnostic
 
-The tool below lets you explore how boundary geometry changes the sensing matrix conditioning, column correlations, and reconstruction quality under noise. Switch between flat boundary, 15° tilted (Config 6), and the combined matrix to see the core argument of the thesis.
+The tool below is a diagnostic visualization for the sensing-matrix idea. It shows how different boundary configurations can change singular values, correlations, and Tikhonov reconstruction behavior.
+
+Read the combined-configuration tab as a hypothesis/diagnostic view, not as a final deployment result. The controlled simulation pipeline is still being completed.
 
 <div class="tool-embed">
 <div class="tool-label">Interactive — sensing matrix conditioning</div>
 {% include sensing-matrix-viz.html %}
 </div>
 
-**What the flat baseline shows:** the system is not fundamentally ill-posed — $\kappa = 30$ is moderate and reconstruction is stable up to 10% noise. The real weakness is within-Group-B column correlations reaching 0.93–0.99. Positions 75, 85, 95 mm (Group A) are cleanly separable; the edge positions are near-degenerate.
+---
 
-**What Config 6 shows:** rotating the boundary 15° shifts the detectable set entirely — 70 mm and 100–115 mm become Group A while 65–95 mm become weak. Higher per-configuration $\kappa$ (46.38) does not degrade reconstruction quality; PSF sidelobe and success rate are unchanged. The two configurations have complementary blind spots.
+## Constraint analysis
 
-**What the combined matrix shows:** stacking $A_\text{flat}$ and $A_\text{tilted}$ reduces $\kappa$ below either individual configuration and makes all 11 positions distinguishable. This is the core hypothesis — boundary diversity spans complementary spatial modes, reducing worst-case degeneracy.
+### Load-bearing constraints
+
+**Physical.** Passive structures obey reciprocity and energy conservation. They can redirect energy, not create power.
+
+**Modeling.** The current geometry contains one wall, one hidden cylinder, one boundary panel, and one probe plane. The model uses PEC boundaries and does not yet include real metasurface unit-cell physics.
+
+**Linearization.** The reconstruction assumes a linear sensing model. That is defensible only within the controlled weak-scattering setup used to build $A$.
+
+**Numerical.** The flat matrix is full rank and moderately conditioned. The dominant issue is not numerical collapse; it is column similarity between candidate positions.
+
+**Environmental.** Real ports are non-repeatable. Different container configurations can explain similar link improvements, making deployment attribution hard.
+
+**Fabrication.** Real surfaces introduce phase quantization, loss, angular sensitivity, and tolerance errors. These are not yet included.
+
+### Primary limiting factor
+
+Structural degeneracy in the sensing matrix.
+
+Some object positions produce similar probe-plane responses, so leakage between candidate positions is the main failure mode. The goal of boundary diversity is to make different configurations have different blind spots.
 
 ---
 
-## Combined sensing matrix (next step)
+## What has been ruled out
 
-The full combined matrix stacks three configurations:
+- Treating simulated coverage gain as deployment evidence.
+- Claiming improvement without measuring conditioning and leakage.
+- Assuming that a more complex solver is the right next step.
+- Reading per-configuration condition number as a direct reconstruction-quality score.
+- Optimizing boundary geometry before checking whether the inverse problem becomes more identifiable.
+
+---
+
+## What remains unresolved
+
+- Whether the final combined matrix reduces worst-case leakage across all positions.
+- Whether the stepped configuration adds information not already present in flat and tilted configurations.
+- Sensitivity of conditioning to boundary angle and boundary discretization.
+- Cross-configuration reconstruction: training on one geometry and testing on another.
+- Whether ideal PEC results survive realistic metasurface loss and phase quantization.
+- Whether any controlled result transfers to a port-like environment.
+
+---
+
+## What would reduce uncertainty
+
+- Complete the stepped-boundary CST sweep.
+- Construct the stacked matrix
 
 $$
-A_{\text{combined}} =
+A_{\mathrm{combined}} =
 \begin{bmatrix}
-A_{\text{flat}} \\
-A_{\text{tilted}} \\
-A_{\text{stepped}}
-\end{bmatrix}
-\in \mathbb{R}^{14043\times11}.
+A_{\mathrm{flat}} \\
+A_{\mathrm{tilted}} \\
+A_{\mathrm{stepped}}
+\end{bmatrix}.
 $$
 
-Config 7 (stepped PEC boundary) will provide the third dataset. The test is whether $\kappa(A_\text{combined})$ falls below the flat baseline and whether worst-case discrimination leakage reduces across all positions.
+- Compare $\kappa(A_{\mathrm{combined}})$ against the individual configurations.
+- Compare discrimination matrices element-wise.
+- Measure worst-case leakage reduction.
+- Run cross-configuration tests.
+- Replace ideal PEC with a simple fabricated or physically parameterized boundary model.
 
 ---
 
-## What I am not claiming
+## What I learned
 
-- That this system works in real container ports  
-- That fabrication tolerances preserve ideal boundary behaviour  
-- That sparse L1 solvers are necessary (Tikhonov is already stable here)
+The hard part was not initially fabrication accuracy or EM simulation fidelity.
 
-This is a controlled forward-model study. The goal is to understand **conditioning**, not to claim a deployable radar.
+The hard part was identifiability.
 
----
+Even with perfect simulated fields, an improvement claim is weak unless the measurement operator changes in a way that can be measured: lower ambiguity, better-conditioned modes, lower leakage, or more stable reconstruction.
 
-## What I have learned so far
-
-Environment uncertainty can invalidate optimisation. Full-port modelling produced visually convincing but physically meaningless results.
-
-Inverse framing forces measurable claims. Instead of "better coverage", I can report conditioning and leakage metrics.
-
-Well-conditioned problems do not need exotic solvers. With $\kappa \approx 30$, regularised least squares is sufficient.
-
-Higher per-configuration $\kappa$ does not necessarily degrade reconstruction. The important quantity is the **null-space structure** across configurations.
+That is the reason this project shifted from metasurface coverage to operator-centric inverse modeling.
 
 ---
 
@@ -126,16 +190,18 @@ Higher per-configuration $\kappa$ does not necessarily degrade reconstruction. T
 - [x] Flat boundary forward model
 - [x] Sensing matrix construction
 - [x] Tikhonov inversion
-- [x] Robustness testing (2750 trials)
-- [x] Config 6 tilted boundary
-- [ ] Config 7 stepped boundary
-- [ ] Combined matrix analysis
+- [x] AWGN robustness testing
+- [x] Tilted boundary configuration
+- [ ] Stepped boundary configuration
+- [ ] Full combined matrix analysis
 - [ ] Cross-configuration reconstruction
-- [ ] Fabrication (if simulations justify it)
+- [ ] Physical boundary validation, if simulations justify it
 
 ---
 
-**Constraint analysis:** [/constraints/port-metasurface](/constraints/port-metasurface/)  
-**Methods:** [EM simulation](/reading-ledger/#em-sim), [Inverse problems](/reading-ledger/#inverse-problems)
+**Status:** Senior thesis in progress, Fall 2025 – Spring 2026.  
+**Claim level:** controlled forward-model evidence only; no deployment claim.
 
-Project timeline: Fall 2025 – Spring 2026 (ongoing)
+**Methods:** [EM simulation](/reading-ledger/#em-sim), [Inverse problems](/reading-ledger/#inverse-problems), [Sensing matrices](/reading-ledger/#sensing-matrices)
+
+[Back to case studies](/case-studies/)

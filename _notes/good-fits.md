@@ -1,73 +1,91 @@
 ---
 layout: page
-title: Good fits don't imply identifiability
+title: Good Fits Don't Imply Identifiability
 permalink: /notes/good-fits/
 ---
 
-## The confusion
+## The error
 
-**Mistaken intuition**: "χ² = 0.05, therefore my 12 fit parameters are well-determined."
+A model gives a low residual, so the fitted parameters are treated as well determined.
 
-**Why it's wrong**: Fit quality measures **residual magnitude**, not **parameter uniqueness**. Many parameter sets produce identical χ².
+That is the wrong inference.
+
+Fit quality measures how closely one model output matches the data. It does not prove that the fitted parameters are unique.
 
 ---
 
-## What actually happened
+## Why it fails
 
-Your optimizer found **a** minimum, not **the** minimum.
+An optimizer finds **a** solution, not necessarily **the** solution.
 
-Parameter degeneracy means:
+A low value of $\chi^2$ means:
+
 $$
-\chi^2(\theta_1, \theta_2) = \chi^2(\theta_1 + \delta, \theta_2 - \delta)
+\|y_{\mathrm{measured}} - y_{\mathrm{model}}(\theta)\|^2
 $$
 
-The fit looks great, but $\theta_1$ and $\theta_2$ can trade off without changing the result.
+is small for one parameter vector $\theta$.
+
+It does not rule out another parameter vector $\theta'$ such that
+
+$$
+y_{\mathrm{model}}(\theta)
+\approx
+y_{\mathrm{model}}(\theta').
+$$
+
+If multiple parameter sets produce indistinguishable signals, the inverse problem is non-identifiable under that measurement configuration.
 
 ---
 
-## Real example (from RCWA metrology)
+## Example: inverse RCWA metrology
 
-**Scenario**: Fitting broadband reflectance to recover trench depth, sidewall angle, and layer thicknesses.
+In the RCWA metrology project, broadband reflectance could recover trench depth under fabrication bounds.
 
-**Observation**: 
-- χ² = 0.02 (excellent fit)
-- Multi-start optimization gives 15 different solutions, all with χ² < 0.03
-- Trench depth varies by <5% across solutions (identifiable)
-- Sidewall angle varies by 30° across solutions (not identifiable)
+But secondary parameters remained degenerate.
 
-**Lesson**: The **covariance structure** matters more than the fit quality.
+Different combinations of sidewall angle, layer thickness, and effective optical properties could produce nearly identical spectra. Multi-start optimization found different geometries with comparable residuals.
+
+That meant the fit was good, but the full geometry was not uniquely determined.
 
 ---
 
-## How to check
+## What to check instead
 
-1. **Multi-start optimization**: Run from 10+ random initial conditions. Do you converge to the same parameters?
-2. **Posterior sampling**: If Bayesian, plot parameter correlations. Strong correlation = degeneracy.
-3. **Sensitivity matrix**: Compute $\partial y / \partial \theta_i$. Singular or near-singular = non-identifiable.
+A fit becomes more meaningful when it survives identifiability checks:
 
----
+- multi-start optimization;
+- parameter covariance;
+- posterior sampling;
+- sensitivity matrix rank;
+- singular values;
+- independent validation;
+- added measurement diversity.
 
-## The working rule
+The central question is:
 
-Before claiming "we determined X from the fit":
-1. Check if X is correlated with other parameters
-2. Verify X converges across multiple optimization runs
-3. Report uncertainty that includes covariance, not just diagonal variance
+> Could a different parameter set fit the data equally well?
 
-If you skip this, you're reporting **an optimum**, not **the parameters**.
-
----
-
-## When this confusion causes real problems
-
-- Inverse metrology claiming "extracted geometry" without degeneracy analysis
-- Dispersion models with 8+ parameters all "determined from the data"
-- Rate constant fitting in kinetics with correlated pre-factors and activation energies
-
-In all cases, the fit looks good but the parameters are meaningless.
+If yes, the parameter is not identified.
 
 ---
 
-**Related**: [Inverse RCWA constraints](/constraints/inverse-rcwa/) (identifiability analysis), [Reading Ledger: Identifiability](/reading-ledger/#identifiability)
+## Working rule
 
-[Back to Notes](/notes/)
+Before saying “the fit determined parameter X,” check:
+
+1. whether X converges across multiple initializations;
+2. whether X is strongly correlated with other parameters;
+3. whether changing X can be compensated by another parameter;
+4. whether an independent measurement supports X.
+
+If those checks fail, report the fitted parameter as model-dependent rather than physically determined.
+
+---
+
+## Where this appears
+
+- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+- [Port Metasurface](/case-studies/port-metasurface/)
+
+[Back to notes](/notes/)
