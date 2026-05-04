@@ -1,0 +1,256 @@
+---
+---
+
+@import "minima";
+
+/* Font system */
+
+@font-face {
+  font-family: "Iosevka Site";
+  src: url("/assets/fonts/iosevka/iosevka-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Iosevka Site";
+  src: url("/assets/fonts/iosevka/iosevka-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-heading: "Syne", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Iosevka Site", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --text: #111111;
+  --muted: #666666;
+  --border: #d8d8d8;
+  --link: #174ea6;
+  --background: #ffffff;
+}
+
+/* Base */
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--background);
+  line-height: 1.62;
+  letter-spacing: -0.006em;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Layout */
+
+.wrapper {
+  max-width: 760px;
+}
+
+.page-content {
+  padding-top: 2.4rem;
+  padding-bottom: 3.5rem;
+}
+
+/* Header */
+
+.site-header {
+  border-top: 1px solid var(--text);
+  border-bottom: 1px solid #ececec;
+  min-height: 52px;
+}
+
+.site-title,
+.site-title:visited {
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--text);
+}
+
+.site-nav {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  letter-spacing: -0.01em;
+}
+
+.site-nav .page-link {
+  color: var(--text);
+}
+
+/* Type hierarchy */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  color: var(--text);
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+  font-weight: 650;
+}
+
+h1 {
+  font-size: clamp(2.15rem, 5vw, 3.9rem);
+  margin-top: 0;
+  margin-bottom: 1.7rem;
+}
+
+h2 {
+  font-size: clamp(1.55rem, 3vw, 2.15rem);
+  margin-top: 2.1rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.18rem;
+  margin-top: 1.7rem;
+  margin-bottom: 0.65rem;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1.05rem;
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* Links */
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--text);
+}
+
+/* Lists */
+
+ul,
+ol {
+  padding-left: 1.25rem;
+  margin-top: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+
+li + li {
+  margin-top: 0.28rem;
+}
+
+/* Quotes */
+
+blockquote {
+  border-left: 3px solid var(--border);
+  margin-left: 0;
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+blockquote p {
+  margin-bottom: 0;
+}
+
+/* Rules */
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 1.8rem 0 1.6rem;
+}
+
+/* Code */
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+code {
+  padding: 0.08rem 0.22rem;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  background: #f8f8f8;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  background: #f8f8f8;
+}
+
+pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* Tables */
+
+table {
+  font-size: 0.92rem;
+}
+
+th {
+  font-weight: 600;
+}
+
+/* Footer */
+
+.site-footer {
+  border-top: 1px solid #ececec;
+  padding-top: 1.5rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* KaTeX */
+
+.katex {
+  font-size: 1.03em;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 600px) {
+  .page-content {
+    padding-top: 1.6rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+  }
+
+  .site-nav {
+    font-size: 0.9rem;
+  }
+}
