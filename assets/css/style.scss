@@ -1,8 +1,11 @@
-   ---
-   ---
+---
+---
+
 @import "minima";
 
-/* Font system */
+/* ------------------------------------------------------------
+   Font system
+------------------------------------------------------------ */
 
 @font-face {
   font-family: "Iosevka Site";
@@ -20,19 +23,51 @@
   font-display: swap;
 }
 
+/* ------------------------------------------------------------
+   Tokens
+
+   Color logic:
+   - paper = publication / lab notebook
+   - black ink = claims
+   - blue = signal / measurement / operator
+   - orange = constraint / material limit
+   - violet = ambiguity / unresolved inference
+   - green = supported result
+   - red = failed or non-identifiable claim
+------------------------------------------------------------ */
+
 :root {
   --font-heading: "Syne", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-body: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Iosevka Site", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  --text: #111111;
-  --muted: #666666;
-  --border: #d8d8d8;
-  --link: #174ea6;
-  --background: #ffffff;
+  --background: #f7f1e3;
+  --surface: #fffaf0;
+  --surface-tint: #efe3c6;
+
+  --text: #15110c;
+  --muted: #6d6255;
+  --faint: #948778;
+
+  --border: #cdbc9e;
+  --border-soft: #e2d3b8;
+
+  --link: #1647b8;
+  --link-hover: #15110c;
+
+  --accent-blue: #0047ff;
+  --accent-cyan: #007f9f;
+  --accent-orange: #b14f24;
+  --accent-red: #8f2727;
+  --accent-green: #2f6f4e;
+  --accent-violet: #5f5a8a;
+
+  --code-bg: #efe3c6;
 }
 
-/* Base */
+/* ------------------------------------------------------------
+   Base
+------------------------------------------------------------ */
 
 html {
   font-size: 16px;
@@ -41,51 +76,87 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--text);
-  background: var(--background);
-  line-height: 1.62;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(0, 71, 255, 0.055), transparent 22rem),
+    linear-gradient(90deg, rgba(177, 79, 36, 0.04), transparent 32rem),
+    var(--background);
+  font-size: 16px;
+  line-height: 1.68;
   letter-spacing: -0.006em;
   font-feature-settings: "kern" 1, "liga" 1;
 }
 
-/* Layout */
+::selection {
+  background: rgba(0, 71, 255, 0.22);
+}
+
+/* ------------------------------------------------------------
+   Layout
+------------------------------------------------------------ */
 
 .wrapper {
-  max-width: 760px;
+  max-width: 700px;
 }
 
 .page-content {
-  padding-top: 2.4rem;
+  padding-top: 2.35rem;
   padding-bottom: 3.5rem;
 }
 
-/* Header */
+/* ------------------------------------------------------------
+   Header
+------------------------------------------------------------ */
 
 .site-header {
-  border-top: 1px solid var(--text);
-  border-bottom: 1px solid #ececec;
-  min-height: 52px;
+  border-top: 3px solid var(--accent-blue);
+  border-bottom: 1px solid var(--border-soft);
+  min-height: 54px;
+  background: rgba(247, 241, 227, 0.94);
+  backdrop-filter: blur(8px);
 }
 
 .site-title,
 .site-title:visited {
   font-family: var(--font-heading);
-  font-size: 1.18rem;
-  font-weight: 500;
-  letter-spacing: -0.04em;
+  font-size: 1.04rem;
+  font-weight: 700;
+  letter-spacing: -0.055em;
   color: var(--text);
+  background-image: none;
+}
+
+.site-title::after {
+  content: " /";
+  color: var(--accent-orange);
+  font-weight: 700;
+}
+
+.site-title:hover {
+  color: var(--link-hover);
+  text-decoration: none;
+  background-image: none;
 }
 
 .site-nav {
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   letter-spacing: -0.01em;
 }
 
 .site-nav .page-link {
   color: var(--text);
+  background-image: none;
 }
 
-/* Type hierarchy */
+.site-nav .page-link:hover {
+  color: var(--link);
+  text-decoration: none;
+  background-image: none;
+}
+
+/* ------------------------------------------------------------
+   Type hierarchy
+------------------------------------------------------------ */
 
 h1,
 h2,
@@ -93,27 +164,49 @@ h3,
 h4 {
   font-family: var(--font-heading);
   color: var(--text);
-  letter-spacing: -0.045em;
   line-height: 1.08;
-  font-weight: 650;
+  font-weight: 700;
+  letter-spacing: -0.055em;
 }
 
 h1 {
-  font-size: clamp(2.15rem, 5vw, 3.9rem);
+  font-size: clamp(2.05rem, 4vw, 3.15rem);
   margin-top: 0;
-  margin-bottom: 1.7rem;
+  margin-bottom: 1.65rem;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 4.2rem;
+  height: 4px;
+  margin-top: 0.75rem;
+  background: linear-gradient(
+    90deg,
+    var(--accent-blue),
+    var(--accent-orange)
+  );
 }
 
 h2 {
-  font-size: clamp(1.55rem, 3vw, 2.15rem);
-  margin-top: 2.1rem;
-  margin-bottom: 1rem;
+  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+  margin-top: 2.25rem;
+  margin-bottom: 0.95rem;
+  padding-left: 0.7rem;
+  border-left: 3px solid var(--accent-orange);
 }
 
 h3 {
-  font-size: 1.18rem;
-  margin-top: 1.7rem;
-  margin-bottom: 0.65rem;
+  font-size: 1.12rem;
+  margin-top: 1.65rem;
+  margin-bottom: 0.55rem;
+  color: var(--accent-violet);
+}
+
+h4 {
+  font-size: 1rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.45rem;
 }
 
 p {
@@ -121,28 +214,57 @@ p {
   margin-bottom: 1.05rem;
 }
 
+p + p {
+  margin-top: 0.25rem;
+}
+
+h2 + p,
+h3 + p {
+  margin-top: 0.85rem;
+}
+
 strong {
   font-weight: 600;
 }
 
-/* Links */
+/* ------------------------------------------------------------
+   Links
+------------------------------------------------------------ */
 
 a {
   color: var(--link);
-  text-decoration-thickness: 0.06em;
-  text-underline-offset: 0.18em;
+  text-decoration: none;
+  background-image: linear-gradient(
+    transparent 68%,
+    rgba(22, 71, 184, 0.16) 68%
+  );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 a:hover {
-  color: var(--text);
+  color: var(--link-hover);
+  background-image: linear-gradient(
+    transparent 62%,
+    rgba(177, 79, 36, 0.25) 62%
+  );
 }
 
-/* Lists */
+/* Avoid link highlight on header/logo contexts */
+
+.site-header a,
+.site-footer a {
+  background-image: none;
+}
+
+/* ------------------------------------------------------------
+   Lists
+------------------------------------------------------------ */
 
 ul,
 ol {
   padding-left: 1.25rem;
-  margin-top: 0.4rem;
+  margin-top: 0.35rem;
   margin-bottom: 1.1rem;
 }
 
@@ -150,29 +272,48 @@ li + li {
   margin-top: 0.28rem;
 }
 
-/* Quotes */
+li::marker {
+  color: var(--accent-orange);
+}
+
+/* ------------------------------------------------------------
+   Quotes
+------------------------------------------------------------ */
 
 blockquote {
-  border-left: 3px solid var(--border);
-  margin-left: 0;
-  padding-left: 1rem;
-  color: var(--muted);
+  border-left: 4px solid var(--accent-blue);
+  margin: 1.25rem 0 1.45rem;
+  padding: 0.85rem 1rem;
+  color: var(--text);
   font-style: italic;
+  background:
+    linear-gradient(90deg, rgba(0, 71, 255, 0.08), transparent 80%),
+    rgba(255, 250, 240, 0.72);
 }
 
 blockquote p {
   margin-bottom: 0;
 }
 
-/* Rules */
+/* ------------------------------------------------------------
+   Rules
+------------------------------------------------------------ */
 
 hr {
   border: 0;
-  border-top: 1px solid var(--border);
-  margin: 1.8rem 0 1.6rem;
+  height: 1px;
+  margin: 2rem 0 1.8rem;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 71, 255, 0.75),
+    rgba(177, 79, 36, 0.55),
+    transparent
+  );
 }
 
-/* Code */
+/* ------------------------------------------------------------
+   Code
+------------------------------------------------------------ */
 
 code,
 pre,
@@ -183,18 +324,21 @@ samp {
 }
 
 code {
-  padding: 0.08rem 0.22rem;
-  border: 1px solid #e8e8e8;
+  padding: 0.08rem 0.24rem;
+  border: 1px solid var(--border-soft);
   border-radius: 4px;
-  background: #f8f8f8;
+  background: var(--code-bg);
+  color: #2b2117;
 }
 
 pre {
   overflow-x: auto;
   padding: 1rem;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent-blue);
   border-radius: 8px;
-  background: #f8f8f8;
+  background: var(--code-bg);
+  line-height: 1.55;
 }
 
 pre code {
@@ -203,26 +347,48 @@ pre code {
   background: transparent;
 }
 
-/* Tables */
+/* ------------------------------------------------------------
+   Tables
+------------------------------------------------------------ */
 
 table {
   font-size: 0.92rem;
+  border-color: var(--border-soft);
 }
 
 th {
   font-weight: 600;
+  color: var(--text);
 }
 
-/* Footer */
+td,
+th {
+  border-color: var(--border-soft);
+}
+
+/* ------------------------------------------------------------
+   Images
+------------------------------------------------------------ */
+
+img {
+  max-width: 100%;
+}
+
+/* ------------------------------------------------------------
+   Footer
+------------------------------------------------------------ */
 
 .site-footer {
-  border-top: 1px solid #ececec;
+  border-top: 1px solid var(--border-soft);
   padding-top: 1.5rem;
   color: var(--muted);
   font-size: 0.88rem;
+  background: var(--background);
 }
 
-/* KaTeX */
+/* ------------------------------------------------------------
+   KaTeX
+------------------------------------------------------------ */
 
 .katex {
   font-size: 1.03em;
@@ -231,40 +397,179 @@ th {
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0.25rem 0;
+  padding: 0.7rem 0.85rem;
+  margin: 1rem 0 1.2rem;
+  background: rgba(255, 250, 240, 0.7);
+  border-left: 4px solid var(--accent-cyan);
 }
 
-/* Mobile */
+/* ------------------------------------------------------------
+   Markdown-friendly semantic helpers
+------------------------------------------------------------ */
+
+.text-muted {
+  color: var(--muted);
+}
+
+.text-faint {
+  color: var(--faint);
+}
+
+.text-supported {
+  color: var(--accent-green);
+}
+
+.text-limited {
+  color: var(--accent-red);
+}
+
+.text-open {
+  color: var(--accent-orange);
+}
+
+.text-ambiguous {
+  color: var(--accent-violet);
+}
+
+/* ------------------------------------------------------------
+   Plain-markdown rhythm
+------------------------------------------------------------ */
+
+p strong:first-child {
+  color: var(--text);
+}
+
+p:has(strong:first-child) {
+  margin-top: 1.15rem;
+}
+
+main p > a:first-child:last-child {
+  font-weight: 500;
+}
+
+main p > a:first-child {
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------
+   Optional callout classes
+------------------------------------------------------------ */
+
+.claim {
+  margin: 1.3rem 0 1.5rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--accent-blue);
+  background: rgba(0, 71, 255, 0.055);
+}
+
+.claim strong {
+  color: var(--accent-blue);
+}
+
+.limit {
+  margin: 1.3rem 0 1.5rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--accent-red);
+  background: rgba(143, 39, 39, 0.045);
+}
+
+.limit strong {
+  color: var(--accent-red);
+}
+
+.open {
+  margin: 1.3rem 0 1.5rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--accent-violet);
+  background: rgba(95, 90, 138, 0.06);
+}
+
+.open strong {
+  color: var(--accent-violet);
+}
+
+.status {
+  display: inline-block;
+  margin-bottom: 1.1rem;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--muted);
+  background: var(--surface-tint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.status.complete {
+  color: var(--accent-green);
+  border-color: rgba(47, 111, 78, 0.35);
+}
+
+.status.submitted,
+.status.ongoing {
+  color: var(--accent-orange);
+  border-color: rgba(177, 79, 36, 0.35);
+}
+
+/* ------------------------------------------------------------
+   Interactive embeds
+------------------------------------------------------------ */
+
+.tool-embed {
+  margin: 1.4rem 0 1.8rem;
+}
+
+.tool-label {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 0.45rem;
+}
+
+/* ------------------------------------------------------------
+   Mobile
+------------------------------------------------------------ */
 
 @media screen and (max-width: 600px) {
+  .wrapper {
+    max-width: calc(100% - 2rem);
+  }
+
   .page-content {
-    padding-top: 1.6rem;
+    padding-top: 1.65rem;
+  }
+
+  body {
+    background:
+      linear-gradient(90deg, rgba(0, 71, 255, 0.035), transparent 16rem),
+      var(--background);
   }
 
   h1 {
-    font-size: 2.2rem;
+    font-size: 2.05rem;
   }
 
   h2 {
-    font-size: 1.55rem;
+    font-size: 1.45rem;
+  }
+
+  h3 {
+    font-size: 1.08rem;
+  }
+
+  .site-title,
+  .site-title:visited {
+    font-size: 0.98rem;
   }
 
   .site-nav {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
   }
-}
 
-html body,
-html body p,
-html body li,
-html body a {
-  font-family: "Space Grotesk", system-ui, sans-serif !important;
-}
-
-html body h1,
-html body h2,
-html body h3,
-html body h4,
-html body .site-title {
-  font-family: "Syne", system-ui, sans-serif !important;
+  .katex-display {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
 }
