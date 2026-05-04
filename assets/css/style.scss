@@ -251,3 +251,18 @@ th {
     font-size: 0.9rem;
   }
 }
+
+html body,
+html body p,
+html body li,
+html body a {
+  font-family: "Space Grotesk", system-ui, sans-serif !important;
+}
+
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body .site-title {
+  font-family: "Syne", system-ui, sans-serif !important;
+}

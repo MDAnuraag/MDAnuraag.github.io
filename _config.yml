@@ -51,11 +51,8 @@ plugins:
 #   - vendor/ruby/
 
 header_pages:
-  - method.md
-  - case-studies.md
-  - constraints.md
+  - work.md
   - notes.md
-  - reading-ledger.md
   - cv.md
 
 collections:
