@@ -4,40 +4,39 @@ title: Anuraag Sharma
 permalink: /
 ---
 
-I work on inverse problems in physical sensing.
+I study cases where physical measurements are easier to fit than to interpret.
 
-When measurements are indirect, I care less about whether a model fits and more about what the data can actually identify.
+My work spans semiconductor optical metrology, electro-optic thin films, first-principles optical modeling, alloy configuration sampling, and mmWave non-line-of-sight sensing.
 
-My work has moved through optical metrology, electro-optic materials, first-principles optical modeling, and mmWave non-line-of-sight sensing. The common problem is the same:
+Across these projects, I ask the same question:
 
-- What did the measurement constrain?
-- What did the model assume?
-- What remained non-identifiable?
-
-I use this site to document that question across projects.
+> What did the measurement actually identify?
 
 ---
 
-## Current focus
+## Work
 
-**Operator-centric mmWave NLoS inference**  
-Testing whether controlled boundary diversity improves sensing-matrix conditioning, reconstruction stability, leakage, and robustness in 26 GHz non-line-of-sight scenes.
+[Inverse RCWA Metrology](/work/inverse-rcwa/)  
+Recovering trench depth from optical spectra while secondary geometry remained degenerate.
 
-**Inverse optical metrology**  
-Connecting broadband optical response to physical structure through RCWA-based modeling and parameter recovery.
+[AlN Electroabsorption](/work/aln-electroabsorption/)  
+Using structural and spectral constraints to narrow field-dependent UV absorption to a defect-mediated mechanism.
 
-**Electro-optic materials**  
-Separating plausible optical mechanisms from effective fits in field-dependent thin-film measurements.
+[Port Metasurface](/work/port-metasurface/)  
+Testing whether boundary diversity improves sensing-matrix conditioning in 26 GHz NLoS reconstruction.
+
+[All work](/work/)
 
 ---
 
-## Read
+## Notes
 
-[Case Studies](/case-studies/) — project evidence  
-[Method](/method/) — how I reason through inverse problems   
-[Notes](/notes/) — unresolved questions and working fragments  
-[Reading Ledger](/reading-ledger/) — when methods helped vs misled  
-[CV](/cv/) — background and contact  
-[About](/about/) — why this site is public
+Short notes on recurring inference errors:
 
-**Current status**: finishing thesis, defense May 2026; graduate cycle in progress.
+[Good fits don't imply identifiability](/notes/good-fits/)  
+[Spectra are constraints, not fingerprints](/notes/spectra-constraints/)  
+[Simulation is not deployment evidence](/notes/simulation-not-deployment/)
+
+---
+
+[CV](/cv/) · [About](/about/)

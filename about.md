@@ -4,61 +4,38 @@ title: About
 permalink: /about/
 ---
 
-## What this is
+I am an undergraduate microelectronics student working on inverse problems in physical sensing.
 
-This site is a public record of how I think through inverse problems in physical sensing.
+My projects have moved through semiconductor optical metrology, electro-optic thin films, first-principles optical modeling, alloy configuration sampling, and mmWave non-line-of-sight sensing.
 
-I am finishing my undergraduate degree in microelectronics and working across optical metrology, electro-optic materials, first-principles optical modeling, and mmWave non-line-of-sight sensing.
+The common problem is interpretation:
 
-The common problem is interpretation. A model can fit the data while the mechanism remains ambiguous. This site is where I document what the measurement constrained, what the model assumed, and what could not be identified.
+> a model can fit the data while the mechanism remains ambiguous.
 
----
-
-## Why it is public
-
-Keeping this public forces discipline.
-
-It is easier to overclaim in private notes. It is harder when the reasoning, assumptions, and revisions remain visible.
-
-The intended audience is:
-
-1. **Future me** — to preserve standards when publication or career pressure increases.
-2. **Future collaborators** — to show how I think about uncertainty and evidence.
-3. **Readers with similar problems** — to make the framework useful beyond my own projects.
+This site is a public record of how I handle that ambiguity. I write down what the measurement actually observed, what the model assumed, what alternatives remained possible, and what could not be identified.
 
 ---
 
-## What to expect
+## Why this site exists
 
-This site will change.
+I use this site to keep my claims bounded.
 
-I am defending my undergraduate thesis in May 2026 and preparing for graduate study. As I encounter systems that break my current framework, I will revise it.
+Most project pages are not written as success stories. They are records of where a measurement helped, where a model failed, and where the evidence stopped.
 
-The content is intentionally uneven. Some pages are mature case studies. Others are working notes, unresolved questions, or method fragments. The point is not to present finished certainty. The point is to track how interpretation improves under constraint.
-
----
-
-## Maintenance
-
-I update this site when:
-
-- a project changes my previous interpretation,
-- I find an error in an earlier analysis,
-- a method fails in a way worth recording,
-- or a new project exposes a limitation in the framework.
+The intended reader is someone who wants to see how I reason through uncertainty, not just what I finished.
 
 ---
 
-## Last major review
+## Current status
 
-May 2026 — homepage and About page simplified around inverse problems, physical sensing, and identifiability.
+I am finishing my undergraduate thesis in May 2026 and preparing for graduate study.
+
+The site will change as projects close, claims become obsolete, or better evidence replaces earlier interpretations.
 
 ---
 
 ## Contact
 
-**Errors, inconsistencies, or questions:**  
 anuraag.sharma22 [at] student.xjtlu.edu.cn
 
-**For PIs, collaborators, or hiring managers:**  
-This site is not a polished portfolio. It is closer to a reasoning trail. The goal is to make my assumptions, limits, and technical direction visible.
+[CV](/cv/) · [Work](/work/) · [Notes](/notes/)
