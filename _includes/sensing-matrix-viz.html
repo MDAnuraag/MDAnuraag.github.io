@@ -1,349 +1,908 @@
 
 <style>
-  .viz-root { padding: 1rem 0; font-family: var(--font-sans); }
-  .controls-row { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 1.5rem; align-items: flex-end; }
-  .control-group { display: flex; flex-direction: column; gap: 6px; min-width: 160px; flex: 1; }
-  .control-label { font-size: 13px; color: var(--color-text-secondary); }
-  .control-value { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
-  .metric-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
-  .metric-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; }
-  .metric-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
-  .metric-value { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
-  .metric-sub { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
-  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 1.5rem; }
-  .chart-panel { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; }
-  .chart-title { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 0.75rem; }
-  .heatmap-container { overflow-x: auto; }
-  .config-tabs { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
-  .tab-btn { padding: 6px 14px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; }
-  .tab-btn.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); }
-  .insight-box { background: var(--color-background-secondary); border-left: 2px solid #1D9E75; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 0.75rem 1rem; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 1rem; }
-  .group-legend { display: flex; gap: 16px; margin-bottom: 0.5rem; font-size: 12px; color: var(--color-text-secondary); }
-  .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 4px; }
-  @media (max-width: 500px) { .chart-row { grid-template-columns: 1fr; } }
+  .smv-root {
+    padding: 1rem 0 1.2rem;
+    font-family: var(--font-body, system-ui, sans-serif);
+    color: var(--text, #15110c);
+  }
+
+  .smv-claim {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+    padding: 0.95rem 1rem;
+    border: 1px solid var(--border-soft, #e2d3b8);
+    border-left: 4px solid var(--accent-blue, #0047ff);
+    border-radius: 10px;
+    background:
+      linear-gradient(90deg, rgba(0, 71, 255, 0.07), transparent 70%),
+      var(--surface, #fffaf0);
+  }
+
+  .smv-claim-title {
+    font-family: var(--font-heading, system-ui, sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    margin-bottom: 0.25rem;
+  }
+
+  .smv-claim-text {
+    color: var(--muted, #6d6255);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .smv-evidence {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-content: flex-start;
+    justify-content: flex-end;
+  }
+
+  .smv-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.18rem 0.48rem;
+    border-radius: 999px;
+    border: 1px solid var(--border, #cdbc9e);
+    background: var(--surface-tint, #efe3c6);
+    color: var(--muted, #6d6255);
+    font-size: 0.72rem;
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+
+  .smv-chip strong {
+    color: var(--text, #15110c);
+    font-weight: 600;
+  }
+
+  .smv-spine {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .smv-step {
+    position: relative;
+    padding: 0.7rem 0.75rem;
+    min-height: 76px;
+    border: 1px solid var(--border-soft, #e2d3b8);
+    border-radius: 10px;
+    background: rgba(255, 250, 240, 0.72);
+  }
+
+  .smv-step::after {
+    content: "→";
+    position: absolute;
+    top: 50%;
+    right: -0.55rem;
+    transform: translateY(-50%);
+    color: var(--accent-orange, #b14f24);
+    font-weight: 700;
+  }
+
+  .smv-step:last-child::after { content: ""; }
+
+  .smv-step.active {
+    border-color: rgba(0, 71, 255, 0.45);
+    box-shadow: inset 0 0 0 1px rgba(0, 71, 255, 0.18);
+    background:
+      linear-gradient(180deg, rgba(0, 71, 255, 0.075), transparent 80%),
+      var(--surface, #fffaf0);
+  }
+
+  .smv-step-label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--faint, #948778);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .smv-step-main {
+    font-weight: 600;
+    font-size: 0.88rem;
+    line-height: 1.25;
+  }
+
+  .smv-step-sub {
+    margin-top: 0.25rem;
+    color: var(--muted, #6d6255);
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .smv-tabs {
+    display: flex;
+    gap: 0.45rem;
+    margin: 1rem 0 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .smv-tab {
+    padding: 0.38rem 0.72rem;
+    border: 1px solid var(--border-soft, #e2d3b8);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted, #6d6255);
+    font: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+  }
+
+  .smv-tab.active {
+    color: var(--text, #15110c);
+    border-color: rgba(0, 71, 255, 0.55);
+    background: rgba(0, 71, 255, 0.08);
+  }
+
+  .smv-controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .smv-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .smv-control label {
+    color: var(--muted, #6d6255);
+    font-size: 0.78rem;
+  }
+
+  .smv-control span {
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .smv-control input[type="range"] {
+    accent-color: var(--accent-blue, #0047ff);
+  }
+
+  .smv-metrics {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-bottom: 1rem;
+  }
+
+  .smv-metric {
+    border: 1px solid var(--border-soft, #e2d3b8);
+    border-radius: 9px;
+    padding: 0.62rem 0.7rem;
+    background: var(--surface, #fffaf0);
+  }
+
+  .smv-metric-label {
+    color: var(--muted, #6d6255);
+    font-size: 0.68rem;
+    line-height: 1.2;
+  }
+
+  .smv-metric-value {
+    margin-top: 0.16rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+
+  .smv-metric-sub {
+    margin-top: 0.12rem;
+    color: var(--faint, #948778);
+    font-size: 0.66rem;
+    line-height: 1.25;
+  }
+
+  .smv-insight {
+    margin-bottom: 1rem;
+    padding: 0.75rem 0.9rem;
+    border-left: 3px solid var(--accent-violet, #5f5a8a);
+    border-radius: 0 8px 8px 0;
+    background: rgba(95, 90, 138, 0.06);
+    color: var(--muted, #6d6255);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .smv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  .smv-panel {
+    border: 1px solid var(--border-soft, #e2d3b8);
+    border-radius: 10px;
+    padding: 0.85rem;
+    background: rgba(255, 250, 240, 0.78);
+  }
+
+  .smv-panel.wide {
+    grid-column: 1 / -1;
+  }
+
+  .smv-panel-title {
+    margin-bottom: 0.55rem;
+    color: var(--muted, #6d6255);
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .smv-chart {
+    position: relative;
+    height: 180px;
+  }
+
+  .smv-heatmap-wrap {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) 0.8fr;
+    gap: 0.8rem;
+    align-items: center;
+  }
+
+  .smv-heatmap {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft, #e2d3b8);
+    background: var(--surface-tint, #efe3c6);
+  }
+
+  .smv-side-note {
+    color: var(--muted, #6d6255);
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .smv-prototype {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  .smv-prototype.active {
+    display: grid;
+  }
+
+  .smv-cell-sketch {
+    height: 260px;
+    border-radius: 10px;
+    border: 1px solid var(--border-soft, #e2d3b8);
+    background:
+      radial-gradient(circle at center, rgba(177, 79, 36, 0.12), transparent 4.8rem),
+      var(--surface-tint, #efe3c6);
+  }
+
+  .smv-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .smv-fact {
+    border: 1px solid var(--border-soft, #e2d3b8);
+    border-radius: 8px;
+    padding: 0.55rem 0.62rem;
+    background: var(--surface, #fffaf0);
+  }
+
+  .smv-fact strong {
+    display: block;
+    font-size: 1rem;
+    letter-spacing: -0.03em;
+  }
+
+  .smv-fact span {
+    color: var(--muted, #6d6255);
+    font-size: 0.72rem;
+  }
+
+  .smv-status-bars {
+    margin-top: 0.7rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .smv-bar-row {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.75rem;
+    color: var(--muted, #6d6255);
+  }
+
+  .smv-bar-track {
+    height: 0.55rem;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--surface-tint, #efe3c6);
+    border: 1px solid var(--border-soft, #e2d3b8);
+  }
+
+  .smv-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-blue, #0047ff), var(--accent-orange, #b14f24));
+  }
+
+  .smv-caption {
+    margin-top: 0.55rem;
+    color: var(--faint, #948778);
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 720px) {
+    .smv-claim,
+    .smv-grid,
+    .smv-prototype,
+    .smv-heatmap-wrap {
+      grid-template-columns: 1fr;
+    }
+
+    .smv-evidence {
+      justify-content: flex-start;
+    }
+
+    .smv-spine,
+    .smv-controls,
+    .smv-metrics {
+      grid-template-columns: 1fr;
+    }
+
+    .smv-step::after {
+      content: "↓";
+      right: 50%;
+      top: auto;
+      bottom: -0.72rem;
+      transform: translateX(50%);
+    }
+
+    .smv-chart {
+      height: 170px;
+    }
+  }
 </style>
 
-<div class="viz-root">
-  <div class="config-tabs" id="configTabs">
-    <button class="tab-btn active" onclick="setConfig('flat')">Flat boundary</button>
-    <button class="tab-btn" onclick="setConfig('tilted')">Tilted 15° (Config 6)</button>
-    <button class="tab-btn" onclick="setConfig('combined')">Combined A<sub>flat</sub> + A<sub>tilted</sub></button>
-  </div>
-
-  <div class="controls-row">
-    <div class="control-group">
-      <span class="control-label">Noise level</span>
-      <input type="range" min="0" max="30" value="5" step="1" id="noiseSlider" oninput="update()">
-      <span class="control-value"><span id="noiseVal">5</span>%</span>
+<div class="smv-root" id="smvRoot">
+  <div class="smv-claim">
+    <div>
+      <div class="smv-claim-title">Boundary design only matters if it changes the operator.</div>
+      <div class="smv-claim-text">Use the tabs to compare idealised PEC boundaries, stacked sensing, and the physical 26&nbsp;GHz prototype bridge. Read this as a controlled inverse-sensing diagnostic, not a port-deployment result.</div>
     </div>
-    <div class="control-group">
-      <span class="control-label">Regularisation λ</span>
-      <input type="range" min="0" max="40" value="10" step="1" id="lambdaSlider" oninput="update()">
-      <span class="control-value">λ = <span id="lambdaVal">1.0</span></span>
-    </div>
-    <div class="control-group">
-      <span class="control-label">Object position</span>
-      <input type="range" min="0" max="10" value="3" step="1" id="posSlider" oninput="update()">
-      <span class="control-value"><span id="posVal">85</span> mm</span>
+    <div class="smv-evidence">
+      <span class="smv-chip"><strong>Evidence</strong> CST + Python</span>
+      <span class="smv-chip"><strong>Claim</strong> identifiability</span>
+      <span class="smv-chip"><strong>Not claimed</strong> port coverage</span>
     </div>
   </div>
 
-  <div class="metric-row" id="metricRow"></div>
-
-  <div class="insight-box" id="insightBox"></div>
-
-  <div class="chart-row">
-    <div class="chart-panel">
-      <div class="chart-title">Singular value spectrum</div>
-      <div style="position: relative; height: 180px;"><canvas id="svChart"></canvas></div>
+  <div class="smv-spine" id="smvSpine">
+    <div class="smv-step active" data-step="boundary">
+      <span class="smv-step-label">1 / Boundary</span>
+      <div class="smv-step-main">flat, tilted, stacked, prototype</div>
+      <div class="smv-step-sub">change the electromagnetic scene</div>
     </div>
-    <div class="chart-panel">
-      <div class="chart-title">Reconstruction (Tikhonov)</div>
-      <div class="group-legend">
-        <span><span class="legend-dot" style="background:#1D9E75;"></span>True</span>
-        <span><span class="legend-dot" style="background:#378ADD;"></span>Recovered</span>
+    <div class="smv-step" data-step="operator">
+      <span class="smv-step-label">2 / Operator</span>
+      <div class="smv-step-main">build sensing matrix A</div>
+      <div class="smv-step-sub">columns encode hidden positions</div>
+    </div>
+    <div class="smv-step" data-step="recover">
+      <span class="smv-step-label">3 / Recovery</span>
+      <div class="smv-step-main">invert y = Ax</div>
+      <div class="smv-step-sub">test leakage and success</div>
+    </div>
+    <div class="smv-step" data-step="measure">
+      <span class="smv-step-label">4 / Measurement</span>
+      <div class="smv-step-main">planned ΔS₂₁ bridge</div>
+      <div class="smv-step-sub">fabricated-panel validation pending</div>
+    </div>
+  </div>
+
+  <div class="smv-tabs">
+    <button class="smv-tab active" data-config="flat">Flat PEC</button>
+    <button class="smv-tab" data-config="tilted">Tilted PEC</button>
+    <button class="smv-tab" data-config="combined">Stacked operator</button>
+    <button class="smv-tab" data-config="prototype">26 GHz prototype</button>
+  </div>
+
+  <div id="smvOperatorView">
+    <div class="smv-controls">
+      <div class="smv-control">
+        <label for="smvNoise">Noise level</label>
+        <input type="range" min="0" max="30" value="5" step="1" id="smvNoise">
+        <span><span id="smvNoiseVal">5</span>% injected perturbation</span>
       </div>
-      <div style="position: relative; height: 155px;"><canvas id="reconChart"></canvas></div>
+      <div class="smv-control">
+        <label for="smvLambda">Regularization λ</label>
+        <input type="range" min="0" max="40" value="10" step="1" id="smvLambda">
+        <span>λ = <span id="smvLambdaVal">1.0</span></span>
+      </div>
+      <div class="smv-control">
+        <label for="smvPos">Hidden object position</label>
+        <input type="range" min="0" max="10" value="3" step="1" id="smvPos">
+        <span><span id="smvPosVal">80</span> mm</span>
+      </div>
+    </div>
+
+    <div class="smv-metrics" id="smvMetrics"></div>
+    <div class="smv-insight" id="smvInsight"></div>
+
+    <div class="smv-grid">
+      <div class="smv-panel">
+        <div class="smv-panel-title">Singular-value spectrum</div>
+        <div class="smv-chart"><canvas id="smvSvChart"></canvas></div>
+      </div>
+
+      <div class="smv-panel">
+        <div class="smv-panel-title">Tikhonov reconstruction: true position vs recovered estimate</div>
+        <div class="smv-chart"><canvas id="smvReconChart"></canvas></div>
+      </div>
+
+      <div class="smv-panel wide">
+        <div class="smv-panel-title">Column-correlation map, ρᵢⱼ — bright off-diagonal cells mean ambiguous positions</div>
+        <div class="smv-heatmap-wrap">
+          <canvas id="smvHeatmap" class="smv-heatmap" width="520" height="250"></canvas>
+          <div class="smv-side-note" id="smvHeatmapNote"></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="chart-panel" style="margin-bottom: 1rem;">
-    <div class="chart-title">Sensing matrix column correlations — A (positions × columns)</div>
-    <div class="heatmap-container"><canvas id="hmChart" style="width:100%; max-width:600px; height:220px;"></canvas></div>
+  <div id="smvPrototypeView" class="smv-prototype">
+    <div class="smv-panel">
+      <div class="smv-panel-title">Loop–paddle–diamond unit cell — mechanism sketch</div>
+      <canvas id="smvCellSketch" class="smv-cell-sketch" width="480" height="260"></canvas>
+      <div class="smv-caption">Orange highlights indicate the intended capacitive paddle–diamond gaps. Blue path indicates the loop-dominated current route.</div>
+    </div>
+
+    <div class="smv-panel">
+      <div class="smv-panel-title">Prototype bridge: what is done vs what is still evidence-limited</div>
+      <div class="smv-facts">
+        <div class="smv-fact"><strong>26 GHz</strong><span>target n258/mmWave region</span></div>
+        <div class="smv-fact"><strong>31 × 31</strong><span>finite panel layout</span></div>
+        <div class="smv-fact"><strong>99.2 mm</strong><span>active aperture</span></div>
+        <div class="smv-fact"><strong>≈ 8.6λ₀</strong><span>panel width at 26 GHz</span></div>
+        <div class="smv-fact"><strong>RO4350B</strong><span>0.265 mm dielectric</span></div>
+        <div class="smv-fact"><strong>0.17 ± 0.03 mm</strong><span>critical gap risk</span></div>
+      </div>
+
+      <div class="smv-status-bars">
+        <div class="smv-bar-row"><span>unit-cell CST</span><div class="smv-bar-track"><div class="smv-bar-fill" style="width:100%"></div></div></div>
+        <div class="smv-bar-row"><span>3×3 validation</span><div class="smv-bar-track"><div class="smv-bar-fill" style="width:100%"></div></div></div>
+        <div class="smv-bar-row"><span>Gerber package</span><div class="smv-bar-track"><div class="smv-bar-fill" style="width:90%"></div></div></div>
+        <div class="smv-bar-row"><span>fabricated panel</span><div class="smv-bar-track"><div class="smv-bar-fill" style="width:15%"></div></div></div>
+        <div class="smv-bar-row"><span>measured ΔS₂₁</span><div class="smv-bar-track"><div class="smv-bar-fill" style="width:0%"></div></div></div>
+      </div>
+
+      <div class="smv-caption">Interpretation boundary: CST resonance and fabrication readiness are current evidence. Measured link recovery is pending.</div>
+    </div>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const POSITIONS = [65,70,75,80,85,90,95,100,105,110,115];
-const N = 11;
+(function () {
+  const POSITIONS = [65,70,75,80,85,90,95,100,105,110,115];
+  const N = POSITIONS.length;
 
-const CONFIGS = {
-  flat: {
-    kappa: 30.02,
-    sigmas: [13952, 8100, 4200, 2100, 980, 510, 290, 180, 120, 90, 465],
-    lambdaOpt: 5.67,
-    groupA: [2,3,4],
-    label: 'Flat boundary',
-    insight: 'Flat boundary: κ = 30.02, moderate conditioning. Positions 75–95 mm (Group A) are well-separated. Positions at the edges (Group B) show column correlations of 0.93–0.99 — the dominant limitation. Solver is stable up to ~10% noise.'
-  },
-  tilted: {
-    kappa: 46.38,
-    sigmas: [16219, 9500, 5100, 2400, 1050, 600, 350, 220, 140, 100, 350],
-    lambdaOpt: 4.01,
-    groupA: [0,1,7,8,9,10],
-    label: 'Tilted 15° (Config 6)',
-    insight: 'Tilted boundary: κ = 46.38 — higher per-configuration, but reconstruction quality is unchanged (PSF sidelobe ≤ −58 dB, 100% success to 10% noise). The detectable set shifts: 70 mm and 100–115 mm become Group A. Complementary blind spots to the flat baseline.'
-  },
-  combined: {
-    kappa: 18.4,
-    sigmas: [19800, 13200, 8900, 5600, 3100, 1800, 1100, 700, 420, 280, 190],
-    lambdaOpt: 3.2,
-    groupA: [0,1,2,3,4,5,6,7,8,9,10],
-    label: 'Combined A_flat + A_tilted',
-    insight: 'Combined matrix: κ drops to ~18.4 — better than either configuration alone. All 11 positions become distinguishable. This is the core hypothesis: boundary diversity reduces worst-case degeneracy by spanning complementary spatial modes. Combined matrix is 9362 × 11.'
+  const colors = {
+    text: cssVar('--text', '#15110c'),
+    muted: cssVar('--muted', '#6d6255'),
+    faint: cssVar('--faint', '#948778'),
+    blue: cssVar('--accent-blue', '#0047ff'),
+    cyan: cssVar('--accent-cyan', '#007f9f'),
+    orange: cssVar('--accent-orange', '#b14f24'),
+    green: cssVar('--accent-green', '#2f6f4e'),
+    red: cssVar('--accent-red', '#8f2727'),
+    violet: cssVar('--accent-violet', '#5f5a8a'),
+    border: cssVar('--border-soft', '#e2d3b8')
+  };
+
+  const CONFIGS = {
+    flat: {
+      kappa: 30.02,
+      sigmas: [13952, 8100, 4200, 2100, 980, 510, 290, 180, 120, 90, 465],
+      groupA: [2,3,4,5,6],
+      label: 'Flat PEC',
+      step: 'operator',
+      insight: 'Flat PEC provides a usable baseline but leaves edge positions strongly correlated. The key limitation is not rank; it is practical ambiguity between similar columns of A.',
+      note: 'Flat boundary: middle positions are more separable; edge positions remain a dominant ambiguity. This is the “one boundary, one blind-spot pattern” failure mode.'
+    },
+    tilted: {
+      kappa: 46.38,
+      sigmas: [16219, 9500, 5100, 2400, 1050, 600, 350, 220, 140, 100, 350],
+      groupA: [0,1,7,8,9,10],
+      label: 'Tilted PEC',
+      step: 'operator',
+      insight: 'Tilted PEC is not better by condition number alone, but it changes which positions are detectable. This is useful because complementary failure modes are what make stacking meaningful.',
+      note: 'Tilted boundary shifts the detectable set toward positions that were weaker under the flat case. The visual point is complementarity, not isolated superiority.'
+    },
+    combined: {
+      kappa: 18.4,
+      sigmas: [19800, 13200, 8900, 5600, 3100, 1800, 1100, 700, 420, 280, 190],
+      groupA: [0,1,2,3,4,5,6,7,8,9,10],
+      label: 'Stacked operator',
+      step: 'recover',
+      insight: 'Stacking combines complementary boundary views. The intended effect is lower worst-case ambiguity: not more signal in general, but more independent information about hidden position.',
+      note: 'Stacked operator: the off-diagonal ambiguity pattern is reduced because multiple boundary states contribute different spatial modes.'
+    }
+  };
+
+  let current = 'flat';
+  let svChart = null;
+  let reconChart = null;
+
+  function cssVar(name, fallback) {
+    const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return value || fallback;
   }
-};
 
-let currentConfig = 'flat';
-let svChart, reconChart, hmChart;
+  function getLambda(value) {
+    return Math.pow(value / 10, 2) * 10 + 0.1;
+  }
 
-function setConfig(cfg) {
-  currentConfig = cfg;
-  document.querySelectorAll('.tab-btn').forEach((b,i) => {
-    b.classList.toggle('active', ['flat','tilted','combined'][i] === cfg);
-  });
-  update();
-}
+  function seededNoise(i, j, cfgKey) {
+    const seed = (i + 1) * 12.9898 + (j + 1) * 78.233 + cfgKey.length * 37.719;
+    return Math.sin(seed) * 43758.5453 % 1;
+  }
 
-function getLambda(sliderVal) {
-  return parseFloat((Math.pow(sliderVal / 10, 2) * 10 + 0.1).toFixed(2));
-}
+  function buildSensingMatrix(groupA, cfgKey) {
+    const A = [];
+    for (let row = 0; row < N; row++) {
+      A.push([]);
+      for (let col = 0; col < N; col++) {
+        const dist = Math.abs(row - col);
+        const detectable = groupA.includes(col);
+        const width = detectable ? 1.25 : 2.9;
+        const base = detectable ? 1.0 : 0.72;
+        const ripple = 0.08 * Math.sin(row * 1.17 + col * 0.71 + cfgKey.length);
+        A[row][col] = base * Math.exp(-(dist * dist) / (2 * width * width)) + ripple;
+      }
+    }
+    return A;
+  }
 
-function buildSensingMatrix(groupA) {
-  const A = [];
-  for (let j = 0; j < N; j++) {
-    const col = [];
+  function computeCorrelation(A) {
+    const corr = [];
     for (let i = 0; i < N; i++) {
-      const dist = Math.abs(i - j);
-      const inA = groupA.includes(j);
-      const base = inA ? 60 : 25;
-      const decay = Math.exp(-dist * dist / 8);
-      col.push(base * decay + (inA ? 5 : 2) * Math.sin(dist * 1.2 + j));
+      corr[i] = [];
+      const ai = A.map(row => row[i]);
+      const ni = Math.sqrt(ai.reduce((s, v) => s + v * v, 0));
+      for (let j = 0; j < N; j++) {
+        const aj = A.map(row => row[j]);
+        const nj = Math.sqrt(aj.reduce((s, v) => s + v * v, 0));
+        const dot = ai.reduce((s, v, k) => s + v * aj[k], 0);
+        corr[i][j] = ni * nj ? Math.min(1, Math.max(-1, dot / (ni * nj))) : 1;
+      }
     }
-    A.push(col);
+    return corr;
   }
-  return A;
-}
 
-function computeCorrelations(A) {
-  const corr = [];
-  for (let i = 0; i < N; i++) {
-    corr.push([]);
-    const ci = A[i];
-    const mi = ci.reduce((s,v)=>s+v,0)/N;
-    const si = Math.sqrt(ci.reduce((s,v)=>s+(v-mi)**2,0));
-    for (let j = 0; j < N; j++) {
-      const cj = A[j];
-      const mj = cj.reduce((s,v)=>s+v,0)/N;
-      const sj = Math.sqrt(cj.reduce((s,v)=>s+(v-mj)**2,0));
-      const cov = ci.reduce((s,v,k)=>s+(v-mi)*(cj[k]-mj),0);
-      corr[i].push(si*sj > 0 ? Math.max(-1,Math.min(1, cov/(si*sj))) : 1);
+  function tikhonov(A, y, lambda) {
+    const AtA = [];
+    for (let i = 0; i < N; i++) {
+      AtA[i] = [];
+      for (let j = 0; j < N; j++) {
+        let s = 0;
+        for (let k = 0; k < N; k++) s += A[k][i] * A[k][j];
+        AtA[i][j] = s + (i === j ? lambda : 0);
+      }
     }
-  }
-  return corr;
-}
 
-function tikhonov(A, y, lambda) {
-  const AtA = [];
-  for (let i = 0; i < N; i++) {
-    AtA.push([]);
-    for (let j = 0; j < N; j++) {
+    const Aty = [];
+    for (let i = 0; i < N; i++) {
       let s = 0;
-      for (let k = 0; k < N; k++) s += A[k][i] * A[k][j];
-      AtA[i].push(s + (i===j ? lambda : 0));
+      for (let k = 0; k < N; k++) s += A[k][i] * y[k];
+      Aty[i] = s;
     }
+
+    return gaussianElimination(AtA, Aty);
   }
-  const Aty = [];
-  for (let i = 0; i < N; i++) {
-    let s = 0;
-    for (let k = 0; k < N; k++) s += A[k][i] * y[k];
-    Aty.push(s);
-  }
-  const x = gaussianElim(AtA, Aty);
-  return x;
-}
 
-function gaussianElim(M, b) {
-  const n = b.length;
-  const A = M.map((r,i) => [...r, b[i]]);
-  for (let col = 0; col < n; col++) {
-    let maxRow = col;
-    for (let row = col+1; row < n; row++) if (Math.abs(A[row][col]) > Math.abs(A[maxRow][col])) maxRow = row;
-    [A[col], A[maxRow]] = [A[maxRow], A[col]];
-    for (let row = col+1; row < n; row++) {
-      const f = A[row][col] / (A[col][col] || 1e-10);
-      for (let k = col; k <= n; k++) A[row][k] -= f * A[col][k];
-    }
-  }
-  const x = new Array(n).fill(0);
-  for (let i = n-1; i >= 0; i--) {
-    x[i] = A[i][n];
-    for (let j = i+1; j < n; j++) x[i] -= A[i][j] * x[j];
-    x[i] /= (A[i][i] || 1e-10);
-  }
-  return x;
-}
+  function gaussianElimination(M, b) {
+    const n = b.length;
+    const A = M.map((row, i) => row.concat(b[i]));
 
-function update() {
-  const cfg = CONFIGS[currentConfig];
-  const noise = parseInt(document.getElementById('noiseSlider').value);
-  const lambdaRaw = parseInt(document.getElementById('lambdaSlider').value);
-  const posIdx = parseInt(document.getElementById('posSlider').value);
-  const lambda = getLambda(lambdaRaw);
+    for (let col = 0; col < n; col++) {
+      let pivot = col;
+      for (let row = col + 1; row < n; row++) {
+        if (Math.abs(A[row][col]) > Math.abs(A[pivot][col])) pivot = row;
+      }
+      [A[col], A[pivot]] = [A[pivot], A[col]];
 
-  document.getElementById('noiseVal').textContent = noise;
-  document.getElementById('lambdaVal').textContent = lambda.toFixed(1);
-  document.getElementById('posVal').textContent = POSITIONS[posIdx];
-  document.getElementById('insightBox').textContent = cfg.insight;
-
-  const A = buildSensingMatrix(cfg.groupA);
-  const trueX = new Array(N).fill(0);
-  trueX[posIdx] = 1.0;
-
-  const y = A.map((col, i) => {
-    let s = 0;
-    for (let j = 0; j < N; j++) s += A[i][j] * trueX[j];
-    return s + (noise/100) * s * (Math.random()*2-1);
-  });
-
-  const xHat = tikhonov(A, y, lambda * cfg.sigmas[N-1] / 1000);
-  const xMax = Math.max(...xHat.map(Math.abs), 0.01);
-  const xNorm = xHat.map(v => v/xMax);
-
-  const corr = computeCorrelations(A);
-
-  const successRate = noise <= 10 ? 100 : noise <= 20 ? Math.round(100 - (noise-10)*4) : Math.round(60 - (noise-20)*2);
-  const effectiveKappa = currentConfig === 'combined' ? cfg.kappa : cfg.kappa * (1 + noise/200);
-
-  const metricRow = document.getElementById('metricRow');
-  metricRow.innerHTML = `
-    <div class="metric-card"><div class="metric-label">Condition number κ</div><div class="metric-value">${effectiveKappa.toFixed(1)}</div><div class="metric-sub">${cfg.label}</div></div>
-    <div class="metric-card"><div class="metric-label">Noise level</div><div class="metric-value">${noise}%</div><div class="metric-sub">injected Gaussian</div></div>
-    <div class="metric-card"><div class="metric-label">Regularisation λ</div><div class="metric-value">${lambda.toFixed(1)}</div><div class="metric-sub">Tikhonov parameter</div></div>
-    <div class="metric-card"><div class="metric-label">Est. success rate</div><div class="metric-value">${successRate}%</div><div class="metric-sub">at this noise level</div></div>
-    <div class="metric-card"><div class="metric-label">Object position</div><div class="metric-value">${POSITIONS[posIdx]} mm</div><div class="metric-sub">${cfg.groupA.includes(posIdx) ? 'Group A — detectable' : 'Group B — near-degenerate'}</div></div>
-  `;
-
-  const svLabels = cfg.sigmas.map((_,i)=>`σ${i+1}`);
-  const svData = [...cfg.sigmas].sort((a,b)=>b-a);
-
-  if (svChart) svChart.destroy();
-  Chart.defaults.font.family = getComputedStyle(document.documentElement)
-  .getPropertyValue('--font-sans').trim() 
-  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-  svChart = new Chart(document.getElementById('svChart'), {
-    type: 'bar',
-    data: {
-      labels: svLabels,
-      datasets: [{
-        data: svData,
-        backgroundColor: svData.map((v,i) => i < 3 ? '#1D9E75' : i < 7 ? '#378ADD' : '#B4B2A9'),
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { font: { size: 11 } }, grid: { display: false } },
-        y: { type: 'logarithmic', ticks: { font: { size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, grid: { color: 'rgba(128,128,128,0.1)' } }
+      for (let row = col + 1; row < n; row++) {
+        const factor = A[row][col] / (A[col][col] || 1e-10);
+        for (let k = col; k <= n; k++) A[row][k] -= factor * A[col][k];
       }
     }
-  });
 
-  if (reconChart) reconChart.destroy();
-  Chart.defaults.font.family = getComputedStyle(document.documentElement)
-  .getPropertyValue('--font-sans').trim() 
-  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-  reconChart = new Chart(document.getElementById('reconChart'), {
-    type: 'bar',
-    data: {
-      labels: POSITIONS.map(p=>p+'mm'),
-      datasets: [
-        { label: 'True', data: trueX, backgroundColor: '#1D9E75', borderWidth: 0 },
-        { label: 'Recovered', data: xNorm, backgroundColor: '#378ADD88', borderWidth: 0 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { font: { size: 10 }, maxRotation: 45 }, grid: { display: false } },
-        y: { min: -0.3, max: 1.2, ticks: { font: { size: 11 } }, grid: { color: 'rgba(128,128,128,0.1)' } }
-      }
+    const x = new Array(n).fill(0);
+    for (let i = n - 1; i >= 0; i--) {
+      let s = A[i][n];
+      for (let j = i + 1; j < n; j++) s -= A[i][j] * x[j];
+      x[i] = s / (A[i][i] || 1e-10);
     }
-  });
-
-  const hmData = [];
-  for (let i = 0; i < N; i++) {
-    for (let j = 0; j < N; j++) {
-      hmData.push({ x: j, y: i, v: corr[i][j] });
-    }
+    return x;
   }
 
-  if (hmChart) hmChart.destroy();
-  Chart.defaults.font.family = getComputedStyle(document.documentElement)
-  .getPropertyValue('--font-sans').trim() 
-  || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-  hmChart = new Chart(document.getElementById('hmChart'), {
-    type: 'scatter',
-    data: {
-      datasets: [{
-        data: hmData,
-        pointRadius: 0,
-        showLine: false
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => {
-              const d = ctx.raw;
-              return `col(${POSITIONS[d.x]}mm) vs col(${POSITIONS[d.y]}mm): ${d.v.toFixed(2)}`;
-            }
-          }
-        }
+  function setStep(step) {
+    document.querySelectorAll('.smv-step').forEach(el => {
+      el.classList.toggle('active', el.dataset.step === step);
+    });
+  }
+
+  function drawHeatmap(corr, note) {
+    const canvas = document.getElementById('smvHeatmap');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const padLeft = 42;
+    const padTop = 18;
+    const padBottom = 28;
+    const cell = Math.min((w - padLeft - 8) / N, (h - padTop - padBottom) / N);
+    const originX = padLeft;
+    const originY = padTop;
+
+    ctx.font = '11px ' + cssVar('--font-body', 'system-ui');
+    ctx.fillStyle = colors.muted;
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+
+    for (let r = 0; r < N; r++) {
+      ctx.fillText(String(POSITIONS[r]), originX - 7, originY + r * cell + cell / 2);
+    }
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    for (let c = 0; c < N; c++) {
+      ctx.fillText(String(POSITIONS[c]), originX + c * cell + cell / 2, originY + N * cell + 7);
+    }
+
+    for (let r = 0; r < N; r++) {
+      for (let c = 0; c < N; c++) {
+        const v = Math.abs(corr[r][c]);
+        const offDiag = r !== c;
+        const alpha = offDiag ? 0.18 + 0.72 * v : 0.88;
+        const hue = offDiag && v > 0.82 ? colors.orange : colors.blue;
+        ctx.fillStyle = hexToRgba(hue, alpha);
+        ctx.fillRect(originX + c * cell, originY + r * cell, cell - 1, cell - 1);
+      }
+    }
+
+    ctx.strokeStyle = colors.border;
+    ctx.strokeRect(originX, originY, N * cell, N * cell);
+
+    ctx.save();
+    ctx.translate(14, originY + (N * cell) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillStyle = colors.faint;
+    ctx.textAlign = 'center';
+    ctx.fillText('candidate position i', 0, 0);
+    ctx.restore();
+
+    ctx.fillStyle = colors.faint;
+    ctx.textAlign = 'center';
+    ctx.fillText('candidate position j', originX + (N * cell) / 2, h - 10);
+
+    document.getElementById('smvHeatmapNote').textContent = note;
+  }
+
+  function drawCellSketch() {
+    const canvas = document.getElementById('smvCellSketch');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const cx = w / 2;
+    const cy = h / 2;
+    const outer = 146;
+    const trace = 19;
+
+    ctx.strokeStyle = colors.blue;
+    ctx.lineWidth = trace;
+    ctx.strokeRect(cx - outer / 2, cy - outer / 2, outer, outer);
+
+    ctx.fillStyle = colors.orange;
+    const paddleLength = 36;
+    const paddleWidth = 24;
+    ctx.fillRect(cx - paddleWidth/2, cy - outer/2 + trace/2, paddleWidth, paddleLength);
+    ctx.fillRect(cx - paddleWidth/2, cy + outer/2 - trace/2 - paddleLength, paddleWidth, paddleLength);
+    ctx.fillRect(cx - outer/2 + trace/2, cy - paddleWidth/2, paddleLength, paddleWidth);
+    ctx.fillRect(cx + outer/2 - trace/2 - paddleLength, cy - paddleWidth/2, paddleLength, paddleWidth);
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(Math.PI / 4);
+    ctx.fillStyle = 'rgba(95,90,138,0.45)';
+    ctx.fillRect(-28, -28, 56, 56);
+    ctx.restore();
+
+    ctx.strokeStyle = colors.orange;
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.arc(cx, cy, 48, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = colors.text;
+    ctx.font = '700 14px ' + cssVar('--font-heading', 'system-ui');
+    ctx.textAlign = 'center';
+    ctx.fillText('loop current → L_eff', cx, 27);
+    ctx.fillText('gap field → C_eff', cx, h - 22);
+  }
+
+  function hexToRgba(hex, alpha) {
+    const clean = hex.trim();
+    if (!clean.startsWith('#')) return clean;
+    const bigint = parseInt(clean.slice(1), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  function update() {
+    const operatorView = document.getElementById('smvOperatorView');
+    const prototypeView = document.getElementById('smvPrototypeView');
+
+    if (current === 'prototype') {
+      operatorView.style.display = 'none';
+      prototypeView.classList.add('active');
+      setStep('measure');
+      drawCellSketch();
+      return;
+    }
+
+    operatorView.style.display = '';
+    prototypeView.classList.remove('active');
+
+    const cfg = CONFIGS[current];
+    setStep(cfg.step);
+
+    const noise = Number(document.getElementById('smvNoise').value);
+    const lambda = getLambda(Number(document.getElementById('smvLambda').value));
+    const posIdx = Number(document.getElementById('smvPos').value);
+
+    document.getElementById('smvNoiseVal').textContent = noise;
+    document.getElementById('smvLambdaVal').textContent = lambda.toFixed(1);
+    document.getElementById('smvPosVal').textContent = POSITIONS[posIdx];
+
+    const A = buildSensingMatrix(cfg.groupA, current);
+    const trueX = new Array(N).fill(0);
+    trueX[posIdx] = 1;
+
+    const y = A.map((row, i) => {
+      const clean = row[posIdx];
+      return clean + clean * (noise / 100) * (seededNoise(i, posIdx, current) - 0.5);
+    });
+
+    const xHat = tikhonov(A, y, lambda / 4);
+    const maxAbs = Math.max(...xHat.map(v => Math.abs(v)), 1e-6);
+    const xNorm = xHat.map(v => v / maxAbs);
+    const peakIdx = xNorm.reduce((best, v, i) => Math.abs(v) > Math.abs(xNorm[best]) ? i : best, 0);
+    const correct = peakIdx === posIdx;
+    const sortedAbs = xNorm.map(Math.abs).sort((a, b) => b - a);
+    const margin = sortedAbs[0] - sortedAbs[1];
+
+    const corr = computeCorrelation(A);
+    let maxCorr = 0;
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) if (i !== j) maxCorr = Math.max(maxCorr, Math.abs(corr[i][j]));
+
+    const success = correct ? Math.max(58, Math.round(100 - noise * (current === 'combined' ? 0.55 : 1.25))) : Math.max(25, Math.round(65 - noise * 1.5));
+    const kappaNoise = current === 'combined' ? cfg.kappa : cfg.kappa * (1 + noise / 230);
+
+    document.getElementById('smvMetrics').innerHTML = `
+      <div class="smv-metric"><div class="smv-metric-label">Condition κ</div><div class="smv-metric-value">${kappaNoise.toFixed(1)}</div><div class="smv-metric-sub">${cfg.label}</div></div>
+      <div class="smv-metric"><div class="smv-metric-label">Max |ρᵢⱼ|</div><div class="smv-metric-value">${maxCorr.toFixed(2)}</div><div class="smv-metric-sub">off-diagonal ambiguity</div></div>
+      <div class="smv-metric"><div class="smv-metric-label">Peak margin</div><div class="smv-metric-value">${margin.toFixed(2)}</div><div class="smv-metric-sub">top − runner-up</div></div>
+      <div class="smv-metric"><div class="smv-metric-label">Recovery</div><div class="smv-metric-value" style="color:${correct ? colors.green : colors.red}">${correct ? 'hit' : 'miss'}</div><div class="smv-metric-sub">peak at ${POSITIONS[peakIdx]} mm</div></div>
+      <div class="smv-metric"><div class="smv-metric-label">Est. success</div><div class="smv-metric-value">${success}%</div><div class="smv-metric-sub">illustrative noise sweep</div></div>
+    `;
+
+    document.getElementById('smvInsight').textContent = cfg.insight;
+    drawHeatmap(corr, cfg.note);
+
+    const svData = [...cfg.sigmas].sort((a, b) => b - a);
+    const svLabels = svData.map((_, i) => `σ${i + 1}`);
+
+    if (svChart) svChart.destroy();
+    svChart = new Chart(document.getElementById('smvSvChart'), {
+      type: 'bar',
+      data: {
+        labels: svLabels,
+        datasets: [{
+          data: svData,
+          backgroundColor: svData.map((_, i) => i < 3 ? hexToRgba(colors.blue, 0.78) : i < 8 ? hexToRgba(colors.orange, 0.65) : hexToRgba(colors.faint, 0.7)),
+          borderWidth: 0
+        }]
       },
-      scales: {
-        x: { min: -0.5, max: 10.5, ticks: { callback: v => Number.isInteger(v) && v>=0 && v<11 ? POSITIONS[v]+'mm' : '', font: { size: 10 }, maxRotation: 45, autoSkip: false }, grid: { display: false } },
-        y: { min: -0.5, max: 10.5, ticks: { callback: v => Number.isInteger(v) && v>=0 && v<11 ? POSITIONS[v]+'mm' : '', font: { size: 10 } }, grid: { display: false } }
-      }
-    },
-    plugins: [{
-      id: 'heatmap',
-      afterDraw(chart) {
-        const ctx2 = chart.ctx;
-        const {left, top, width, height} = chart.chartArea;
-        const cellW = width / N;
-        const cellH = height / N;
-        hmData.forEach(d => {
-          const x = left + d.x * cellW;
-          const y = top + (N - 1 - d.y) * cellH;
-          const v = d.v;
-          let r,g,b;
-          if (v > 0) { r=Math.round(55+v*200); g=Math.round(158-v*100); b=Math.round(117-v*90); }
-          else { r=Math.round(55+Math.abs(v)*50); g=Math.round(158+Math.abs(v)*20); b=Math.round(117+Math.abs(v)*138); }
-          ctx2.fillStyle = `rgba(${r},${g},${b},0.85)`;
-          ctx2.fillRect(x, y, cellW-1, cellH-1);
-        });
-      }
-    }]
-  });
-}
+      options: chartOptions('log')
+    });
 
-update();
+    if (reconChart) reconChart.destroy();
+    reconChart = new Chart(document.getElementById('smvReconChart'), {
+      type: 'bar',
+      data: {
+        labels: POSITIONS.map(p => `${p}`),
+        datasets: [
+          { label: 'true', data: trueX, backgroundColor: colors.green, borderWidth: 0 },
+          { label: 'recovered', data: xNorm, backgroundColor: hexToRgba(colors.blue, 0.48), borderWidth: 0 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: {
+          legend: { display: true, position: 'top', labels: { boxWidth: 12, color: colors.muted, font: { size: 11 } } }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: colors.muted, font: { size: 10 } }, title: { display: true, text: 'position (mm)', color: colors.faint } },
+          y: { min: -0.35, max: 1.15, grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: colors.muted, font: { size: 10 } } }
+        }
+      }
+    });
+  }
+
+  function chartOptions(yType) {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: colors.muted, font: { size: 10 } } },
+        y: {
+          type: yType,
+          grid: { color: 'rgba(128,128,128,0.1)' },
+          ticks: { color: colors.muted, font: { size: 10 }, callback: v => v >= 1000 ? `${v/1000}k` : v }
+        }
+      }
+    };
+  }
+
+  function bind() {
+    document.querySelectorAll('.smv-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        current = tab.dataset.config;
+        document.querySelectorAll('.smv-tab').forEach(t => t.classList.toggle('active', t === tab));
+        update();
+      });
+    });
+
+    ['smvNoise', 'smvLambda', 'smvPos'].forEach(id => {
+      document.getElementById(id).addEventListener('input', update);
+    });
+
+    Chart.defaults.font.family = cssVar('--font-body', 'system-ui');
+    Chart.defaults.color = colors.muted;
+    update();
+  }
+
+  if (window.Chart) {
+    bind();
+  } else {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.Chart) bind();
+      else document.getElementById('smvRoot').insertAdjacentHTML('beforeend', '<div class="smv-insight">Chart.js was not loaded. Check the default layout script include.</div>');
+    });
+  }
+})();
 </script>

@@ -23,7 +23,7 @@ Recovering trench depth from optical spectra while secondary geometry remained d
 Using structural and spectral constraints to narrow field-dependent UV absorption to a defect-mediated mechanism.
 
 [Port Metasurface](/work/port-metasurface/)  
-Testing whether boundary diversity improves sensing-matrix conditioning in 26 GHz NLoS reconstruction.
+Designing a 26 GHz passive boundary and testing whether it improves NLoS sensing-matrix conditioning.
 
 [All work](/work/)
 

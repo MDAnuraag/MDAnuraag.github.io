@@ -6,7 +6,7 @@ permalink: /about/
 
 I am an undergraduate microelectronics student working on inverse problems in physical sensing.
 
-My projects have moved through semiconductor optical metrology, electro-optic thin films, first-principles optical modeling, alloy configuration sampling, and mmWave non-line-of-sight sensing.
+My projects have moved through semiconductor optical metrology, electro-optic thin films, first-principles optical modeling, alloy configuration sampling, and mmWave non-line-of-sight sensing with passive boundary design.
 
 The common problem is interpretation:
 

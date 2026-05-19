@@ -16,6 +16,9 @@ This CV is deliberately incomplete without the rest of the site.
 - Projects as failure cases, not success stories: [/case-studies](/case-studies)
 - Crossing borders and topics led me: [/elsewhere](/cv/elsewhere)  
 
+**Undergraduate thesis — mmWave NLoS inverse sensing and passive boundary design**  
+Developing a 26 GHz passive metasurface boundary and CST-to-Python sensing-matrix pipeline to test whether engineered boundary conditions improve hidden-object identifiability, reconstruction stability, and controlled blocked-link recovery.
+
 ---
 
 ## Contact

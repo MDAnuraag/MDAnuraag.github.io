@@ -30,9 +30,9 @@ Field-dependent UV modulation was narrowed to a defect-mediated mechanism by rul
 
 ### [Port Metasurface](/work/port-metasurface/)
 
-A 26 GHz NLoS simulation was reframed from “coverage improvement” to sensing-matrix conditioning and reconstruction ambiguity.
+A 26 GHz passive metasurface boundary is being developed to test whether controlled boundary design improves NLoS sensing-matrix conditioning, leakage, and reconstruction stability.
 
-**Core lesson:** simulation is not deployment evidence.
+**Core lesson:** the useful question is not whether the surface reflects strongly, but whether it makes hidden states more identifiable.
 
 ---
 
