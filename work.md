@@ -8,9 +8,15 @@ Projects where I used models to interpret indirect physical measurements.
 
 The common question is not whether a model fits, but what the measurement can actually identify.
 
+A second question is becoming more important in my current work:
+
+> can the measurement become useful for process control?
+
+That means asking whether a parameter can be monitored, whether a tolerance changes the response, whether simulation survives fabrication, and where the claim stops.
+
 ---
 
-## Featured
+## Semiconductor metrology and process control
 
 ### [Inverse RCWA Metrology](/work/inverse-rcwa/)
 
@@ -20,19 +26,23 @@ Broadband optical spectra recovered trench depth, but secondary geometry paramet
 
 ---
 
-### [AlN Electroabsorption](/work/aln-electroabsorption/)
-
-Field-dependent UV modulation was narrowed to a defect-mediated mechanism by ruling out crystalline electro-optic, free-carrier, and interference explanations.
-
-**Core lesson:** spectra constrain mechanisms; they do not identify every microscopic detail.
-
----
+## RF/mmWave sensing and patterned substrates
 
 ### [Port Metasurface](/work/port-metasurface/)
 
-A 26 GHz passive metasurface boundary is being developed to test whether controlled boundary design improves NLoS sensing-matrix conditioning, leakage, and reconstruction stability.
+A 26 GHz passive boundary is being developed to test whether fabrication-sensitive RF structures can improve NLoS sensing-matrix conditioning, leakage, and reconstruction stability.
 
-**Core lesson:** the useful question is not whether the surface reflects strongly, but whether it makes hidden states more identifiable.
+**Core lesson:** a surface matters only if it changes the operator in a useful way.
+
+---
+
+## Materials and optical characterization
+
+### [AlN Electroabsorption](/work/aln-electroabsorption/)
+
+Field-dependent UV modulation was narrowed to a defect- or disorder-mediated mechanism, but the microscopic defect identity remained unresolved.
+
+**Core lesson:** spectra constrain mechanisms; they do not identify every microscopic detail.
 
 ---
 

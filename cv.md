@@ -8,9 +8,9 @@ permalink: /cv/
 
 **Graduating:** Summer 2026  
 **Degree:** B.Eng., Microelectronic Science and Engineering  
-**Focus:** inverse problems, physical sensing, optical metrology, electro-optic materials, and mmWave NLoS sensing
+**Focus:** semiconductor metrology, process control, RF/mmWave characterization, passive boundary design, and physics-based modeling
 
-This page is a compact CV for the site. The fuller context is in [Work](/work/) and [Notes](/notes/).
+This page is a compact CV. The technical evidence is in [Work](/work/), and the recurring inference errors are in [Notes](/notes/).
 
 ---
 
@@ -48,23 +48,10 @@ Double Degree Program
 
 ## Featured work
 
-### Undergraduate thesis — mmWave NLoS inverse sensing and passive boundary design
+**Undergraduate thesis — mmWave NLoS inverse sensing and passive boundary design**  
+Developing a 26 GHz passive metasurface boundary and CST-to-Python sensing-matrix pipeline to test whether engineered RF boundary conditions improve hidden-object identifiability, reconstruction stability, leakage, and controlled blocked-link recovery.
 
-Developing a 26 GHz passive metasurface boundary and CST-to-Python sensing-matrix pipeline to test whether engineered boundary conditions improve hidden-object identifiability, reconstruction stability, leakage, and controlled blocked-link recovery.
-
-Current status:
-
-- built controlled 26 GHz NLoS forward models;
-- constructed sensing matrices from CST field exports;
-- implemented Tikhonov reconstruction, discrimination, leakage, and AWGN robustness analysis;
-- compared idealized boundary configurations through operator diagnostics;
-- designed a loop–paddle–diamond passive unit cell near 26 GHz;
-- validated the resonance mechanism in CST using field and surface-current plots;
-- prepared a 31×31 RO4350B finite-panel layout for PCB fabrication.
-
-Claim boundary: this is controlled forward-model evidence plus fabrication-ready passive boundary design. It is not yet a real-port deployment claim.
-
-Related: [Port Metasurface](/work/port-metasurface/)
+Current claim level: controlled forward-model evidence plus fabrication-ready passive boundary design. No real-port deployment claim.
 
 ---
 

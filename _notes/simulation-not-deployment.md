@@ -106,4 +106,6 @@ Most early simulations only justify level 1.
 
 - [Port Metasurface](/case-studies/port-metasurface/)
 
+In the port-metasurface project, CST simulations can show that a boundary changes the sensing matrix or that a unit cell has a physically interpretable resonance. They do not prove that a fabricated panel improves a blocked link until measured $S_{21}$, repeatability, and setup uncertainty are reported.
+
 [Back to notes](/notes/)

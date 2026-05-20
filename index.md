@@ -12,6 +12,8 @@ Across these projects, I ask the same question:
 
 > What did the measurement actually identify?
 
+I am applying this question to semiconductor metrology, RF/mmWave sensing, thin-film characterization, and packaging-relevant process variation: cases where measurement quality determines whether a physical parameter can actually be controlled.
+
 ---
 
 ## Work
@@ -23,7 +25,7 @@ Recovering trench depth from optical spectra while secondary geometry remained d
 Using structural and spectral constraints to narrow field-dependent UV absorption to a defect-mediated mechanism.
 
 [Port Metasurface](/work/port-metasurface/)  
-Designing a 26 GHz passive boundary and testing whether it improves NLoS sensing-matrix conditioning.
+Designing a 26 GHz passive boundary and testing whether fabrication-sensitive RF structures improve NLoS sensing-matrix conditioning.
 
 [All work](/work/)
 

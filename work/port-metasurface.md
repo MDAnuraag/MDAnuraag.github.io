@@ -21,6 +21,20 @@ The current contribution is controlled forward-model evidence, a CST-to-Python i
 
 ---
 
+## Semiconductor infrastructure relevance
+
+Although this project began from port mmWave blockage, the transferable problem is broader:
+
+> how does a fabricated RF structure convert geometry, material choice, and process tolerance into a measurable electromagnetic response?
+
+The current metasurface is a patterned copper/dielectric structure whose response depends on unit-cell geometry, substrate thickness, dielectric constant, copper patterning, finite-array effects, incidence angle, and measurement configuration.
+
+That makes the project relevant to RF substrates, package-level interconnects, process-window thinking, dimensional metrology, and simulation-to-measurement correlation.
+
+The claim is still bounded. This page does not claim advanced-packaging deployment or real-port coverage. It uses a 26 GHz patterned substrate as a controlled case for studying how fabrication-sensitive physical structures affect measurement and inference.
+
+---
+
 ## Question
 
 A passive reflector or metasurface is usually judged by electromagnetic metrics such as reflection phase, return loss, gain, or link recovery.
