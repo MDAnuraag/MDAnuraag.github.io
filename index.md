@@ -6,13 +6,13 @@ permalink: /
 
 I study cases where physical measurements are easier to fit than to interpret.
 
-My work spans semiconductor optical metrology, electro-optic thin films, first-principles optical modeling, alloy configuration sampling, and mmWave non-line-of-sight sensing.
+My work has moved through semiconductor optical metrology, electro-optic thin films, first-principles optical modeling, alloy configuration sampling, and mmWave non-line-of-sight sensing.
 
-Across these projects, I ask the same question:
+I am now moving from student research into fab metrology process engineering at Samsung’s Taylor site, where the same question becomes more operational:
 
-> What did the measurement actually identify?
+> What did the measurement actually identify, and can it support a process decision?
 
-I am applying this question to semiconductor metrology, RF/mmWave sensing, thin-film characterization, and packaging-relevant process variation: cases where measurement quality determines whether a physical parameter can actually be controlled.
+I use this site to track that question across projects involving inverse modeling, metrology, RF/mmWave sensing, process sensitivity, and physically bounded claims.
 
 ---
 
@@ -21,11 +21,11 @@ I am applying this question to semiconductor metrology, RF/mmWave sensing, thin-
 [Inverse RCWA Metrology](/work/inverse-rcwa/)  
 Recovering trench depth from optical spectra while secondary geometry remained degenerate.
 
-[AlN Electroabsorption](/work/aln-electroabsorption/)  
-Using structural and spectral constraints to narrow field-dependent UV absorption to a defect-mediated mechanism.
-
 [Port Metasurface](/work/port-metasurface/)  
 Designing a 26 GHz passive boundary and testing whether fabrication-sensitive RF structures improve NLoS sensing-matrix conditioning.
+
+[AlN Electroabsorption](/work/aln-electroabsorption/)  
+Using structural and spectral constraints to bound the interpretation of field-dependent UV absorption.
 
 [All work](/work/)
 
@@ -42,3 +42,8 @@ Short notes on recurring inference errors:
 ---
 
 [CV](/cv/) · [About](/about/)
+
+---
+
+/privacy/
+/copyright/

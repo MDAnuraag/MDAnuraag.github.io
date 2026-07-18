@@ -8,6 +8,7 @@ permalink: /cv/
 
 **Graduating:** Summer 2026  
 **Degree:** B.Eng., Microelectronic Science and Engineering  
+**Next role:** Metrology Process Engineer, Samsung Taylor site  
 **Focus:** semiconductor metrology, process control, RF/mmWave characterization, passive boundary design, and physics-based modeling
 
 This page is a compact CV. The technical evidence is in [Work](/work/), and the recurring inference errors are in [Notes](/notes/).
@@ -17,7 +18,7 @@ This page is a compact CV. The technical evidence is in [Work](/work/), and the 
 ## Contact
 
 Email: anuraag.sharma22 [at] student.xjtlu.edu.cn  
-Location: Taicang, China → TBD Fall 2026  
+Location: Taicang, China → Taylor/Austin, Texas
 
 ---
 
@@ -25,11 +26,11 @@ Location: Taicang, China → TBD Fall 2026
 
 I work on cases where physical measurements are easier to fit than to interpret.
 
-Across optical metrology, electro-optic thin films, first-principles optical modeling, alloy sampling, and mmWave sensing, the recurring question is:
+My next role is in fab metrology process engineering at Samsung’s Taylor site. That changes the center of gravity of this site: the same inverse-problem habits now need to point toward process control, measurement repeatability, tool behavior, physical variation, and manufacturing decisions.
+
+Across optical metrology, RF/mmWave sensing, electro-optic thin films, and computational materials work, the recurring question remains:
 
 > what did the measurement actually identify?
-
-My strongest current interests are inverse modeling, identifiability, measurement design, and physical systems where model fit alone is not enough evidence.
 
 ---
 

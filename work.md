@@ -4,6 +4,12 @@ title: Work
 permalink: /work/
 ---
 
+I am graduating in 2026 and moving into fab metrology process engineering. That changes how I read these projects.
+
+The point is no longer only whether a model explains a measurement. The practical question is whether a measurement can support process control: monitoring a parameter, detecting drift, bounding a tolerance, or deciding when a claim is not supported.
+
+---
+
 Projects where I used models to interpret indirect physical measurements.
 
 The common question is not whether a model fits, but what the measurement can actually identify.

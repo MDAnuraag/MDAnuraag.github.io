@@ -20,6 +20,9 @@ A mean does not determine the distribution that produced it.
 [Simulation is not deployment evidence](/notes/simulation-not-deployment/)  
 A controlled model result does not prove field performance.
 
+[Measurement is not control](/notes/measurement-not-control/)  
+A measurement can be sensitive to a parameter without being stable, repeatable, or actionable enough for process control.
+
 ---
 
 [Back to home](/)

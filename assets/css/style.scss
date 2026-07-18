@@ -573,3 +573,17 @@ main p > a:first-child {
     padding-right: 0.65rem;
   }
 }
+
+.footer-legal {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.footer-legal a {
+  color: var(--muted);
+}
+
+.footer-legal a:hover {
+  color: var(--link);
+}
