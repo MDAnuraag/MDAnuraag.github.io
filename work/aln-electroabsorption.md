@@ -13,117 +13,129 @@ redirect_from:
 
 ## Question
 
-Can low-temperature PEALD-grown AlN-based thin films show electrically tunable UV optical behavior?
-
-The measurement showed a large field-dependent transmission change near 282 nm. The harder question was not whether the effect existed. It did.
-
-The harder question was:
-
-> What mechanism can the data actually support?
-
-The answer was bounded. The response is consistent with field-modulated sub-bandgap absorption in a disordered AlN-based film, but the microscopic defect pathway is not uniquely identifiable from the current measurements.
+What mechanism can explain field-dependent UV modulation in PEALD-grown AlN-based thin films?
 
 ---
 
-## What I did
+## Objects
 
-I analyzed structural, electrical, and optical measurements from 50 nm PEALD-grown films deposited at 300 °C on ITO/glass and TiN/Si substrates.
+**Film:** 50 nm PEALD-grown AlN-based / AlOxNy-like layer  
+**Growth:** 300 °C  
+**Substrates:** ITO/glass and TiN/Si  
+**Signal:** field-dependent UV transmission near 282 nm  
+**Device:** interdigital electrode optical structure  
+**Main issue:** mechanism identification
 
-The work combined:
+The effect was real.
 
-- XRD to assess crystallinity and structural disorder;
-- AFM to measure substrate-dependent surface roughness;
-- MIM capacitor measurements for dielectric response and leakage;
-- IDE optical measurements for field-dependent UV transmission;
-- absorption-coefficient extraction from corrected transmittance.
-
-The optical experiment applied an in-plane field using interdigital electrodes. That geometry matters: the field is non-uniform and concentrated near electrode edges, so the reported field is a nominal device-level estimate rather than a uniform material field.
+The mechanism was not uniquely identified.
 
 ---
 
-## What worked
+## Measurements
 
-The films showed stable dielectric behavior and low leakage under the measured conditions.
+Used constraints:
 
-The optical result was clear: the unbiased device showed high transmission near 282 nm, and applying bias produced a large, reversible, spectrally localized UV modulation. The visible and near-IR regions changed much less.
+```text
+XRD
+AFM
+MIM capacitor behavior
+I–V / C–V response
+IDE optical transmission
+absorption-coefficient extraction
+```
 
-That localization matters. A broadband mechanism such as free-carrier absorption would not naturally explain a response concentrated in the deep-UV. A simple uniform-index interference explanation would also be too broad.
+Key geometry issue:
 
-The photon energy near 282 nm is about 4.4 eV, below the AlN bandgap. That made sub-bandgap states the most plausible optical channel.
+```text
+IDE field is non-uniform
+field concentrates near electrode edges
+reported field is device-level, not intrinsic uniform material field
+```
+
+---
+
+## What moved
+
+Applied bias produced:
+
+```text
+large UV-localized modulation near 282 nm
+reversible response
+much weaker visible / near-IR change
+stable dielectric behavior under measured conditions
+```
+
+Photon energy near 282 nm:
+
+$$
+E \approx 4.4\ \mathrm{eV}
+$$
+
+That is below the AlN bandgap, so sub-bandgap states are the plausible optical channel.
 
 ---
 
 ## What the data support
 
-The most defensible interpretation is:
+Most defensible wording:
 
-> The applied field perturbs defect- or disorder-related sub-bandgap absorption in a PEALD-grown AlN-based film.
+> field-modulated defect- or disorder-related sub-bandgap absorption in a PEALD-grown AlN-based film.
 
-That wording is intentional.
+Possible contributors:
 
-The material is better described as AlN-based or AlOxNy-like rather than ideal stoichiometric crystalline AlN. The XRD data indicate nanocrystalline or structurally disordered character, with small coherent scattering domains embedded in a disordered matrix.
+```text
+oxygen-related complexes
+vacancy-associated states
+band-tail states
+disorder-related localized states
+charge-state redistribution
+local field enhancement near IDE edges
+```
 
-The observed absorption energy is compatible with reported defect-related transitions in AlN systems. Oxygen-related complexes, vacancy-associated states, band-tail states, and disorder-related localized states are all plausible contributors.
+The result is mechanism-level evidence.
 
-The result is therefore mechanism-level evidence, not species-level identification.
+It is not species-level identification.
 
 ---
 
 ## What failed
 
-The current dataset cannot isolate one microscopic mechanism.
+The current dataset cannot isolate one microscopic pathway.
 
-Several processes may coexist:
+Not identifiable from current measurements:
 
-- field-induced shifts of localized states;
-- modified transition probabilities;
-- charge-state redistribution;
-- band-tail broadening;
-- local field enhancement near IDE edges;
-- spatially non-uniform absorption across the device.
+```text
+specific defect species
+defect depth profile
+bulk vs interface dominance
+local field distribution inside the active optical region
+intrinsic electroabsorption coefficient
+exact conduction mechanism
+```
 
-The optical modulation is large, but magnitude alone does not identify the mechanism.
+Magnitude alone does not identify mechanism.
 
-The IDE geometry also prevents extraction of a clean intrinsic electroabsorption coefficient. The measured response is an effective device-level modulation, shaped by the film, electrodes, local fields, and optical path.
-
----
-
-## What limited the claim
-
-The main limitation was not whether the effect was real. It was whether the measurement could separate the causes.
-
-The limiting factors were:
-
-- non-uniform electric field distribution in the IDE geometry;
-- depth-averaged optical transmission;
-- lack of direct defect spectroscopy;
-- lack of spatially resolved optical or thermal measurement;
-- XRD sensitivity limits for separating amorphous and nanocrystalline structure;
-- C–V and I–V data that constrain electrical behavior but do not uniquely identify conduction mechanisms.
-
-Because of those limits, the claim should not be:
-
-> We identified the defect responsible for electroabsorption.
-
-It should be:
-
-> We observed field-dependent UV modulation consistent with defect-mediated sub-bandgap absorption in disordered PEALD-grown AlN-based films.
+A large effect can still be ambiguous.
 
 ---
 
-## What I learned
+## Claim boundary
 
-This project taught me mechanism identification by constraint.
+Supported:
 
-The spectrum alone did not identify the mechanism. The interpretation came from eliminating weaker alternatives:
+```text
+electrically tunable UV response
+defect/disorder-mediated sub-bandgap absorption as most consistent interpretation
+```
 
-- XRD limited crystalline electro-optic explanations;
-- spectral localization limited broadband free-carrier explanations;
-- near-IR stability limited broadband absorption mechanisms;
-- reversibility limited permanent material-change explanations;
-- electrical stability limited breakdown or catastrophic degradation explanations.
+Not supported:
 
-The result is strongest when written as a constrained interpretation, not as a fingerprint.
+```text
+identified defect species
+uniform bulk electroabsorption coefficient
+single microscopic pathway
+```
 
 ---
 
@@ -131,13 +143,13 @@ The result is strongest when written as a constrained interpretation, not as a f
 
 Submitted manuscript. First author.
 
-**Claim level:** electrically tunable UV response demonstrated; defect-mediated sub-bandgap absorption is the most consistent interpretation; specific defect identity, spatial distribution, and microscopic pathway remain unresolved.
+**Claim level:** tunable UV response demonstrated; defect-mediated sub-bandgap absorption most consistent; microscopic defect identity and spatial pathway unresolved.
 
 **Related notes:**  
 [Spectra are constraints, not fingerprints](/notes/spectra-constraints/)  
 [Averaging destroys information irreversibly](/notes/averaging/)
 
-**Methods:**  
+**Reading ledger:**  
 [UV–Vis spectroscopy](/reading-ledger/#uv-vis)  
 [XRD](/reading-ledger/#xrd)  
 [AFM](/reading-ledger/#afm)

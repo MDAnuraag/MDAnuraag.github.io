@@ -9,9 +9,10 @@ permalink: /cv/
 **Graduating:** Summer 2026  
 **Degree:** B.Eng., Microelectronic Science and Engineering  
 **Next role:** Metrology Process Engineer, Samsung Taylor site  
-**Focus:** semiconductor metrology, process control, RF/mmWave characterization, passive boundary design, and physics-based modeling
+**Focus:** semiconductor metrology, process control, RF/mmWave characterization, passive boundary design, physics-based modeling
 
-This page is a compact CV. The technical evidence is in [Work](/work/), and the recurring inference errors are in [Notes](/notes/).
+[Work](/work/) gives the technical evidence.  
+[Notes](/notes/) gives the inference rules.
 
 ---
 
@@ -26,11 +27,18 @@ Location: Taicang, China → Taylor/Austin, Texas
 
 I work on cases where physical measurements are easier to fit than to interpret.
 
-My next role is in fab metrology process engineering at Samsung’s Taylor site. That changes the center of gravity of this site: the same inverse-problem habits now need to point toward process control, measurement repeatability, tool behavior, physical variation, and manufacturing decisions.
+Next context:
 
-Across optical metrology, RF/mmWave sensing, electro-optic thin films, and computational materials work, the recurring question remains:
+- fab metrology
+- process monitoring
+- tool behavior
+- measurement repeatability
+- physical variation
+- manufacturing decisions
 
-> what did the measurement actually identify?
+Core question:
+
+> What did the measurement actually identify?
 
 ---
 
@@ -47,27 +55,54 @@ Double Degree Program
 
 ---
 
-## Featured work
+## Incoming role
 
-**Undergraduate thesis — mmWave NLoS inverse sensing and passive boundary design**  
-Developing a 26 GHz passive metasurface boundary and CST-to-Python sensing-matrix pipeline to test whether engineered RF boundary conditions improve hidden-object identifiability, reconstruction stability, leakage, and controlled blocked-link recovery.
+### Metrology Process Engineer
 
-Current claim level: controlled forward-model evidence plus fabrication-ready passive boundary design. No real-port deployment claim.
+**Samsung — Taylor site**  
+Starting 2026
+
+Public-facing focus:
+
+- measurement quality
+- process monitoring
+- tool behavior
+- process windows
+- metrology interpretation
+
+No project details listed yet.
 
 ---
 
-### Inverse RCWA metrology
+## Experience
 
-**KLA Corporation — Applications Engineering Intern**  
+### Applications Engineering Intern — SpectraShape OCD Metrology
+
+**KLA Corporation**  
 Summer 2025
 
-- Built an inverse RCWA workflow connecting broadband optical reflectance to patterned-structure geometry.
-- Found trench depth to be reliably constrained under bounded process assumptions.
-- Found secondary geometry parameters to be more degenerate than the fit quality alone suggested.
-- Learned that more wavelength samples of the same measurement do not automatically create new sensitivity directions.
-- Reinforced the distinction between fit quality and identifiability.
+**Object:** patterned semiconductor structures  
+**Signal:** broadband reflectance  
+**Method:** inverse RCWA  
+**Result:** trench depth was more identifiable than secondary geometry  
+**Lesson:** process-useful parameters matter more than full-profile overclaiming
 
 Related: [Inverse RCWA Metrology](/work/inverse-rcwa/)
+
+---
+
+## Featured research
+
+### Undergraduate thesis — mmWave NLoS inverse sensing and passive boundary design
+
+**Object:** 26 GHz passive metasurface boundary  
+**Stack:** copper / RO4350B / ground plane  
+**Pipeline:** CST field export → sensing matrix → reconstruction diagnostics  
+**Prototype:** 31 × 31 panel, 99.2 mm aperture  
+**Status:** fabrication-ready; measurement pending  
+**Claim boundary:** controlled forward-model evidence, not real-port deployment
+
+Related: [Port Metasurface](/work/port-metasurface/)
 
 ---
 
@@ -77,10 +112,10 @@ Related: [Inverse RCWA Metrology](/work/inverse-rcwa/)
 Advisor: Assoc. Prof. Jangyong Kim  
 2024–present
 
-- Studied field-dependent UV optical modulation in PEALD-grown AlN-based thin films.
-- Used structural and spectral constraints to test crystalline electro-optic, free-carrier, and interference explanations.
-- Found defect- or disorder-mediated sub-bandgap absorption to be the most consistent interpretation.
-- Kept the claim bounded because the current data do not uniquely identify the microscopic defect class or spatial absorption pathway.
+**Object:** PEALD-grown AlN-based films  
+**Signal:** field-dependent UV transmission  
+**Interpretation:** defect/disorder-mediated sub-bandgap absorption most consistent  
+**Limit:** exact defect class and spatial pathway unresolved
 
 Related: [AlN Electroabsorption](/work/aln-electroabsorption/)
 
@@ -88,27 +123,19 @@ Related: [AlN Electroabsorption](/work/aln-electroabsorption/)
 
 ## Earlier work
 
-### Optical transitions in doped g-C₃N₄
+### Doped g-C₃N₄ optical transitions
 
-**XJTLU — Chemistry & Materials Science**  
-Advisor: Prof. Heechae Choi  
-2024–present
-
-- Computed dielectric response and optical-transition behavior using DFT.
-- Studied how metal dopants affect visible absorption through symmetry breaking and oscillator-strength redistribution.
-- Treated computed spectra as mechanism support, not unique structural identification.
-- Learned that optical agreement does not uniquely determine dopant site, disorder, or microscopic configuration.
+**Method:** DFT optical-response analysis  
+**Found:** dopants redistributed oscillator strength  
+**Limit:** spectra did not identify unique dopant sites
 
 Related: [g-C₃N₄ Optical Transitions](/work/gcn-optical-transitions/)
 
----
-
 ### Alloy configuration sampling
 
-- Studied composition-dependent optical and electronic trends in mixed-anion materials.
-- Treated composition as an ensemble variable rather than a unique structure.
-- Used configuration sampling to avoid overinterpreting a single relaxed cell.
-- Main lesson: composition does not determine microscopic structure.
+**Method:** finite configuration sampling  
+**Found:** composition did not determine electronic structure  
+**Limit:** synthesized configuration distribution remained unresolved
 
 Related: [Alloy Configuration Sampling](/work/alloy-sampling/)
 
@@ -126,14 +153,15 @@ Related: [Alloy Configuration Sampling](/work/alloy-sampling/)
 
 ---
 
-## Tools and methods
+## Tools
 
-**Inverse modeling:** RCWA, sensing matrices, Tikhonov regularization, operator conditioning, leakage analysis  
-**Electromagnetic simulation:** CST Studio, field export pipelines, passive metasurface unit-cell simulation  
-**Electronic structure:** VASP, PBE, HSE06, dielectric functions, optical transition analysis  
-**Numerical analysis:** Python, NumPy, SciPy, Pandas, Matplotlib  
-**Characterization:** XRD, SEM, AFM, IV–CV  
-**Computation:** Slurm-based HPC workflows, batch job automation
+- RCWA
+- CST Studio
+- VASP
+- Python
+- NumPy / SciPy / Pandas / Matplotlib
+- Slurm
+- XRD / SEM / AFM / IV-CV
 
 ---
 
@@ -143,14 +171,4 @@ English, Hindi, Konkani, Kannada, Chinese, French
 
 ---
 
-## Site context
-
-This CV is intentionally short. The site is organized around the evidence behind the claims:
-
-[Work](/work/) — project evidence  
-[Notes](/notes/) — recurring inference errors  
-[About](/about/) — why the site is public
-
----
-
-Last updated: May 2026
+Last updated: August 2026

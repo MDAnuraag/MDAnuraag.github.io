@@ -9,41 +9,25 @@ redirect_from:
 
 ## Question
 
-Cu$_2$Ge(S$_{1-x}$Se$_x$)$_3$ changes optical band gap as sulfur is replaced by selenium.
-
-The tempting shortcut is to treat composition $x$ as the only state variable:
-
-$$
-x \rightarrow E_g.
-$$
-
-That is incomplete.
-
-For a fixed $x$, many S/Se arrangements are possible on the anion sublattice. Those configurations can have different energies and different band gaps.
-
-The real question was:
-
-> Can a band-gap trend versus composition be interpreted without pretending that one structure represents the alloy?
+Can a band-gap trend versus alloy composition be interpreted without pretending that one structure represents the material?
 
 ---
 
-## What I did
+## Objects
 
-This was my first computational materials project.
+**Material:** Cu$_2$Ge(S$_{1-x}$Se$_x$)$_3$  
+**Variable:** S/Se composition  
+**Hidden variable:** anion configuration  
+**Signal:** computed / measured band-gap trend  
+**Failure mode:** composition treated as structure
 
-The naive workflow would have been:
+Tempting shortcut:
 
 $$
-\text{one composition}
-\rightarrow
-\text{one structure}
-\rightarrow
-\text{one band gap}.
+x \rightarrow E_g
 $$
 
-That failed conceptually because the structure was not uniquely defined.
-
-The revised workflow was:
+Better map:
 
 $$
 x
@@ -52,78 +36,83 @@ x
 \rightarrow
 \{E_g\}
 \rightarrow
-\langle E_g \rangle.
+\langle E_g \rangle
 $$
 
-I sampled multiple configurations at fixed composition, compared relative energies, computed band gaps, and interpreted the trend as an ensemble behavior rather than a single-structure property.
+---
 
-The thermodynamic anchor was:
+## What moved
+
+At fixed $x$, different S/Se arrangements produced different band gaps.
+
+Fixed composition did not mean fixed electronic structure.
+
+The useful claim became:
+
+> this composition has a distribution of plausible band gaps under sampled configurations.
+
+Not:
+
+> this composition has one band gap.
+
+---
+
+## Thermodynamic anchor
+
+Mixing free energy:
 
 $$
 \Delta G_{\mathrm{mix}}(x,T)
 =
 \Delta H_{\mathrm{mix}}(x)
 -
-T\Delta S_{\mathrm{mix}}(x).
+T\Delta S_{\mathrm{mix}}(x)
 $$
 
-The configurational entropy approximation was:
+Configurational entropy approximation:
 
 $$
 \Delta S_{\mathrm{mix}}
 =
--k_B[x\ln x+(1-x)\ln(1-x)].
+-k_B[x\ln x+(1-x)\ln(1-x)]
 $$
 
-This was not a full cluster expansion. It was a practical correction to a worse assumption: that one configuration could stand for the material.
+This was not a full cluster expansion.
 
----
-
-## What worked
-
-The calculation showed that fixed composition did not imply fixed band gap.
-
-At the same $x$, different sampled configurations produced band-gap variation large enough to matter for interpretation.
-
-That changed the claim from:
-
-> this composition has this band gap,
-
-to:
-
-> this composition has a distribution of plausible band gaps under sampled configurations.
-
-The ensemble-averaged trend was more meaningful than a single clean DFT curve.
+It was a correction to a worse assumption: one configuration standing in for the alloy.
 
 ---
 
 ## What failed
 
-The sampling did not prove the full configuration space was exhausted.
+Not proven:
 
-The true number of possible S/Se arrangements is much larger than the sampled set. A finite set of DFT structures can show that configuration matters, but it cannot prove that all important motifs were found.
+```text
+full configuration space exhausted
+true synthesized configuration distribution known
+all important local motifs sampled
+unique atomistic structure at each composition
+```
 
-The experiment also measures an averaged material response. It does not reveal the microscopic configuration distribution actually produced during synthesis.
-
-So the result could support a composition-dependent trend, but not a unique atomistic structure for each composition.
+Experiment measures an averaged material response. It does not reveal the microscopic S/Se arrangement by itself.
 
 ---
 
-## What it taught me
+## Claim boundary
 
-Composition is not structure.
+Supported:
 
-A formula like
+```text
+configuration sampling improves interpretation of band-gap trends
+composition alone is not enough
+```
 
-$$
-\mathrm{Cu_2Ge(S_{1-x}Se_x)_3}
-$$
+Not supported:
 
-does not specify where the S and Se atoms are.
-
-If the property depends on local arrangement, then “the band gap at $x$” is not a complete statement. The ensemble has to be defined.
-
-The broader lesson was about stopping rules. More computation is not automatically better. The relevant question is whether additional configurations reduce uncertainty in the claim being made.
+```text
+actual synthesized configuration distribution
+unique microscopic structure for each composition
+```
 
 ---
 
@@ -131,13 +120,12 @@ The broader lesson was about stopping rules. More computation is not automatical
 
 Published in **ACS Applied Optical Materials**, 2024.
 
-**Claim level:** configuration sampling improved the interpretation of band-gap trends; the actual synthesized configuration distribution remained unresolved.
+**Claim level:** configuration sampling improved band-gap interpretation; synthesized configuration distribution remained unresolved.
 
 **Related notes:**  
-[Composition is not structure](/notes/composition-not-structure/)  
 [Averaging destroys information irreversibly](/notes/averaging/)
 
-**Methods:**  
+**Reading ledger:**  
 [Configuration sampling](/reading-ledger/#config-sampling)  
 [DFT — PBE](/reading-ledger/#dft-pbe)  
 [DFT — hybrid functionals](/reading-ledger/#dft-hse06)

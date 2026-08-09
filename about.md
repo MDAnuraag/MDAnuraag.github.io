@@ -4,42 +4,58 @@ title: About
 permalink: /about/
 ---
 
-I work on inverse problems in physical sensing: cases where measurements are easier to fit than to interpret.
+I work on inverse problems in physical sensing.
 
-My projects have moved through semiconductor optical metrology, electro-optic thin films, first-principles optical modeling, alloy configuration sampling, and mmWave non-line-of-sight sensing with passive boundary design.
+The short version:
 
-The common question is:
+> measurements are often easier to fit than to interpret.
 
-> what did the measurement actually identify?
+I am graduating in microelectronics and moving into fab metrology process engineering.
 
-That question matters most in systems where a model fit is not enough: semiconductor metrology, RF/mmWave characterization, thin-film analysis, and process-sensitive structures where geometry, materials, fabrication tolerance, and measurement setup all affect the result.
+This site tracks how I think about measurement, models, ambiguity, and process-sensitive physical systems.
 
 ---
 
-## Why this site exists
+## What I care about
 
-This site is a record of how I keep claims bounded.
+- What was measured?
+- What was assumed?
+- What was ruled out?
+- What stayed ambiguous?
+- Could this support a process decision?
 
-I write down what the measurement observed, what the model assumed, what alternatives remained possible, and what could not be identified.
+---
 
-Most pages are not written as success stories. They are records of where a measurement helped, where a model failed, where a simulation stopped being evidence, and where a physical claim needed more validation.
+## Why public
 
-The intended reader is someone who wants to see how I reason through uncertainty, not just what I finished.
+Public notes force cleaner claims.
+
+Most pages are not success stories. They are records of:
+
+- useful measurements
+- failed interpretations
+- non-identifiable parameters
+- simulation limits
+- claim boundaries
+
+The intended reader is someone who wants to see how I reason, not only what I finished.
 
 ---
 
 ## Current direction
 
-I am finishing my undergraduate thesis in May 2026.
+Fab metrology process engineering.
 
-The thesis connects two tracks:
+Public themes:
 
-- a CST-to-Python inverse-sensing pipeline for studying how boundary conditions change sensing-matrix conditioning, leakage, and reconstruction stability;
-- a fabrication-ready 26 GHz passive metasurface boundary intended for controlled RF/mmWave validation.
+- measurement quality
+- process windows
+- tool behavior
+- physical variation
+- simulation-to-measurement correlation
+- bounded model claims
 
-The broader direction is semiconductor measurement infrastructure: metrology, process control, RF/mmWave sensing, simulation-to-measurement correlation, and physically bounded model claims.
-
-The site will change as projects close, claims become obsolete, or better evidence replaces earlier interpretations.
+No employer-confidential information is included.
 
 ---
 

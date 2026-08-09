@@ -1,29 +1,81 @@
 ---
 layout: page
-title: Measurement is not control
-permalink: /_notes/measurement-not-control/
+title: Measurement Is Not Control
+permalink: /notes/measurement-not-control/
 ---
 
-A measurement can respond to a physical parameter without being useful for process control.
+## Rule
 
-For process control, the question is not only:
+A measurement can be sensitive without being useful for process control.
 
-> does the signal change?
+---
 
-The stronger question is:
+## Failure mode
+
+The signal changes, so the metric is treated as actionable.
+
+Wrong inference.
+
+Process control asks a stronger question:
 
 > can the signal support a decision?
 
-That requires stability, repeatability, calibration, known nuisance variables, and a bounded interpretation.
+That requires:
 
-A sensitive measurement can still fail as a control metric if:
+```text
+repeatability
+stability
+calibration
+known nuisance variables
+bounded interpretation
+failure detection
+```
 
-- multiple parameters produce the same signal change;
-- tool drift is comparable to the process signal;
-- the measurement is not repeatable across conditions;
-- the model only works inside a narrow calibration envelope;
-- the parameter being monitored is not the parameter that matters physically.
+---
 
-This connects my student projects to fab metrology. In RCWA metrology, trench depth was more usable than secondary geometry. In the port-metasurface project, simulated field redistribution is not yet a control metric until fabrication and measurement variation are understood.
+## Why sensitivity is not enough
+
+A sensitive measurement can still fail if:
+
+```text
+multiple parameters produce the same signal
+tool drift matches the process signal
+repeatability is weak
+the calibration envelope is narrow
+the monitored parameter is not the physically important one
+the metric cannot trigger a clear decision
+```
+
+---
+
+## Examples
+
+**RCWA metrology**  
+Trench depth was more useful than secondary geometry because it was more identifiable under bounds.
+
+**Port metasurface**  
+Simulated field redistribution is not a control metric until fabrication variation and measured $S_{21}$ repeatability are understood.
+
+---
+
+## Check
+
+Before calling a measurement process-useful, ask:
+
+```text
+What parameter is being monitored?
+What nuisance variables mimic it?
+How repeatable is the metric?
+What is the calibration envelope?
+What decision would this measurement support?
+When should the metric be rejected?
+```
+
+---
+
+## Appears in
+
+[Inverse RCWA Metrology](/work/inverse-rcwa/)  
+[Port Metasurface](/work/port-metasurface/)
 
 [Back to notes](/notes/)

@@ -4,108 +4,107 @@ title: Simulation Is Not Deployment Evidence
 permalink: /notes/simulation-not-deployment/
 ---
 
-## The error
+## Rule
 
-A simulation improves a metric, so the design is treated as deployable.
+A simulation result is evidence inside the simulation assumptions.
 
-That is the wrong inference.
-
-A simulation result is evidence inside the assumptions of the simulation. Deployment adds uncontrolled geometry, fabrication, environment, calibration, and usage conditions.
+It is not deployment evidence.
 
 ---
 
-## Why it fails
+## Failure mode
 
-A controlled model usually fixes variables that the real environment does not fix.
+A model improves a metric, so the design is treated as field-ready.
 
-A simulation may assume:
+Wrong inference.
 
-- known geometry;
-- ideal materials;
-- stable boundary conditions;
-- clean excitation;
-- perfect alignment;
-- repeatable environment;
-- simplified scatterers;
-- no aging or fabrication error.
-
-A deployment does not give those assumptions for free.
-
-The correct inference is:
+Correct inference:
 
 $$
 \text{simulation improvement}
 \Rightarrow
-\text{bounded model evidence},
+\text{bounded model evidence}
 $$
 
-not
+Not:
 
 $$
 \text{simulation improvement}
 \Rightarrow
-\text{field deployment works}.
+\text{deployment works}
 $$
 
 ---
 
-## Example: port metasurface
+## What simulations often fix
 
-The port metasurface project began as a coverage-recovery problem for container ports.
+```text
+geometry
+materials
+alignment
+boundary conditions
+excitation
+noise model
+scatterers
+environment
+fabrication accuracy
+calibration
+```
 
-That framing was too broad. Full-port simulations were dominated by geometry assumptions: container placement, crane motion, blockage state, and ground reflections could change the channel more than the boundary design itself.
-
-The project became more defensible after narrowing the claim.
-
-Instead of claiming deployment coverage improvement, the current question is:
-
-> does boundary diversity improve identifiability in a controlled inverse-scattering geometry?
-
-That can be tested through sensing matrices, condition numbers, leakage, discrimination, and reconstruction robustness.
-
----
-
-## What deployment would require
-
-A deployment-level claim would need evidence beyond the current simulation:
-
-- port-calibrated geometry;
-- robustness to container rearrangement;
-- blockage variation;
-- realistic material and surface losses;
-- fabrication tolerances;
-- angular sensitivity;
-- link or sensing metrics under multiple scenarios;
-- bench or field validation.
-
-Until those exist, the result remains a controlled forward-model study.
+Deployment does not give those assumptions for free.
 
 ---
 
-## Working rule
+## Evidence ladder
 
-Before making a deployment claim, separate three levels:
+**Model result**  
+Works under defined simulation assumptions.
 
-### 1. Model result
+**Robustness result**  
+Still works when assumptions are perturbed.
 
-The design works under defined simulation assumptions.
+**Measurement result**  
+Works in a controlled physical setup.
 
-### 2. Robustness result
+**Deployment result**  
+Works under field-representative conditions.
 
-The design still works when assumptions are perturbed.
-
-### 3. Deployment result
-
-The design works under measured or field-representative conditions.
-
-Most early simulations only justify level 1.
+Most early simulations justify only the first level.
 
 ---
 
-## Where this appears
+## Port metasurface example
 
-- [Port Metasurface](/case-studies/port-metasurface/)
+CST simulations can show:
 
-In the port-metasurface project, CST simulations can show that a boundary changes the sensing matrix or that a unit cell has a physically interpretable resonance. They do not prove that a fabricated panel improves a blocked link until measured $S_{21}$, repeatability, and setup uncertainty are reported.
+```text
+boundary changes the sensing matrix
+unit cell has interpretable resonance
+reconstruction survives synthetic noise
+```
+
+They do not prove:
+
+```text
+fabricated panel improves a blocked link
+measured S21 matches simulation
+real port coverage improves
+```
+
+Needed next:
+
+```text
+fabricated panel
+measured S-parameters
+repeatability
+setup uncertainty
+simulation-to-measurement comparison
+```
+
+---
+
+## Appears in
+
+[Port Metasurface](/work/port-metasurface/)
 
 [Back to notes](/notes/)

@@ -4,99 +4,66 @@ title: Averaging Destroys Information Irreversibly
 permalink: /notes/averaging/
 ---
 
-## The error
+## Rule
 
-A spatially, temporally, or ensemble-averaged measurement is treated as if it reveals the underlying distribution.
+An average constrains a distribution.
 
-That is the wrong inference.
-
-An average can constrain a distribution, but it does not determine it.
+It does not determine it.
 
 ---
 
-## Why it fails
+## Failure mode
 
-Averaging is a many-to-one operation.
+A spatial, temporal, angular, or ensemble-averaged measurement is treated as if it revealed the hidden distribution.
 
-For a spatially varying quantity $\alpha(\mathbf{r})$, a measurement may report only
+Wrong inference.
+
+For a spatially varying quantity:
 
 $$
 \langle \alpha \rangle
 =
 \frac{1}{V}
 \int_V
-\alpha(\mathbf{r})\,dV.
+\alpha(\mathbf{r})\,dV
 $$
 
-Many different functions $\alpha(\mathbf{r})$ can produce the same average.
+Many different $\alpha(\mathbf{r})$ can produce the same average.
 
-Once the measurement collapses the distribution into a mean, the lost spatial information cannot be recovered from that mean alone.
-
----
-
-## Example: AlN electroabsorption
-
-In the AlN project, UV–Vis transmission measured a depth-averaged optical response.
-
-That allowed the claim:
-
-> field-dependent absorption exists in the film stack.
-
-It did not allow the stronger claims:
-
-- defects are uniformly distributed;
-- the response is bulk-dominated;
-- the response is interface-dominated;
-- the defect concentration is uniquely determined;
-- the defect depth profile is known.
-
-The measurement integrated over depth. Depth information was not present in the observable.
+The lost information is not recoverable from the mean alone.
 
 ---
 
-## Example: alloy sampling
+## Examples
 
-In alloy sampling, an experimental optical gap is also an averaged quantity.
+**AlN electroabsorption**  
+UV–Vis transmission measured a depth-averaged optical response. It showed field-dependent absorption, not a defect depth profile.
 
-It may reflect many configurations, local environments, grains, defects, and synthesis-dependent distributions.
+**Alloy sampling**  
+An optical gap can reflect many configurations, grains, defects, and local environments. Matching an ensemble average does not prove the sampled ensemble was the synthesized one.
 
-A match to an ensemble average does not prove that the sampled ensemble is the actual synthesized ensemble. It only shows consistency with one plausible distribution.
-
----
-
-## Other forms of averaging
-
-The same failure appears in other settings:
-
-**Powder diffraction**  
-Angle averaging can hide texture and orientation information.
-
-**Steady-state photoluminescence**  
-Time averaging can hide prompt versus delayed dynamics.
-
-**Macroscopic spectroscopy**  
-Spot-size averaging can hide grain-scale variation.
-
-**Computed ensemble properties**  
-Boltzmann-weighted averages can hide rare but important configurations.
+**g-C₃N₄ optical transitions**  
+Computed spectra can represent idealized configurations. Real samples may average over disorder, stacking, defects, and dopant environments.
 
 ---
 
-## Working rule
+## Check
 
-When reporting an average:
+When reporting an average, state:
 
-1. state what was averaged: space, time, angle, ensemble, disorder, or configuration;
-2. avoid inferring the distribution from the mean alone;
-3. distinguish “average response” from “uniform response”;
-4. add a measurement that resolves the hidden variable if the distribution matters.
+```text
+what was averaged
+what hidden variable was lost
+whether "average" is being mistaken for "uniform"
+which measurement would resolve the hidden variable
+```
 
 ---
 
-## Where this appears
+## Appears in
 
-- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
-- [Alloy Configuration Sampling](/case-studies/alloy-sampling/)
-- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
+[AlN Electroabsorption](/work/aln-electroabsorption/)  
+[Alloy Configuration Sampling](/work/alloy-sampling/)  
+[g-C₃N₄ Optical Transitions](/work/gcn-optical-transitions/)
 
 [Back to notes](/notes/)
