@@ -194,9 +194,9 @@ That does not mean the structural model is correct. Agreement with experiment ca
 
 ### Used in
 
-- [Alloy Configuration Sampling](/case-studies/alloy-sampling/)
-- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
-- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+- [Alloy Configuration Sampling](/work/alloy-sampling/)
+- [g-C₃N₄ Optical Transitions](/work/gcn-optical-transitions/)
+- [AlN Electroabsorption](/work/aln-electroabsorption/)
 
 ---
 
@@ -242,8 +242,8 @@ If dopant site, defect identity, or configuration distribution is unknown, HSE m
 
 ### Used in
 
-- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
-- [AlN Electroabsorption](/case-studies/aln-electroabsorption/) — planned or interpretive reference
+- [g-C₃N₄ Optical Transitions](/work/gcn-optical-transitions/)
+- [AlN Electroabsorption](/work/aln-electroabsorption/) — planned or interpretive reference
 
 ---
 
@@ -290,8 +290,8 @@ A calculated peak lining up with an experimental feature can make a structural a
 
 ### Used in
 
-- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
-- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+- [g-C₃N₄ Optical Transitions](/work/gcn-optical-transitions/)
+- [AlN Electroabsorption](/work/aln-electroabsorption/)
 
 ---
 
@@ -336,8 +336,8 @@ Fifty structures may be a lot of DFT calculations, but it is not a proof of ense
 
 ### Used in
 
-- [Alloy Configuration Sampling](/case-studies/alloy-sampling/)
-- [g-C₃N₄ Optical Transitions](/case-studies/gcn-optical-transitions/)
+- [Alloy Configuration Sampling](/work/alloy-sampling/)
+- [g-C₃N₄ Optical Transitions](/work/gcn-optical-transitions/)
 
 ---
 
@@ -382,7 +382,7 @@ Seeing field-dependent absorption does not tell me where inside the film the res
 
 ### Used in
 
-- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+- [AlN Electroabsorption](/work/aln-electroabsorption/)
 
 ---
 
@@ -427,7 +427,7 @@ It is an absence or weakness of long-range crystalline diffraction under the mea
 
 ### Used in
 
-- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+- [AlN Electroabsorption](/work/aln-electroabsorption/)
 
 ---
 
@@ -472,7 +472,7 @@ It is not. It is a surface measurement over selected regions.
 
 ### Used in
 
-- [AlN Electroabsorption](/case-studies/aln-electroabsorption/)
+- [AlN Electroabsorption](/work/aln-electroabsorption/)
 
 ---
 
@@ -517,7 +517,7 @@ That was not a failure of RCWA as a forward method. It was a limit of the measur
 
 ### Used in
 
-- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+- [Inverse RCWA Metrology](/work/inverse-rcwa/)
 
 ---
 
@@ -560,7 +560,7 @@ A fitted dispersion parameter may compensate for roughness, thickness error, geo
 
 ### Used in
 
-- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+- [Inverse RCWA Metrology](/work/inverse-rcwa/)
 
 ---
 
@@ -615,8 +615,8 @@ The right question is:
 
 ### Used in
 
-- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
-- [Port Metasurface](/case-studies/port-metasurface/)
+- [Inverse RCWA Metrology](/work/inverse-rcwa/)
+- [Port Metasurface](/work/port-metasurface/)
 
 ---
 
@@ -665,8 +665,8 @@ In the port metasurface project, Tikhonov worked because the system was moderate
 
 ### Used in
 
-- [Port Metasurface](/case-studies/port-metasurface/)
-- [Inverse RCWA Metrology](/case-studies/inverse-rcwa/)
+- [Port Metasurface](/work/port-metasurface/)
+- [Inverse RCWA Metrology](/work/inverse-rcwa/)
 
 ---
 
@@ -723,7 +723,7 @@ If two columns are very similar, their corresponding hidden states are hard to d
 
 ### Used in
 
-- [Port Metasurface](/case-studies/port-metasurface/)
+- [Port Metasurface](/work/port-metasurface/)
 
 ---
 
@@ -771,16 +771,15 @@ In the port metasurface project, full-port simulations were too dependent on con
 
 ### Used in
 
-- [Port Metasurface](/case-studies/port-metasurface/)
+- [Port Metasurface](/work/port-metasurface/)
 
 ---
 
 ## How this ledger connects to the site
 
-The ledger supports three site layers:
+The ledger supports two site layers:
 
-- [/method/](/method/) — the general framework.
-- [/case-studies/](/case-studies/) — projects where the methods were applied.
+- [/work/](/work/) — projects where the methods were applied.
 - [/notes/](/notes/) — specific inference errors that recur across projects.
 
 The entries here are intentionally bounded. They say what I learned from using these methods, not everything the methods can do.

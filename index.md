@@ -6,7 +6,7 @@ permalink: /
 
 I study cases where physical measurements are easier to fit than to interpret.
 
-I am graduating in microelectronics and moving into fab metrology process engineering.
+I am a metrology process engineer at Samsung's Taylor fab, with a microelectronics background and a research habit of asking what a measurement can and cannot recover.
 
 The working question:
 
@@ -15,6 +15,7 @@ The working question:
 Current axis:
 
 - inverse models
+- statistical optics
 - optical metrology
 - RF/mmWave sensing
 - thin-film characterization
@@ -56,4 +57,4 @@ A signal can be sensitive without being actionable.
 
 ---
 
-[CV](/cv/) · [About](/about/) · [Privacy](/privacy/) · [Copyright](/copyright/)
+[CV](/cv/) · [About](/about/) · [Market Brief](/market-brief/) · [Privacy](/privacy/) · [Copyright](/copyright/)
