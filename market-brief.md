@@ -2,32 +2,29 @@
 layout: page
 title: Market Brief
 permalink: /market-brief/
+lede: A daily and weekly read on markets, kept as a separate site.
 ---
-
-A daily and weekly read on markets, kept as a separate site.
 
 > What moved, relative to its own normal range, and why?
 
----
+[Open the brief](https://mdanuraag.github.io/market-brief/)
 
-## What it is
+## What it covers
 
 - a weekday morning brief and a Saturday weekly review
 - a self-built watchlist: macro indices, core funds, semiconductors, mega tech, and a widening set of energy, infrastructure, logistics, minerals, chemicals, and shipping names
-- every region covered, with no default tilt toward first-world markets
-- fewer, higher-quality flags: thresholds come from what the page has already sampled, and names are compared against peers rather than treated as direct competitors
+- every region, with no default tilt toward first-world markets
 - a reading section drawn from newsletters, with headlines spread across outlets and regions
 
 ESG appears as a tag, not as a rule.
 
----
+## How it flags
 
-## Open it
+- A move is measured against that instrument's own sampled range, which gets more robust as the history grows.
+- Names are compared against peers, never treated as direct competitors.
+- Two levels: look into, and keep an eye on. At most eight flags show.
+- Where a flag overlaps a headline or a reading, the two are linked. The link is not forced.
 
-[Market Brief](https://mdanuraag.github.io/market-brief/)
+## What it is not
 
----
-
-This is a personal reading tool. It is not investment advice, and it is separate from anything I do at work.
-
-[Back to home](/)
+A personal reading tool. It is not investment advice, and it is separate from anything I do at work.

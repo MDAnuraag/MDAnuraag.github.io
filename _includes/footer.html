@@ -1,8 +1,10 @@
-<p class="footer-legal">
-  <a href="/privacy/">Privacy</a> ·
-  <a href="/copyright/">Copyright</a>
-</p>
-
-<p class="footer-legal">
-  © 2026 Anuraag Sharma. All rights reserved unless otherwise stated.
-</p>
+<footer class="foot">
+  <p class="footer-legal">
+    <a href="{{ '/privacy/' | relative_url }}">Privacy</a>
+    <span aria-hidden="true">/</span>
+    <a href="{{ '/copyright/' | relative_url }}">Copyright</a>
+  </p>
+  <p class="footer-legal">
+    &copy; 2026 {{ site.author }}. All rights reserved unless otherwise stated.
+  </p>
+</footer>

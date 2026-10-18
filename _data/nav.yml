@@ -1,0 +1,15 @@
+- title: Work
+  url: /work/
+- title: Notes
+  url: /notes/
+- title: Reading
+  url: /reading-ledger/
+- title: Market Brief
+  url: /market-brief/
+- title: Elsewhere
+  url: /cv/elsewhere/
+- title: CV
+  url: /cv/
+  exact: true
+- title: About
+  url: /about/

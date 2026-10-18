@@ -1,0 +1,18 @@
+# What a measurement actually identified, strongest to weakest.
+# Used by the work ledger, the project pages, and the legend.
+- id: identified
+  meaning: The measurement fixes the quantity uniquely.
+- id: bounded
+  meaning: Stable inside stated bounds.
+- id: consistent
+  meaning: One explanation fits, and the alternatives were checked.
+- id: suggestive
+  meaning: Points one way, not yet tested against alternatives.
+- id: ambiguous
+  meaning: More than one explanation survives.
+- id: degenerate
+  meaning: Parameters trade off, so the fit cannot tell them apart.
+- id: unsupported
+  meaning: The data do not support the claim.
+- id: pending
+  meaning: Not measured yet.

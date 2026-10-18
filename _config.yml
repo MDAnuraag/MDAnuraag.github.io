@@ -11,12 +11,6 @@ plugins:
   - jekyll-feed
   - jekyll-redirect-from
 
-header_pages:
-  - work.md
-  - notes.md
-  - cv.md
-  - market-brief.md
-
 collections:
   notes:
     output: true

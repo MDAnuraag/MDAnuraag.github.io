@@ -2,9 +2,8 @@
 layout: page
 title: CV
 permalink: /cv/
+lede: Anuraag Sharma. Metrology process engineer, with research in inverse problems and statistical optics.
 ---
-
-# Anuraag Sharma
 
 **Graduated:** Summer 2026  
 **Degree:** B.Eng., Microelectronic Science and Engineering  
