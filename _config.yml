@@ -9,11 +9,13 @@ theme: minima
 
 plugins:
   - jekyll-feed
+  - jekyll-redirect-from
 
 header_pages:
   - work.md
   - notes.md
   - cv.md
+  - market-brief.md
 
 collections:
   notes:
@@ -21,3 +23,12 @@ collections:
     permalink: /notes/:name/
 
 markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - package.json
+  - package-lock.json
+  - node_modules
+  - scripts
+  - README.md

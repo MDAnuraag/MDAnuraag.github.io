@@ -7,18 +7,11 @@
    Font system
 ------------------------------------------------------------ */
 
+/* One static weight ships (iosevka-ss08-regular); it covers 400-500. */
 @font-face {
   font-family: "Iosevka Site";
-  src: url("/assets/fonts/iosevka/iosevka-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Iosevka Site";
-  src: url("/assets/fonts/iosevka/iosevka-medium.woff2") format("woff2");
-  font-weight: 500;
+  src: url("/assets/fonts/iosevka-ss08-regular.woff2") format("woff2");
+  font-weight: 400 500;
   font-style: normal;
   font-display: swap;
 }

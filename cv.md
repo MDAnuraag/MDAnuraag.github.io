@@ -6,10 +6,10 @@ permalink: /cv/
 
 # Anuraag Sharma
 
-**Graduating:** Summer 2026  
+**Graduated:** Summer 2026  
 **Degree:** B.Eng., Microelectronic Science and Engineering  
-**Next role:** Metrology Process Engineer, Samsung Taylor site  
-**Focus:** semiconductor metrology, process control, RF/mmWave characterization, passive boundary design, physics-based modeling
+**Role:** Metrology Process Engineer, Samsung — Taylor site  
+**Focus:** semiconductor metrology, process control, statistical optics and inverse problems, RF/mmWave characterization, physics-based modeling
 
 [Work](/work/) gives the technical evidence.  
 [Notes](/notes/) gives the inference rules.
@@ -19,7 +19,7 @@ permalink: /cv/
 ## Contact
 
 Email: anuraag.sharma22 [at] student.xjtlu.edu.cn  
-Location: Taicang, China → Taylor/Austin, Texas
+Location: Taylor / Austin, Texas
 
 ---
 
@@ -27,7 +27,7 @@ Location: Taicang, China → Taylor/Austin, Texas
 
 I work on cases where physical measurements are easier to fit than to interpret.
 
-Next context:
+Current context:
 
 - fab metrology
 - process monitoring
@@ -46,7 +46,7 @@ Core question:
 
 **Xi’an Jiaotong–Liverpool University**  
 B.Eng., Microelectronic Science and Engineering  
-Expected Summer 2026  
+2026  
 Direct Year 2 Entry
 
 **University of Liverpool**  
@@ -55,12 +55,12 @@ Double Degree Program
 
 ---
 
-## Incoming role
+## Current role
 
 ### Metrology Process Engineer
 
 **Samsung — Taylor site**  
-Starting 2026
+2026–present
 
 Public-facing focus:
 
@@ -69,8 +69,9 @@ Public-facing focus:
 - tool behavior
 - process windows
 - metrology interpretation
+- advanced-node thickness, CD, and overlay metrology
 
-No project details listed yet.
+No project details are listed. Nothing on this site is employer-confidential.
 
 ---
 
@@ -171,4 +172,4 @@ English, Hindi, Konkani, Kannada, Chinese, French
 
 ---
 
-Last updated: August 2026
+Last updated: October 2026
