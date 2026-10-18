@@ -11,18 +11,14 @@ layout: default
 
 <article class="doc">
   <header class="doc-head">
-    {%- if page.hero %}
-    <h1 class="hero" data-type>{{ page.hero }}</h1>
-    {%- else %}
-    <h1 data-type>{{ page.title }}</h1>
-    {%- endif %}
+    <h1 id="title"><span class="p">$ </span><span class="t">{% if page.hero %}{{ page.hero }}{% else %}{{ page.title | downcase | replace: ' ', '-' }}{% endif %}</span></h1>
     {%- if page.lede %}
-    <p class="lede" data-type>{{ page.lede }}</p>
+    <p class="lede">{{ page.lede }}</p>
     {%- endif %}
     {%- if work_item %}
     <p class="verdict">
-      <span><span class="k">found</span><span class="tier tier-{{ work_item.found.tier }}">{{ work_item.found.tier }}</span></span>
-      <span><span class="k">limit</span><span class="tier tier-{{ work_item.boundary.tier }}">{{ work_item.boundary.tier }}</span></span>
+      <span><span class="k">found</span>{% include tier.html id=work_item.found.tier bar=false %}</span>
+      <span><span class="k">limit</span>{% include tier.html id=work_item.boundary.tier bar=false %}</span>
     </p>
     {%- endif %}
     {%- if page.status %}

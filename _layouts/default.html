@@ -2,13 +2,16 @@
 <html lang="{{ page.lang | default: site.lang | default: 'en' }}">
   {%- include head.html -%}
   <body>
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="shell">
-      {%- include header.html -%}
-      <main id="main" class="content" aria-label="Content">
-        {{ content }}
-      </main>
-      {%- include footer.html -%}
+      <nav class="index-nav" id="index" aria-label="On this page" hidden><p class="ih">index</p></nav>
+      <div class="wrap">
+        {%- include header.html -%}
+        <main id="main" aria-label="Content">
+          {{ content }}
+        </main>
+        {%- include footer.html -%}
+      </div>
     </div>
   </body>
 </html>

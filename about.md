@@ -13,11 +13,13 @@ This site tracks how I think about measurement, models, ambiguity, and process-s
 
 ## What I care about
 
-- What was measured?
-- What was assumed?
-- What was ruled out?
-- What stayed ambiguous?
-- Could this support a process decision?
+<ul class="qs">
+  <li><span class="q">What was measured?</span><span class="a">The signal itself, before any model.</span></li>
+  <li><span class="q">What was assumed?</span><span class="a">Everything the fit takes as given.</span></li>
+  <li><span class="q">What was ruled out?</span><span class="a">Alternatives that were actually tested.</span></li>
+  <li><span class="q">What stayed ambiguous?</span><span class="a">Where parameters still trade off.</span></li>
+  <li><span class="q">Could this support a process decision?</span><span class="a">Repeatable and stable enough to act on.</span></li>
+</ul>
 
 ---
 

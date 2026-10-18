@@ -1,20 +1,13 @@
-<header class="rail">
-  <a class="rail-name" href="{{ '/' | relative_url }}">{{ site.title | downcase }}</a>
-  <span class="rail-by">{{ site.author }}</span>
-
-  <nav class="rail-nav" aria-label="Site">
+<header class="top">
+  <a class="brand" href="{{ '/' | relative_url }}">{{ site.title | downcase | replace: ' ', '-' }}</a>
+  <nav aria-label="Site">
     <ul>
       {%- for item in site.data.nav %}
       {%- assign on = false %}
       {%- if page.url == item.url %}{% assign on = true %}{% endif %}
       {%- if item.exact != true and page.url contains item.url %}{% assign on = true %}{% endif %}
-      <li><a href="{{ item.url | relative_url }}"{% if on %} aria-current="page"{% endif %}>{{ item.title }}</a></li>
+      <li><a href="{{ item.url | relative_url }}"{% if on %} aria-current="page"{% endif %}>{{ item.title | downcase }}</a></li>
       {%- endfor %}
     </ul>
-  </nav>
-
-  <nav class="rail-toc" aria-label="On this page">
-    <p class="rail-label">On this page</p>
-    <ol></ol>
   </nav>
 </header>

@@ -19,8 +19,8 @@ The entries are written from use, not authority.
 
 Filter by domain or click a method to jump to the full entry.
 
-<div style="margin: 1.5rem 0;">
-  <div style="margin-bottom: 0.75rem;">
+<div>
+  <div class="filters" role="group" aria-label="Filter by domain">
     <button onclick="filterLedger('all')" class="ledger-filter active" data-filter="all">All</button>
     <button onclick="filterLedger('computational')" class="ledger-filter" data-filter="computational">Computational</button>
     <button onclick="filterLedger('experimental')" class="ledger-filter" data-filter="experimental">Experimental</button>
@@ -28,114 +28,83 @@ Filter by domain or click a method to jump to the full entry.
     <button onclick="filterLedger('simulation')" class="ledger-filter" data-filter="simulation">Simulation</button>
   </div>
 
-  <table id="ledger-table" style="width:100%; border-collapse: collapse; font-size: 0.9rem;">
+  <table id="ledger-table">
     <thead>
-      <tr style="border-bottom: 1px solid #ddd; text-align: left;">
-        <th style="padding: 6px 10px; font-weight: 500;">Method</th>
-        <th style="padding: 6px 10px; font-weight: 500;">Main limit</th>
-        <th style="padding: 6px 10px; font-weight: 500;">Used in</th>
+      <tr>
+        <th>Method</th>
+        <th>Main limit</th>
+        <th>Used in</th>
       </tr>
     </thead>
     <tbody>
       <tr data-domain="computational">
-        <td style="padding: 6px 10px;"><a href="#dft-pbe">DFT — PBE</a></td>
-        <td style="padding: 6px 10px;">absolute gaps, defect levels, self-interaction error</td>
-        <td style="padding: 6px 10px;">alloy sampling, g-C₃N₄, AlN</td>
+        <td><a href="#dft-pbe">DFT — PBE</a></td>
+        <td>absolute gaps, defect levels, self-interaction error</td>
+        <td>alloy sampling, g-C₃N₄, AlN</td>
       </tr>
       <tr data-domain="computational">
-        <td style="padding: 6px 10px;"><a href="#dft-hse06">DFT — hybrid functionals</a></td>
-        <td style="padding: 6px 10px;">cost, finite-size limits, missing excitons</td>
-        <td style="padding: 6px 10px;">g-C₃N₄, AlN planning</td>
+        <td><a href="#dft-hse06">DFT — hybrid functionals</a></td>
+        <td>cost, finite-size limits, missing excitons</td>
+        <td>g-C₃N₄, AlN planning</td>
       </tr>
       <tr data-domain="computational">
-        <td style="padding: 6px 10px;"><a href="#optics-from-dft">Optical response from DFT</a></td>
-        <td style="padding: 6px 10px;">independent-particle spectra are not structural fingerprints</td>
-        <td style="padding: 6px 10px;">g-C₃N₄, AlN</td>
+        <td><a href="#optics-from-dft">Optical response from DFT</a></td>
+        <td>independent-particle spectra are not structural fingerprints</td>
+        <td>g-C₃N₄, AlN</td>
       </tr>
       <tr data-domain="computational">
-        <td style="padding: 6px 10px;"><a href="#config-sampling">Configuration sampling</a></td>
-        <td style="padding: 6px 10px;">finite sampling of large configuration spaces</td>
-        <td style="padding: 6px 10px;">alloy sampling, g-C₃N₄</td>
+        <td><a href="#config-sampling">Configuration sampling</a></td>
+        <td>finite sampling of large configuration spaces</td>
+        <td>alloy sampling, g-C₃N₄</td>
       </tr>
       <tr data-domain="experimental">
-        <td style="padding: 6px 10px;"><a href="#uv-vis">UV–Vis spectroscopy</a></td>
-        <td style="padding: 6px 10px;">depth averaging, scattering/absorption ambiguity</td>
-        <td style="padding: 6px 10px;">AlN</td>
+        <td><a href="#uv-vis">UV–Vis spectroscopy</a></td>
+        <td>depth averaging, scattering/absorption ambiguity</td>
+        <td>AlN</td>
       </tr>
       <tr data-domain="experimental">
-        <td style="padding: 6px 10px;"><a href="#xrd">XRD</a></td>
-        <td style="padding: 6px 10px;">absence of peaks is not full structural knowledge</td>
-        <td style="padding: 6px 10px;">AlN</td>
+        <td><a href="#xrd">XRD</a></td>
+        <td>absence of peaks is not full structural knowledge</td>
+        <td>AlN</td>
       </tr>
       <tr data-domain="experimental">
-        <td style="padding: 6px 10px;"><a href="#afm">AFM</a></td>
-        <td style="padding: 6px 10px;">surface-only measurement, tip convolution, sampling bias</td>
-        <td style="padding: 6px 10px;">AlN</td>
+        <td><a href="#afm">AFM</a></td>
+        <td>surface-only measurement, tip convolution, sampling bias</td>
+        <td>AlN</td>
       </tr>
       <tr data-domain="inverse">
-        <td style="padding: 6px 10px;"><a href="#rcwa">RCWA</a></td>
-        <td style="padding: 6px 10px;">inverse non-uniqueness despite accurate forward modeling</td>
-        <td style="padding: 6px 10px;">inverse RCWA metrology</td>
+        <td><a href="#rcwa">RCWA</a></td>
+        <td>inverse non-uniqueness despite accurate forward modeling</td>
+        <td>inverse RCWA metrology</td>
       </tr>
       <tr data-domain="inverse">
-        <td style="padding: 6px 10px;"><a href="#dispersion">Dispersion models</a></td>
-        <td style="padding: 6px 10px;">effective parameters can absorb modeling error</td>
-        <td style="padding: 6px 10px;">inverse RCWA metrology</td>
+        <td><a href="#dispersion">Dispersion models</a></td>
+        <td>effective parameters can absorb modeling error</td>
+        <td>inverse RCWA metrology</td>
       </tr>
       <tr data-domain="inverse">
-        <td style="padding: 6px 10px;"><a href="#identifiability">Identifiability</a></td>
-        <td style="padding: 6px 10px;">fit quality does not imply parameter uniqueness</td>
-        <td style="padding: 6px 10px;">inverse RCWA, port metasurface</td>
+        <td><a href="#identifiability">Identifiability</a></td>
+        <td>fit quality does not imply parameter uniqueness</td>
+        <td>inverse RCWA, port metasurface</td>
       </tr>
       <tr data-domain="inverse">
-        <td style="padding: 6px 10px;"><a href="#inverse-problems">Regularized inverse problems</a></td>
-        <td style="padding: 6px 10px;">regularization stabilizes estimates but does not create information</td>
-        <td style="padding: 6px 10px;">inverse RCWA, port metasurface</td>
+        <td><a href="#inverse-problems">Regularized inverse problems</a></td>
+        <td>regularization stabilizes estimates but does not create information</td>
+        <td>inverse RCWA, port metasurface</td>
       </tr>
       <tr data-domain="inverse">
-        <td style="padding: 6px 10px;"><a href="#sensing-matrices">Sensing matrices</a></td>
-        <td style="padding: 6px 10px;">column similarity creates ambiguity between hidden states</td>
-        <td style="padding: 6px 10px;">port metasurface</td>
+        <td><a href="#sensing-matrices">Sensing matrices</a></td>
+        <td>column similarity creates ambiguity between hidden states</td>
+        <td>port metasurface</td>
       </tr>
       <tr data-domain="simulation">
-        <td style="padding: 6px 10px;"><a href="#em-sim">EM simulation</a></td>
-        <td style="padding: 6px 10px;">single-scenario results do not prove deployment behavior</td>
-        <td style="padding: 6px 10px;">port metasurface</td>
+        <td><a href="#em-sim">EM simulation</a></td>
+        <td>single-scenario results do not prove deployment behavior</td>
+        <td>port metasurface</td>
       </tr>
     </tbody>
   </table>
 </div>
-
-<style>
-.ledger-filter {
-  margin-right: 6px;
-  margin-bottom: 6px;
-  padding: 4px 12px;
-  font-size: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  background: transparent;
-  cursor: pointer;
-}
-.ledger-filter.active {
-  background: #111;
-  color: #fff;
-  border-color: #111;
-}
-#ledger-table tr[data-domain] {
-  transition: opacity 0.15s;
-}
-#ledger-table tr[data-domain].hidden {
-  display: none;
-}
-#ledger-table tbody tr:hover {
-  background: #f8f8f8;
-}
-#ledger-table td,
-#ledger-table th {
-  border-bottom: 1px solid #f0f0f0;
-}
-</style>
 
 <script>
 function filterLedger(domain) {

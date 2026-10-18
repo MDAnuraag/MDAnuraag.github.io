@@ -1,0 +1,6 @@
+{%- assign tier_def = nil -%}
+{%- for x in site.data.tiers -%}{%- if x.id == include.id -%}{%- assign tier_def = x -%}{%- endif -%}{%- endfor -%}
+<span class="tier tier-{{ include.id }}">{{ include.id }}</span>
+{%- if include.bar -%}
+<span class="bar tier-{{ include.id }}" aria-hidden="true"><span class="track">{% if tier_def.pct > 0 %}<span class="fill {{ tier_def.side }}" style="width:{{ tier_def.pct }}%"></span>{% endif %}</span></span>
+{%- endif -%}

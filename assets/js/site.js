@@ -1,224 +1,206 @@
-/* Under Constraints: page index and typed reveal. No dependencies. */
+/* Under Constraints: page index and typed reveal, ported from the market brief.
+   No dependencies. Without JavaScript the page is simply all there. */
 (function () {
   "use strict";
 
-  /* ---------- on-this-page index ---------- */
+  var doc = document;
+  function $(s, r) { return (r || doc).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || doc).querySelectorAll(s)); }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
-  function slug(text) {
-    return text
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  }
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var index = $("#index");
+  var body = $(".doc-body");
+  var h1 = $("#title");
+  var lede = $(".doc-head .lede");
 
-  function buildToc() {
-    var toc = document.querySelector(".rail-toc");
-    var body = document.querySelector(".doc-body");
-    if (!toc || !body) return;
+  /* ---------- index: one entry per h2 ---------- */
 
-    var heads = Array.prototype.slice.call(body.querySelectorAll("h2"));
-    if (heads.length < 2) return;
+  function slug(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""); }
 
-    var list = toc.querySelector("ol");
+  var heads = body ? $$("h2", body) : [];
+  var links = [];
+
+  function buildIndex() {
+    if (!index || heads.length < 2) return;
     var used = {};
-    var links = [];
-
     heads.forEach(function (h) {
       if (!h.id) {
-        var base = slug(h.textContent) || "section";
-        var id = base;
-        var n = 2;
-        while (used[id] || document.getElementById(id)) {
-          id = base + "-" + n++;
-        }
+        var base = slug(h.textContent) || "section", id = base, n = 2;
+        while (used[id] || doc.getElementById(id)) id = base + "-" + n++;
         h.id = id;
       }
       used[h.id] = true;
-
-      var li = document.createElement("li");
-      var a = document.createElement("a");
+      var a = doc.createElement("a");
       a.href = "#" + h.id;
       a.textContent = h.textContent;
-      li.appendChild(a);
-      list.appendChild(li);
-      links.push({ el: h, link: a });
+      index.appendChild(a);
+      links.push({ el: h, a: a });
     });
+    index.hidden = false;
+  }
 
-    toc.classList.add("is-ready");
+  var current = null, locked = false, queued = false;
+  function setCurrent(a) {
+    if (current === a) return;
+    if (current) current.classList.remove("on");
+    current = a;
+    if (a) a.classList.add("on");
+  }
+  function update() {
+    queued = false;
+    if (locked || !links.length) return;
+    var atEnd = window.innerHeight + window.pageYOffset >= doc.documentElement.scrollHeight - 2;
+    var pick = null, best = -Infinity;
+    links.forEach(function (l) {
+      var top = l.el.getBoundingClientRect().top;
+      if (top <= 140 && top > best + 2) { pick = l.a; best = top; }
+    });
+    if (atEnd) pick = links[links.length - 1].a;
+    setCurrent(pick);
+  }
+  function onScroll() { if (!queued) { queued = true; requestAnimationFrame(update); } }
 
-    var current = null;
-    var queued = false;
-
-    function setCurrent(a) {
-      if (current === a) return;
-      if (current) current.classList.remove("is-current");
-      current = a;
-      if (a) a.classList.add("is-current");
-    }
-
-    var locked = false;
-
-    // the section whose heading most recently passed the upper third of the
-    // viewport (side-by-side blocks tie, so the first one wins); at the very
-    // bottom of a page, the last section, unless an index link was just used
-    function update() {
-      queued = false;
-      if (locked) return;
-      var line = window.innerHeight * 0.33;
-      var atEnd =
-        window.innerHeight + window.pageYOffset >=
-        document.documentElement.scrollHeight - 2;
-      var pick = null;
-      var bestTop = -Infinity;
-      for (var i = 0; i < links.length; i++) {
-        var top = links[i].el.getBoundingClientRect().top;
-        if (top <= line && top > bestTop + 2) {
-          pick = links[i].link;
-          bestTop = top;
-        }
-      }
-      if (atEnd && links.length) pick = links[links.length - 1].link;
-      setCurrent(pick);
-    }
-
-    function onScroll() {
-      if (queued) return;
-      queued = true;
-      window.requestAnimationFrame(update);
-    }
-
-    function unlock() {
-      locked = false;
-      onScroll();
-    }
-
-    list.addEventListener("click", function (e) {
+  function wireIndex() {
+    if (!links.length) return;
+    index.addEventListener("click", function (e) {
       var a = e.target.closest ? e.target.closest("a") : null;
       if (!a) return;
       locked = true;
       setCurrent(a);
     });
     ["wheel", "touchmove", "keydown"].forEach(function (ev) {
-      window.addEventListener(ev, unlock, { passive: true });
+      window.addEventListener(ev, function () { if (locked) { locked = false; onScroll(); } }, { passive: true });
     });
-
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     update();
   }
 
-  /* ---------- typed reveal ---------- */
+  /* ---------- typing engine ---------- */
 
-  function typeReveal() {
-    var reduce =
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var targets = Array.prototype.slice.call(
-      document.querySelectorAll("[data-type]")
-    );
-    if (!targets.length || reduce) return;
+  var cursor = doc.createElement("span");
+  cursor.className = "cursor";
+  cursor.setAttribute("aria-hidden", "true");
 
-    var key = "typed:" + location.pathname;
-    try {
-      if (sessionStorage.getItem(key)) return;
-      sessionStorage.setItem(key, "1");
-    } catch (e) {}
+  var skipped = false, running = false, skipBtn = null;
 
-    // collect text nodes first, then replace, so the walk is not disturbed
-    var nodes = [];
-    function walk(n) {
-      for (var c = n.firstChild; c; c = c.nextSibling) {
-        if (c.nodeType === 3) {
-          if (c.nodeValue.trim()) nodes.push(c);
-        } else if (
-          c.nodeType === 1 &&
-          !/^(SCRIPT|STYLE)$/.test(c.tagName) &&
-          !c.classList.contains("katex")
-        ) {
-          walk(c);
-        }
-      }
-    }
-    targets.forEach(walk);
-    if (!nodes.length) return;
-
-    var jobs = nodes.map(function (node) {
-      var full = node.nodeValue;
-      var typed = document.createElement("span");
-      var ghost = document.createElement("span");
-      ghost.className = "t-ghost";
-      ghost.textContent = full;
-      var wrap = document.createDocumentFragment();
-      wrap.appendChild(typed);
-      wrap.appendChild(ghost);
-      node.parentNode.replaceChild(wrap, node);
-      return { node: node, full: full, typed: typed, ghost: ghost, done: 0 };
+  function typed(host, text, perChar) {
+    host.textContent = "";
+    host.appendChild(cursor);
+    var i = 0, n = text.length;
+    var step = n > 200 ? 3 : n > 80 ? 2 : 1;
+    return new Promise(function (resolve) {
+      (function tick() {
+        if (skipped) { host.textContent = text; resolve(); return; }
+        i = Math.min(n, i + step);
+        host.textContent = text.slice(0, i);
+        host.appendChild(cursor);
+        if (i >= n) { resolve(); return; }
+        setTimeout(tick, perChar);
+      })();
     });
+  }
 
-    var total = jobs.reduce(function (s, j) {
-      return s + j.full.length;
-    }, 0);
-    var duration = Math.min(3200, total * 20);
-    var caret = document.createElement("span");
-    caret.className = "t-caret";
-    caret.setAttribute("aria-hidden", "true");
+  // reveal units: the top-level children of .doc-body, grouped so each h2 (or a block
+  // holding h2s) starts a new chunk. Index entries appear with their chunk.
+  function chunks() {
+    var out = [], cur = null;
+    if (!body) return out;
+    $$(":scope > *", body).forEach(function (node) {
+      var hs = node.tagName === "H2" ? [node] : $$("h2", node);
+      if (hs.length || !cur) { cur = { nodes: [], heads: [] }; out.push(cur); }
+      cur.nodes.push(node);
+      hs.forEach(function (h) { cur.heads.push(h); });
+    });
+    return out;
+  }
 
-    var start = null;
-    var finished = false;
+  function linkFor(h) {
+    for (var i = 0; i < links.length; i++) if (links[i].el === h) return links[i].a;
+    return null;
+  }
 
-    function finish() {
-      if (finished) return;
-      finished = true;
-      if (caret.parentNode) caret.parentNode.removeChild(caret);
-      jobs.forEach(function (j) {
-        var parent = j.typed.parentNode;
-        if (!parent) return;
-        parent.insertBefore(j.node, j.typed);
-        parent.removeChild(j.typed);
-        parent.removeChild(j.ghost);
-      });
-      window.removeEventListener("keydown", finish);
-      window.removeEventListener("pointerdown", finish);
+  function showAll(cs) {
+    cs.forEach(function (c) {
+      c.nodes.forEach(function (n) { n.classList.remove("pre"); });
+      c.heads.forEach(function (h) { var a = linkFor(h); if (a) a.classList.remove("pre"); });
+    });
+    $$(".pre").forEach(function (n) { n.classList.remove("pre"); });
+  }
+
+  function restCursor() {
+    var t = $(".t", h1);
+    if (t) { t.appendChild(cursor); cursor.classList.add("blink"); }
+  }
+
+  function done(cs) {
+    skipped = true;
+    showAll(cs);
+    if (h1 && h1.dataset.full) { $(".t", h1).textContent = h1.dataset.full; }
+    if (lede && lede.dataset.full) lede.textContent = lede.dataset.full;
+    restCursor();
+    if (skipBtn) skipBtn.hidden = true;
+    running = false;
+  }
+
+  async function run() {
+    var cs = chunks();
+    var t = $(".t", h1);
+    var htext = t.textContent, ltext = lede ? lede.textContent : "";
+    h1.dataset.full = htext;
+    if (lede) lede.dataset.full = ltext;
+
+    // hold the space so nothing shifts while typing
+    [[t, htext], [lede, ltext]].forEach(function (p) {
+      if (p[0]) { p[0].parentNode.style.minHeight = p[0].parentNode.offsetHeight + "px"; }
+    });
+    cs.forEach(function (c) { c.nodes.forEach(function (n) { n.classList.add("pre"); }); });
+    links.forEach(function (l) { l.a.classList.add("pre"); });
+    t.textContent = ""; if (lede) lede.textContent = "";
+
+    skipBtn = doc.createElement("button");
+    skipBtn.className = "skip";
+    skipBtn.type = "button";
+    skipBtn.textContent = "skip typing";
+    skipBtn.addEventListener("click", function () { done(cs); });
+    doc.body.appendChild(skipBtn);
+    running = true;
+
+    doc.addEventListener("keydown", function (e) {
+      if (running && (e.key === "Escape" || e.key === "Enter")) done(cs);
+    });
+    if (index) index.addEventListener("click", function () { if (running) done(cs); });
+
+    await typed(t, htext, 26);
+    if (skipped) return;
+    if (lede) { await sleep(90); if (skipped) return; await typed(lede, ltext, 12); }
+    if (skipped) return;
+    cursor.parentNode && cursor.parentNode.removeChild(cursor);
+
+    for (var i = 0; i < cs.length; i++) {
+      if (skipped) return;
+      await sleep(140);
+      if (skipped) return;
+      cs[i].nodes.forEach(function (n) { n.classList.remove("pre"); });
+      cs[i].heads.forEach(function (h) { var a = linkFor(h); if (a) a.classList.remove("pre"); });
     }
-
-    function frame(ts) {
-      if (finished) return;
-      if (start === null) start = ts;
-      var shown = Math.min(total, Math.floor(((ts - start) / duration) * total));
-      var left = shown;
-      var active = null;
-      for (var i = 0; i < jobs.length; i++) {
-        var j = jobs[i];
-        var n = Math.max(0, Math.min(j.full.length, left));
-        left -= j.full.length;
-        if (n !== j.done) {
-          j.typed.textContent = j.full.slice(0, n);
-          j.ghost.textContent = j.full.slice(n);
-          j.done = n;
-        }
-        if (n > 0 && n < j.full.length && !active) active = j;
-      }
-      if (active) active.typed.parentNode.insertBefore(caret, active.ghost);
-      if (shown >= total) {
-        finish();
-        return;
-      }
-      window.requestAnimationFrame(frame);
-    }
-
-    window.addEventListener("keydown", finish);
-    window.addEventListener("pointerdown", finish);
-    window.requestAnimationFrame(frame);
+    done(cs);
   }
 
   function init() {
-    buildToc();
-    typeReveal();
+    buildIndex();
+    wireIndex();
+    if (!h1 || !$(".t", h1)) return;
+
+    var key = "typed:" + location.pathname;
+    var seen = false;
+    try { seen = !!sessionStorage.getItem(key); sessionStorage.setItem(key, "1"); } catch (e) {}
+
+    if (reduce || seen || location.hash) { restCursor(); return; }
+    run();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  if (doc.readyState === "loading") doc.addEventListener("DOMContentLoaded", init);
+  else init();
 })();

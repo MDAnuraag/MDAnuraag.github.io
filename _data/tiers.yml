@@ -1,18 +1,32 @@
 # What a measurement actually identified, strongest to weakest.
-# Used by the work ledger, the project pages, and the legend.
+# Seven steps on the same colour scale as the market brief; "pending" sits in
+# the middle like the brief's "flat". side and pct drive the diverging bar:
+# supported claims fill right of centre, unsupported ones left.
 - id: identified
   meaning: The measurement fixes the quantity uniquely.
+  side: pos
+  pct: 50
 - id: bounded
   meaning: Stable inside stated bounds.
+  side: pos
+  pct: 33.3
 - id: consistent
   meaning: One explanation fits, and the alternatives were checked.
-- id: suggestive
-  meaning: Points one way, not yet tested against alternatives.
-- id: ambiguous
-  meaning: More than one explanation survives.
-- id: degenerate
-  meaning: Parameters trade off, so the fit cannot tell them apart.
-- id: unsupported
-  meaning: The data do not support the claim.
+  side: pos
+  pct: 16.7
 - id: pending
   meaning: Not measured yet.
+  side: pos
+  pct: 0
+- id: ambiguous
+  meaning: More than one explanation survives.
+  side: neg
+  pct: 16.7
+- id: degenerate
+  meaning: Parameters trade off, so the fit cannot tell them apart.
+  side: neg
+  pct: 33.3
+- id: unsupported
+  meaning: The data do not support the claim.
+  side: neg
+  pct: 50
