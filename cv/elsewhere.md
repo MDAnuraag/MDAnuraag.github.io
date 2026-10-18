@@ -2,9 +2,8 @@
 layout: page
 title: Elsewhere
 permalink: /cv/elsewhere/
+lede: Things that inform my thinking without proving anything.
 ---
-
-Things that inform my thinking without proving anything.
 
 ## China
 

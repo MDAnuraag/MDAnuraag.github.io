@@ -1,0 +1,63 @@
+# One entry per project. "found" and "boundary" (shown as "limit") each take a tier id from
+# _data/tiers.yml. Edit the tier when your own judgment changes.
+- group: Fab metrology and process control
+  items:
+    - title: Inverse RCWA Metrology
+      url: /work/inverse-rcwa/
+      object: Patterned semiconductor stack, broadband optical reflectance
+      found:
+        text: Trench depth was stable under bounds
+        tier: bounded
+      boundary:
+        text: Secondary geometry stayed degenerate
+        tier: degenerate
+      lesson: Fit quality is not identifiability.
+
+- group: RF and mmWave structures
+  items:
+    - title: Port Metasurface
+      url: /work/port-metasurface/
+      object: 26 GHz loop-paddle-diamond RF boundary, CST field response
+      found:
+        text: Boundary conditions changed hidden-position distinguishability (simulation)
+        tier: bounded
+      boundary:
+        text: Fabricated-panel measurement not done yet
+        tier: pending
+      lesson: A surface matters only if it changes the operator usefully.
+
+- group: Materials and optical characterization
+  items:
+    - title: AlN Electroabsorption
+      url: /work/aln-electroabsorption/
+      object: PEALD-grown AlN-based thin films, field-dependent UV transmission
+      found:
+        text: Defect- or disorder-mediated absorption fits best
+        tier: consistent
+      boundary:
+        text: The exact defect pathway was not identifiable
+        tier: degenerate
+      lesson: Spectra constrain mechanisms; they do not name microscopic causes alone.
+
+- group: Earlier work
+  items:
+    - title: Alloy Configuration Sampling
+      url: /work/alloy-sampling/
+      object: Cu2Ge(S,Se)3 band-gap trend versus composition
+      found:
+        text: Configuration sampling changed the interpretation
+        tier: consistent
+      boundary:
+        text: The synthesized configuration distribution is unresolved
+        tier: ambiguous
+      lesson: Composition is not structure.
+    - title: g-C3N4 Optical Transitions
+      url: /work/gcn-optical-transitions/
+      object: Metal-doped g-C3N4 (Pt, Pd, Co), DFT optical response
+      found:
+        text: Dopants redistributed oscillator strength
+        tier: consistent
+      boundary:
+        text: Spectra did not identify unique dopant sites
+        tier: degenerate
+      lesson: A spectrum is not a structural fingerprint.

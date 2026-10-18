@@ -2,13 +2,8 @@
 layout: page
 title: About
 permalink: /about/
+lede: I work on inverse problems in physical sensing. Measurements are often easier to fit than to interpret.
 ---
-
-I work on inverse problems in physical sensing.
-
-The short version:
-
-> measurements are often easier to fit than to interpret.
 
 I am a metrology process engineer at Samsung's Taylor fab. My background is microelectronics, with research in statistical optics and inverse problems.
 
