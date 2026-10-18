@@ -25,6 +25,12 @@ ESG appears as a tag, not as a rule.
 - Two levels: look into, and keep an eye on. At most eight flags show.
 - Where a flag overlaps a headline or a reading, the two are linked. The link is not forced.
 
+## The change scale
+
+Every move is placed on one seven-step scale. Each step also carries an arrow or a bar, so colour is never the only signal.
+
+<p class="legend"><span class="l-up3">surge</span><span class="l-up2">strong gain</span><span class="l-up1">gain</span><span class="l-flat">flat or no data</span><span class="l-dn1">slip</span><span class="l-dn2">drop</span><span class="l-dn3">sharp drop</span></p>
+
 ## What it is not
 
 A personal reading tool. It is not investment advice, and it is separate from anything I do at work.

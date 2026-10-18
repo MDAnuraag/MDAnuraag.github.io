@@ -19,7 +19,7 @@ Photography from places where I wasn’t supposed to be doing research.
 Music I listen to while waiting for convergence.
 
 <iframe
-  style="border-radius:12px"
+ 
   src="https://open.spotify.com/embed/playlist/5sF9iZbqxKnefUk1gByhTd?utm_source=generator"
   width="100%"
   height="152"
@@ -28,10 +28,9 @@ Music I listen to while waiting for convergence.
   loading="lazy">
 </iframe>
 
-<div style="height:16px"></div>
 
 <iframe
-  style="border-radius:12px"
+ 
   src="https://open.spotify.com/embed/playlist/2Iu55OXqjJ93X1QMV9iXnr?utm_source=generator"
   width="100%"
   height="152"
@@ -40,10 +39,9 @@ Music I listen to while waiting for convergence.
   loading="lazy">
 </iframe>
 
-<div style="height:16px"></div>
 
 <iframe
-  style="border-radius:12px"
+ 
   src="https://open.spotify.com/embed/playlist/06u6CFdQPjmwVZymR3jqXY?utm_source=generator"
   width="100%"
   height="152"
@@ -87,28 +85,6 @@ Media that handle causality, time, or power well.
   <img src="/assets/images/elsewhere/media/dtl.jpg"
        alt="DTL" loading="lazy" decoding="async" />
 </div>  
-
-<style>
-.media-grid{
-  display:grid;
-  grid-template-columns:repeat(5, 1fr);
-  gap:8px;
-}
-.media-grid img{
-  width:100%;
-  aspect-ratio: 3 / 4;   /* choose your canon ratio */
-  object-fit: cover;     /* crops edges, preserves feel */
-  border-radius:8px;
-  display:block;
-}
-
-@media (max-width:900px){
-  .media-grid{ grid-template-columns:repeat(3, 1fr); }
-}
-@media (max-width:600px){
-  .media-grid{ grid-template-columns:repeat(2, 1fr); }
-}
-</style>
 
 ## Outlook
 

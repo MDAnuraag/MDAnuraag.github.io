@@ -11,21 +11,14 @@ My current direction is fab metrology process engineering, which changes how I r
 
 Every project gets two readings: what it found and where it stopped. Each reading sits on one scale of what the measurement actually identified. The assignments are my own judgment, and they change when the evidence does.
 
-<dl class="scale">
+<div class="scale">
 {%- for t in site.data.tiers %}
-<dt><span class="tier tier-{{ t.id }}">{{ t.id }}</span></dt><dd>{{ t.meaning }}</dd>
+<div class="srow"><span>{% include tier.html id=t.id bar=false %}</span><span class="bar tier-{{ t.id }}" aria-hidden="true"><span class="track">{% if t.pct > 0 %}<span class="fill {{ t.side }}" style="width:{{ t.pct }}%"></span>{% endif %}</span></span><span class="m">{{ t.meaning }}</span></div>
 {%- endfor %}
-</dl>
+</div>
 
 {% for g in site.data.work %}
 ## {{ g.group }}
 
-<table class="ledger">
-<thead><tr><th>Project</th><th>Found</th><th>Limit</th><th>Lesson</th></tr></thead>
-<tbody>
-{%- for it in g.items %}
-<tr><td class="proj" data-label="Project"><a href="{{ it.url | relative_url }}">{{ it.title }}</a><span class="obj">{{ it.object }}</span></td><td data-label="Found"><span class="tier tier-{{ it.found.tier }}">{{ it.found.tier }}</span><span class="note">{{ it.found.text }}</span></td><td data-label="Limit"><span class="tier tier-{{ it.boundary.tier }}">{{ it.boundary.tier }}</span><span class="note">{{ it.boundary.text }}</span></td><td data-label="Lesson" class="lesson">{{ it.lesson }}</td></tr>
-{%- endfor %}
-</tbody>
-</table>
+{% include work-rows.html items=g.items lesson=true %}
 {% endfor %}

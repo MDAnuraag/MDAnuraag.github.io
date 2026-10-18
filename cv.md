@@ -43,103 +43,27 @@ Core question:
 
 ## Education
 
-**Xi’an Jiaotong–Liverpool University**  
-B.Eng., Microelectronic Science and Engineering  
-2026  
-Direct Year 2 Entry
+<ol class="timeline">
+  <li><span class="when">2026</span><div class="what"><b>B.Eng., Microelectronic Science and Engineering</b><span class="org">Xi’an Jiaotong–Liverpool University, Direct Year 2 Entry</span></div></li>
+  <li><span class="when">double degree</span><div class="what"><b>B.Eng. (Hons), Microelectronic Science and Engineering</b><span class="org">University of Liverpool</span></div></li>
+</ol>
 
-**University of Liverpool**  
-B.Eng. (Hons), Microelectronic Science and Engineering  
-Double Degree Program
+## Experience and research
 
----
-
-## Current role
-
-### Metrology Process Engineer
-
-**Samsung — Taylor site**  
-2026–present
-
-Public-facing focus:
-
-- measurement quality
-- process monitoring
-- tool behavior
-- process windows
-- metrology interpretation
-- advanced-node thickness, CD, and overlay metrology
-
-No project details are listed. Nothing on this site is employer-confidential.
-
----
-
-## Experience
-
-### Applications Engineering Intern — SpectraShape OCD Metrology
-
-**KLA Corporation**  
-Summer 2025
-
-**Object:** patterned semiconductor structures  
-**Signal:** broadband reflectance  
-**Method:** inverse RCWA  
-**Result:** trench depth was more identifiable than secondary geometry  
-**Lesson:** process-useful parameters matter more than full-profile overclaiming
-
-Related: [Inverse RCWA Metrology](/work/inverse-rcwa/)
-
----
-
-## Featured research
-
-### Undergraduate thesis — mmWave NLoS inverse sensing and passive boundary design
-
-**Object:** 26 GHz passive metasurface boundary  
-**Stack:** copper / RO4350B / ground plane  
-**Pipeline:** CST field export → sensing matrix → reconstruction diagnostics  
-**Prototype:** 31 × 31 panel, 99.2 mm aperture  
-**Status:** fabrication-ready; measurement pending  
-**Claim boundary:** controlled forward-model evidence, not real-port deployment
-
-Related: [Port Metasurface](/work/port-metasurface/)
-
----
-
-### AlN electroabsorption under bias
-
-**XJTLU — School of CHIPS**  
-Advisor: Assoc. Prof. Jangyong Kim  
-2024–present
-
-**Object:** PEALD-grown AlN-based films  
-**Signal:** field-dependent UV transmission  
-**Interpretation:** defect/disorder-mediated sub-bandgap absorption most consistent  
-**Limit:** exact defect class and spatial pathway unresolved
-
-Related: [AlN Electroabsorption](/work/aln-electroabsorption/)
-
----
-
-## Earlier work
-
-### Doped g-C₃N₄ optical transitions
-
-**Method:** DFT optical-response analysis  
-**Found:** dopants redistributed oscillator strength  
-**Limit:** spectra did not identify unique dopant sites
-
-Related: [g-C₃N₄ Optical Transitions](/work/gcn-optical-transitions/)
-
-### Alloy configuration sampling
-
-**Method:** finite configuration sampling  
-**Found:** composition did not determine electronic structure  
-**Limit:** synthesized configuration distribution remained unresolved
-
-Related: [Alloy Configuration Sampling](/work/alloy-sampling/)
-
----
+<ol class="timeline">
+  <li class="now"><span class="when">2026–present</span><div class="what"><b>Metrology Process Engineer</b><span class="org">Samsung, Taylor site</span>
+    <p>Public-facing focus: measurement quality, process monitoring, tool behavior, process windows, metrology interpretation, advanced-node thickness, CD, and overlay metrology. No project details are listed. Nothing on this site is employer-confidential.</p></div></li>
+  <li><span class="when">Summer 2025</span><div class="what"><b>Applications Engineering Intern, SpectraShape OCD Metrology</b><span class="org">KLA Corporation</span>
+    <p>Patterned semiconductor structures, broadband reflectance, inverse RCWA. Trench depth was more identifiable than secondary geometry. Lesson: process-useful parameters matter more than full-profile overclaiming. Related: <a href="/work/inverse-rcwa/">Inverse RCWA Metrology</a>.</p></div></li>
+  <li><span class="when">thesis</span><div class="what"><b>Undergraduate thesis: mmWave NLoS inverse sensing and passive boundary design</b><span class="org">26 GHz passive metasurface boundary, copper / RO4350B / ground plane</span>
+    <p>Pipeline: CST field export, sensing matrix, reconstruction diagnostics. Prototype: 31 × 31 panel, 99.2 mm aperture. Status: fabrication-ready; measurement pending. Claim boundary: controlled forward-model evidence, not real-port deployment. Related: <a href="/work/port-metasurface/">Port Metasurface</a>.</p></div></li>
+  <li><span class="when">2024–present</span><div class="what"><b>AlN electroabsorption under bias</b><span class="org">XJTLU School of CHIPS, advisor Assoc. Prof. Jangyong Kim</span>
+    <p>PEALD-grown AlN-based films, field-dependent UV transmission. Defect/disorder-mediated sub-bandgap absorption is most consistent; the exact defect class and spatial pathway are unresolved. Related: <a href="/work/aln-electroabsorption/">AlN Electroabsorption</a>.</p></div></li>
+  <li><span class="when">earlier</span><div class="what"><b>Doped g-C₃N₄ optical transitions</b><span class="org">DFT optical-response analysis</span>
+    <p>Dopants redistributed oscillator strength; the spectra did not identify unique dopant sites. Related: <a href="/work/gcn-optical-transitions/">g-C₃N₄ Optical Transitions</a>.</p></div></li>
+  <li><span class="when">earlier</span><div class="what"><b>Alloy configuration sampling</b><span class="org">Finite configuration sampling</span>
+    <p>Composition did not determine electronic structure; the synthesized configuration distribution remained unresolved. Related: <a href="/work/alloy-sampling/">Alloy Configuration Sampling</a>.</p></div></li>
+</ol>
 
 ## Publications
 

@@ -1,0 +1,8 @@
+<div class="rows" role="table" aria-label="Projects, what each found and where it stopped">
+  <div class="row head" role="row"><span role="columnheader">project</span><span role="columnheader">found</span><span role="columnheader">limit</span></div>
+  {%- if include.groups %}
+  {%- for g in include.groups %}{% for it in g.items %}{% include work-row.html it=it lesson=include.lesson %}{% endfor %}{% endfor %}
+  {%- else %}
+  {%- for it in include.items %}{% include work-row.html it=it lesson=include.lesson %}{% endfor %}
+  {%- endif %}
+</div>

@@ -1,0 +1,6 @@
+  <div class="row" role="row">
+    <div class="name" role="cell"><b><a href="{{ include.it.url | relative_url }}">{{ include.it.title }}</a></b><span>{{ include.it.object }}</span></div>
+    <div class="cell" role="cell"><span class="k">found</span>{% include tier.html id=include.it.found.tier bar=true %}<span class="tx">{{ include.it.found.text }}</span></div>
+    <div class="cell" role="cell"><span class="k">limit</span>{% include tier.html id=include.it.boundary.tier bar=true %}<span class="tx">{{ include.it.boundary.text }}</span></div>
+    {%- if include.lesson %}<p class="note">{{ include.it.lesson }}</p>{% endif %}
+  </div>
