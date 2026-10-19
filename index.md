@@ -9,13 +9,14 @@ description: Metrology process engineer working on inverse problems, statistical
 <dl class="readout">
   <dt>role</dt><dd>Metrology process engineer, Samsung Taylor</dd>
   <dt>research</dt><dd>statistical optics, inverse problems</dd>
+  <dt>now</dt><dd>Fab ramp, copy exact. Measurement data from round robin wafers.</dd>
   <dt>question</dt><dd>What did the measurement actually identify?</dd>
   <dt>based in</dt><dd>Taylor / Austin, Texas</dd>
 </dl>
 
 ## Work
 
-Each project, with what it identified and where it stopped. Each tier is named and drawn as a bar from the centre line; the scale is on the [work page](/work/#reading-the-tiers).
+Five projects. Each was handed to me and I took it where I could. A row says what I got out of it and where it stopped. [How the tiers work](/work/#reading-the-tiers).
 
 {% include work-rows.html groups=site.data.work %}
 
@@ -68,6 +69,6 @@ Photography, music, fiction, and opinions on where current narratives about semi
 </section>
 </div>
 
-## Contact
+## More
 
-[CV](/cv/) for background and publications, [About](/about/) for how this site is meant to be read.
+[About](/about/) for how I got here. [CV](/cv/) for the dates.
