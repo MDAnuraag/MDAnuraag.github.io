@@ -7,27 +7,20 @@ redirect_from:
   - /constraints/alloy-sampling/
 ---
 
-## Question
+## Overview
 
-Can a band-gap trend versus alloy composition be interpreted without pretending that one structure represents the material?
+Band-gap trend versus composition in Cu$_2$Ge(S$_{1-x}$Se$_x$)$_3$, with the S/Se arrangement treated as a distribution of configurations.
 
 ---
 
-## Objects
+## Setup
 
 **Material:** Cu$_2$Ge(S$_{1-x}$Se$_x$)$_3$  
 **Variable:** S/Se composition  
 **Hidden variable:** anion configuration  
-**Signal:** computed / measured band-gap trend  
-**Failure mode:** composition treated as structure
+**Signal:** computed / measured band-gap trend
 
-Tempting shortcut:
-
-$$
-x \rightarrow E_g
-$$
-
-Better map:
+Map from composition to band gap:
 
 $$
 x
@@ -41,19 +34,9 @@ $$
 
 ---
 
-## What moved
+## Results
 
-At fixed $x$, different S/Se arrangements produced different band gaps.
-
-Fixed composition did not mean fixed electronic structure.
-
-The useful claim became:
-
-> this composition has a distribution of plausible band gaps under sampled configurations.
-
-Not:
-
-> this composition has one band gap.
+At fixed $x$, different S/Se arrangements produced different band gaps. A composition therefore corresponds to a distribution of plausible band gaps over the sampled configurations.
 
 ---
 
@@ -77,53 +60,34 @@ $$
 -k_B[x\ln x+(1-x)\ln(1-x)]
 $$
 
-This was not a full cluster expansion.
-
-It was a correction to a worse assumption: one configuration standing in for the alloy.
+This replaces the single-configuration assumption with sampled configurations, short of a full cluster expansion.
 
 ---
 
-## What failed
-
-Not proven:
+## Open questions
 
 ```text
-full configuration space exhausted
-true synthesized configuration distribution known
-all important local motifs sampled
-unique atomistic structure at each composition
+how much of the configuration space was covered
+the synthesized configuration distribution
+whether all important local motifs were sampled
+the atomistic structure at each composition
 ```
 
-Experiment measures an averaged material response. It does not reveal the microscopic S/Se arrangement by itself.
+Experiment measures an averaged material response, so the microscopic S/Se arrangement needs a separate measurement.
 
 ---
 
-## Claim boundary
+## Summary
 
-Supported:
+Established: configuration sampling improves the interpretation of band-gap trends, and a composition carries a spread of band gaps.
 
-```text
-configuration sampling improves interpretation of band-gap trends
-composition alone is not enough
-```
-
-Not supported:
-
-```text
-actual synthesized configuration distribution
-unique microscopic structure for each composition
-```
+Open: the actual synthesized configuration distribution and the microscopic structure at each composition.
 
 ---
 
 ## Status
 
 Published in **ACS Applied Optical Materials**, 2024.
-
-**Claim level:** configuration sampling improved band-gap interpretation; synthesized configuration distribution remained unresolved.
-
-**Related notes:**  
-[Averaging destroys information irreversibly](/notes/averaging/)
 
 **Reading ledger:**  
 [Configuration sampling](/reading-ledger/#config-sampling)  

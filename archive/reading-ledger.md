@@ -6,9 +6,9 @@ permalink: /reading-ledger/
 
 This is a working ledger of methods I have used or had to interpret.
 
-It is not a literature review. It is a memory aid for method limits: what each method constrains, what it cannot determine, and where I have seen interpretation break down.
+It works as a memory aid for method limits: what each method constrains, what it leaves undetermined, and where I have seen interpretation break down.
 
-The entries are written from use, not authority.
+The entries are written from use.
 
 **Last updated:** May 2026  
 **Scope:** undergraduate research projects from 2024–2026, plus one semiconductor metrology internship
@@ -746,12 +746,10 @@ In the port metasurface project, full-port simulations were too dependent on con
 
 ## How this ledger connects to the site
 
-The ledger supports two site layers:
+- [/work/](/work/) has the projects where the methods were applied.
+- [/notes/](/notes/) has short working notes behind them.
 
-- [/work/](/work/) — projects where the methods were applied.
-- [/notes/](/notes/) — specific inference errors that recur across projects.
-
-The entries here are intentionally bounded. They say what I learned from using these methods, not everything the methods can do.
+The entries say what I learned from using these methods.
 
 ---
 

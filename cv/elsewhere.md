@@ -8,7 +8,7 @@ lede: Things that inform my thinking without proving anything.
 ## China
 
 Notes from living, studying, and travelling across China as an American.
-Not cultural commentary. Mostly constraints, frictions, and surprises.
+Mostly constraints, frictions, and surprises.
 
 ## Images
 
@@ -90,7 +90,7 @@ Media that handle causality, time, or power well.
 
 Opinions on semiconductors, energy, and where current narratives feel brittle.
 
-The semiconductor industry is treated as an endpoint. It's a fabrication platform. The assumption that advanced nanofabrication exists to produce transistors is historical, not fundamental — the same tools that build logic chips can build nanophotonic structures, biosensors, and energy devices. That application space is underbuilt relative to what the physics allows, mostly for economic reasons that are real but not permanent.
+The semiconductor industry usually gets treated as an endpoint, though it is a fabrication platform. The assumption that advanced nanofabrication exists to produce transistors is historical — the same tools that build logic chips can build nanophotonic structures, biosensors, and energy devices. That application space is underbuilt relative to what the physics allows, mostly for economic reasons that are real but not permanent.
 
 Metrology is where physical limits become visible before anywhere else in the process. Most of what gets called a process problem is a measurement problem first. The field underinvests in the theoretical foundations of what measurements can and cannot recover — identifiability, sensitivity, fundamental estimation limits — relative to how much it invests in tool hardware. That gap widens at each new device generation and compounds into methods that work empirically without anyone being able to say precisely why or where they will fail.
 

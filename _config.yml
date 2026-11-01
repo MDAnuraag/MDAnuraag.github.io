@@ -1,5 +1,5 @@
 title: Under Constraints
-description: notes on conservative modeling and physical inference
+description: Projects, notes and derivations in optics, electromagnetics and materials modeling
 author: Anuraag Sharma
 
 baseurl: ""
@@ -10,11 +10,6 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-redirect-from
-
-collections:
-  notes:
-    output: true
-    permalink: /notes/:name/
 
 markdown: kramdown
 

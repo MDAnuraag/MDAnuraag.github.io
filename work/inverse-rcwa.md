@@ -7,18 +7,18 @@ redirect_from:
   - /constraints/inverse-rcwa/
 ---
 
-## Question
+## Overview
 
-Which geometric parameters can broadband optical reflectance actually identify?
+Broadband reflectance of a patterned GAAFET stack, fitted with an RCWA forward model to recover trench geometry for inline metrology and process monitoring.
 
 ---
 
-## Objects
+## Setup
 
 **System:** patterned GAAFET stack  
 **Signal:** broadband far-field reflectance  
 **Model:** RCWA forward model  
-**Inverse target:** trench geometry  
+**Target:** trench geometry  
 **Use case:** inline metrology / process monitoring
 
 $$
@@ -27,31 +27,15 @@ $$
 \text{reflectance spectrum}
 $$
 
-The spectrum was not a direct image of the structure. It was an indirect measurement.
+The spectrum is an indirect measurement of the structure.
 
 ---
 
-## What moved
+## Results
 
-Trench depth moved the spectrum in a way that stayed stable under bounded process assumptions.
+Trench depth moved the spectrum in a way that stayed stable under bounded process assumptions, which made it reliable enough for monitoring.
 
-Secondary geometry did not.
-
-The useful result was not:
-
-> full profile recovered.
-
-It was:
-
-> trench depth was identifiable enough for monitoring.
-
----
-
-## What failed
-
-Secondary parameters traded off.
-
-Main degeneracies:
+Secondary geometry traded off against other parameters. The main degeneracies:
 
 - sidewall angle;
 - nearby layer thickness;
@@ -59,55 +43,34 @@ Main degeneracies:
 - roughness / profile idealization;
 - dispersion-model compensation.
 
-Multi-start optimization found multiple plausible profiles with similar residuals.
-
-That was not an optimizer failure. It was structural non-identifiability.
+Multi-start optimization found multiple plausible profiles with similar residuals. That spread reflects structural non-identifiability in the model.
 
 ---
 
 ## Diagnostic
 
-The figure below is an illustrative diagnostic, not KLA data and not direct RCWA output.
+The figure below is an illustrative diagnostic built on a toy model, with no KLA data and no direct RCWA output.
 
-It shows the failure mode:
-
-> two profiles can fit similarly while different parameters compensate.
+It shows how two profiles can fit similarly while different parameters compensate.
 
 <div class="tool-embed">
-<div class="tool-label">Interactive — RCWA-style degeneracy</div>
+<div class="tool-label">Interactive: RCWA-style degeneracy</div>
 {% include rcwa-degeneracy-viz.html %}
 </div>
 
 ---
 
-## Claim boundary
+## Summary
 
-Supported:
+Established: trench depth monitoring under bounded process conditions.
 
-```text
-trench depth monitoring under bounded process conditions
-```
-
-Not supported:
-
-```text
-unique full-profile reconstruction from this measurement alone
-```
-
-More wavelengths do not automatically fix the problem. More samples of the same observable do not create new independent sensitivity directions.
+Open: a unique full-profile reconstruction from this measurement alone. Extra wavelengths and extra samples of the same observable add no new independent sensitivity directions, so separating the secondary parameters takes additional measurement diversity.
 
 ---
 
 ## Status
 
 Completed Summer 2025.
-
-**Claim level:** trench depth was reliable under bounded process assumptions; secondary geometry required additional measurement diversity.
-
-**Related notes:**  
-[Good fits don't imply identifiability](/notes/good-fits/)  
-[Spectra are constraints, not fingerprints](/notes/spectra-constraints/)  
-[Measurement is not control](/notes/measurement-not-control/)
 
 **Reading ledger:**  
 [RCWA](/reading-ledger/#rcwa)  

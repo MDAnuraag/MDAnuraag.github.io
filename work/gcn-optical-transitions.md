@@ -7,19 +7,18 @@ redirect_from:
   - /constraints/gcn-optical-transitions/
 ---
 
-## Question
+## Overview
 
-Can computed optical spectra explain visible absorption enhancement without pretending to identify one unique dopant structure?
+Computed optical spectra of Pt-, Pd- and Co-doped g-C$_3$N$_4$, and what they say about visible absorption enhancement.
 
 ---
 
-## Objects
+## Setup
 
 **Material:** metal-doped g-C$_3$N$_4$  
 **Dopants studied:** Pt, Pd, Co  
 **Signal:** computed dielectric response / optical absorption  
-**Model:** DFT electronic structure and optical transitions  
-**Failure mode:** spectrum treated as structural fingerprint
+**Model:** DFT electronic structure and optical transitions
 
 Forward map:
 
@@ -31,21 +30,15 @@ $$
 \text{optical response}
 $$
 
-Invalid inverse shortcut:
-
-$$
-\text{optical response}
-\not\Rightarrow
-\text{unique structure}
-$$
+Several structures can lead to the same optical response, so the inverse direction has more than one solution.
 
 ---
 
-## What moved
+## Results
 
 Metal dopants changed states near relevant energies and redistributed oscillator strength.
 
-Optical intensity depends on transition matrix elements, not only band energies:
+Optical intensity depends on transition matrix elements as well as band energies:
 
 $$
 \varepsilon_2(\omega)
@@ -68,11 +61,9 @@ oscillator-strength redistribution
 
 ---
 
-## What failed
+## Open questions
 
-The spectrum did not identify a unique dopant site.
-
-Ambiguous variables:
+The spectrum leaves the dopant site open. Variables that remain:
 
 ```text
 dopant site
@@ -84,9 +75,7 @@ dopant clustering
 polymerization disorder
 ```
 
-A computed spectrum can support a mechanism class.
-
-It cannot identify a microscopic structure alone.
+A computed spectrum supports a mechanism class. A microscopic assignment takes more.
 
 ---
 
@@ -100,37 +89,21 @@ only finite dopant configurations tested
 real g-C3N4 is structurally disordered
 ```
 
-More DFT does not automatically solve the inverse problem. It can generate more plausible structures.
+More DFT generates more plausible structures, which widens the set of candidates.
 
 ---
 
-## Claim boundary
+## Summary
 
-Supported:
+Established: metal doping can plausibly enhance visible absorption through symmetry breaking and oscillator-strength redistribution.
 
-```text
-metal doping can plausibly enhance visible absorption through symmetry breaking and oscillator-strength redistribution
-```
-
-Not supported:
-
-```text
-unique dopant site
-unique microscopic structure
-exact peak-to-structure assignment
-```
+Open: the dopant site, the microscopic structure, and the peak-to-structure assignment.
 
 ---
 
 ## Status
 
 Ongoing project. No manuscript yet.
-
-**Claim level:** mechanism-level support; structure-level identification unresolved.
-
-**Related notes:**  
-[Spectra are constraints, not fingerprints](/notes/spectra-constraints/)  
-[Averaging destroys information irreversibly](/notes/averaging/)
 
 **Reading ledger:**  
 [DFT — PBE](/reading-ledger/#dft-pbe)  
