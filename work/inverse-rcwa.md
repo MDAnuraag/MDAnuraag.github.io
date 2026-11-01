@@ -1,6 +1,5 @@
 ---
 layout: interactive
-status: complete
 title: Inverse RCWA Metrology
 permalink: /work/inverse-rcwa/
 redirect_from:

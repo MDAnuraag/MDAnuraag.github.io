@@ -2,6 +2,7 @@
 layout: page
 title: Simulation Is Not Deployment Evidence
 permalink: /notes/simulation-not-deployment/
+summary: A controlled model result is evidence only inside its assumptions.
 ---
 
 ## Rule

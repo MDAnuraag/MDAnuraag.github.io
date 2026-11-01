@@ -1,6 +1,5 @@
 ---
 layout: page
-status: submitted
 title: AlN Electroabsorption
 permalink: /work/aln-electroabsorption/
 redirect_from:

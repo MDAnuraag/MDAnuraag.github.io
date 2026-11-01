@@ -2,6 +2,7 @@
 layout: page
 title: Spectra Are Constraints, Not Fingerprints
 permalink: /notes/spectra-constraints/
+summary: A spectrum narrows explanations; it does not automatically identify structure.
 ---
 
 ## Rule

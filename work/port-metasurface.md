@@ -1,6 +1,5 @@
 ---
 layout: interactive
-status: ongoing
 title: Port Metasurface — RF Boundary and Operator
 permalink: /work/port-metasurface/
 description: "A 26 GHz passive RF boundary evaluated through sensing-matrix quality, fabrication sensitivity, and bounded measurement claims."

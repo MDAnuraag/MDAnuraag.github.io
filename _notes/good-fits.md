@@ -2,6 +2,7 @@
 layout: page
 title: Good Fits Don't Imply Identifiability
 permalink: /notes/good-fits/
+summary: A model can fit while parameters remain non-unique.
 ---
 
 ## Rule
