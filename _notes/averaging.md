@@ -2,6 +2,7 @@
 layout: page
 title: Averaging Destroys Information Irreversibly
 permalink: /notes/averaging/
+summary: A mean response does not determine the distribution that produced it.
 ---
 
 ## Rule

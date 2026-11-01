@@ -2,6 +2,7 @@
 layout: page
 title: Measurement Is Not Control
 permalink: /notes/measurement-not-control/
+summary: A signal can be sensitive without being stable, repeatable, or actionable enough for process control.
 ---
 
 ## Rule

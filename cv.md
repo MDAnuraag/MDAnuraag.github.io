@@ -2,16 +2,15 @@
 layout: page
 title: CV
 permalink: /cv/
-lede: Anuraag Sharma. Metrology process engineer, with research in inverse problems and statistical optics.
+lede: Metrology process engineer, Samsung Taylor. B.Eng., Microelectronic Science and Engineering.
 ---
 
 **Graduated:** Summer 2026  
 **Degree:** B.Eng., Microelectronic Science and Engineering  
 **Role:** Metrology Process Engineer, Samsung — Taylor site  
-**Focus:** semiconductor metrology, process control, statistical optics and inverse problems, RF/mmWave characterization, physics-based modeling
+**Focus:** semiconductor metrology, process control, optical and RF modeling, DFT
 
-[Work](/work/) gives the technical evidence.  
-[Notes](/notes/) gives the inference rules.
+[Work](/work/) and [Notes](/notes/) have the technical details.
 
 ---
 
@@ -19,25 +18,6 @@ lede: Anuraag Sharma. Metrology process engineer, with research in inverse probl
 
 Email: anuraag.sharma22 [at] student.xjtlu.edu.cn  
 Location: Taylor / Austin, Texas
-
----
-
-## Current direction
-
-I work on cases where physical measurements are easier to fit than to interpret.
-
-Current context:
-
-- fab metrology
-- process monitoring
-- tool behavior
-- measurement repeatability
-- physical variation
-- manufacturing decisions
-
-Core question:
-
-> What did the measurement actually identify?
 
 ---
 

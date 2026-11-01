@@ -2,27 +2,11 @@
 layout: default
 ---
 
-{%- assign work_item = nil %}
-{%- for g in site.data.work %}
-  {%- for it in g.items %}
-    {%- if it.url == page.url %}{% assign work_item = it %}{% endif %}
-  {%- endfor %}
-{%- endfor %}
-
 <article class="doc">
   <header class="doc-head">
-    <h1 id="title"><span class="p">$ </span><span class="t">{% if page.hero %}{{ page.hero }}{% else %}{{ page.title | downcase | replace: ' ', '-' }}{% endif %}</span></h1>
+    <h1><span class="p">$ </span>{{ page.title | downcase | replace: ' ', '-' }}</h1>
     {%- if page.lede %}
     <p class="lede">{{ page.lede }}</p>
-    {%- endif %}
-    {%- if work_item %}
-    <p class="verdict">
-      <span><span class="k">found</span>{% include tier.html id=work_item.found.tier bar=false %}</span>
-      <span><span class="k">limit</span>{% include tier.html id=work_item.boundary.tier bar=false %}</span>
-    </p>
-    {%- endif %}
-    {%- if page.status %}
-    <span class="status-badge status-{{ page.status }}">{{ page.status }}</span>
     {%- endif %}
   </header>
 
