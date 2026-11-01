@@ -8,7 +8,7 @@
   items:
     - title: Port Metasurface
       url: /work/port-metasurface/
-      summary: 26 GHz loop-paddle-diamond RF boundary, simulated in CST.
+      summary: Blocking-wall geometry and sensing-matrix conditioning for 26 GHz NLoS reconstruction, with a loop-paddle-diamond panel design.
 - group: Materials and optics
   items:
     - title: AlN Electroabsorption
