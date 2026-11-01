@@ -16,21 +16,21 @@ lede: A daily and weekly read on markets, kept as a separate site.
 - every region, with no default tilt toward first-world markets
 - a reading section drawn from newsletters, with headlines spread across outlets and regions
 
-ESG appears as a tag, not as a rule.
+ESG appears as a tag.
 
 ## How it flags
 
 - A move is measured against that instrument's own sampled range, which gets more robust as the history grows.
-- Names are compared against peers, never treated as direct competitors.
+- Names are compared against peers.
 - Two levels: look into, and keep an eye on. At most eight flags show.
-- Where a flag overlaps a headline or a reading, the two are linked. The link is not forced.
+- Where a flag overlaps a headline or a reading, the two are linked.
 
 ## The change scale
 
-Every move is placed on one seven-step scale. Each step also carries an arrow or a bar, so colour is never the only signal.
+Every move is placed on one seven-step scale. Each step also carries an arrow or a bar next to its colour.
 
 <p class="legend"><span class="l-up3">surge</span><span class="l-up2">strong gain</span><span class="l-up1">gain</span><span class="l-flat">flat or no data</span><span class="l-dn1">slip</span><span class="l-dn2">drop</span><span class="l-dn3">sharp drop</span></p>
 
-## What it is not
+## What it is
 
-A personal reading tool. It is not investment advice, and it is separate from anything I do at work.
+A personal reading tool, kept separate from my work. Nothing in it is investment advice.

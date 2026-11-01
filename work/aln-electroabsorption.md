@@ -10,30 +10,25 @@ redirect_from:
 ![Optical setup]({{ "/assets/images/aln/aln12.png" | relative_url }})
 {: style="width:60%; max-width:700px; display:block; margin:auto;"}
 
-## Question
+## Overview
 
-What mechanism can explain field-dependent UV modulation in PEALD-grown AlN-based thin films?
+Field-dependent UV modulation in PEALD-grown AlN-based thin films, and the mechanism behind it.
 
 ---
 
-## Objects
+## Setup
 
 **Film:** 50 nm PEALD-grown AlN-based / AlOxNy-like layer  
 **Growth:** 300 °C  
 **Substrates:** ITO/glass and TiN/Si  
 **Signal:** field-dependent UV transmission near 282 nm  
-**Device:** interdigital electrode optical structure  
-**Main issue:** mechanism identification
+**Device:** interdigital electrode optical structure
 
-The effect was real.
-
-The mechanism was not uniquely identified.
+The modulation is clear in the data. Several mechanisms remain consistent with it.
 
 ---
 
 ## Measurements
-
-Used constraints:
 
 ```text
 XRD
@@ -44,17 +39,11 @@ IDE optical transmission
 absorption-coefficient extraction
 ```
 
-Key geometry issue:
-
-```text
-IDE field is non-uniform
-field concentrates near electrode edges
-reported field is device-level, not intrinsic uniform material field
-```
+The IDE field is non-uniform and concentrates near electrode edges. The reported field is the device-level field.
 
 ---
 
-## What moved
+## Results
 
 Applied bias produced:
 
@@ -75,7 +64,7 @@ That is below the AlN bandgap, so sub-bandgap states are the plausible optical c
 
 ---
 
-## What the data support
+## Interpretation
 
 Most defensible wording:
 
@@ -92,17 +81,13 @@ charge-state redistribution
 local field enhancement near IDE edges
 ```
 
-The result is mechanism-level evidence.
-
-It is not species-level identification.
+This is mechanism-level evidence.
 
 ---
 
-## What failed
+## Open questions
 
-The current dataset cannot isolate one microscopic pathway.
-
-Not identifiable from current measurements:
+The current dataset leaves these unresolved:
 
 ```text
 specific defect species
@@ -113,40 +98,21 @@ intrinsic electroabsorption coefficient
 exact conduction mechanism
 ```
 
-Magnitude alone does not identify mechanism.
-
-A large effect can still be ambiguous.
+A large effect is compatible with several of these.
 
 ---
 
-## Claim boundary
+## Summary
 
-Supported:
+Established: an electrically tunable UV response, with defect/disorder-mediated sub-bandgap absorption as the most consistent interpretation.
 
-```text
-electrically tunable UV response
-defect/disorder-mediated sub-bandgap absorption as most consistent interpretation
-```
-
-Not supported:
-
-```text
-identified defect species
-uniform bulk electroabsorption coefficient
-single microscopic pathway
-```
+Open: the defect species, a uniform bulk electroabsorption coefficient, and the microscopic pathway.
 
 ---
 
 ## Status
 
 Submitted manuscript. First author.
-
-**Claim level:** tunable UV response demonstrated; defect-mediated sub-bandgap absorption most consistent; microscopic defect identity and spatial pathway unresolved.
-
-**Related notes:**  
-[Spectra are constraints, not fingerprints](/notes/spectra-constraints/)  
-[Averaging destroys information irreversibly](/notes/averaging/)
 
 **Reading ledger:**  
 [UV–Vis spectroscopy](/reading-ledger/#uv-vis)  

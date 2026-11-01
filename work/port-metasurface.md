@@ -2,19 +2,19 @@
 layout: interactive
 title: Port Metasurface — RF Boundary and Operator
 permalink: /work/port-metasurface/
-description: "A 26 GHz passive RF boundary evaluated through sensing-matrix quality, fabrication sensitivity, and bounded measurement claims."
+description: "A 26 GHz passive RF boundary evaluated through sensing-matrix quality, fabrication sensitivity and a planned S21 measurement."
 redirect_from:
   - /case-studies/port-metasurface/
   - /constraints/port-metasurface/
 ---
 
-## Question
+## Overview
 
-Can a passive 26 GHz boundary make hidden-object states more identifiable from measured fields?
+Can a passive 26 GHz boundary make hidden-object positions easier to tell apart from measured fields?
 
 ---
 
-## Objects
+## Setup
 
 **Original setting:** mmWave NLoS blockage near metallic port-like structures  
 **Transferable system:** patterned copper/dielectric RF boundary  
@@ -22,9 +22,7 @@ Can a passive 26 GHz boundary make hidden-object states more identifiable from m
 **Model:** CST field export → sensing matrix → reconstruction diagnostic  
 **Physical prototype:** 31 × 31 loop–paddle–diamond panel on RO4350B
 
-The port framing was too broad.
-
-The useful framing is narrower:
+The original port framing narrowed to this question:
 
 > how does a fabricated RF structure convert geometry, material stack, process tolerance, and measurement setup into a measurable electromagnetic response?
 
@@ -45,7 +43,7 @@ where:
 - $\mathbf{x}$ = hidden-position / reflectivity vector;
 - $\boldsymbol{\varepsilon}$ = noise, modelling error, setup mismatch.
 
-The surface is useful only if it changes $A$ in a useful way.
+The surface helps when it changes $A$ in a useful way.
 
 Key diagnostics:
 
@@ -55,8 +53,6 @@ $$
 L_{ij},\quad
 P_{\mathrm{success}}
 $$
-
-A stronger field plot is not enough.
 
 ---
 
@@ -160,9 +156,7 @@ $$
 (A^TA+\lambda I)^{-1}A^T\mathbf{y}
 $$
 
-Solver complexity is not the main point.
-
-If $A$ does not separate states, the solver cannot recover missing information.
+The recovered information is limited by how well $A$ separates states.
 
 ---
 
@@ -194,7 +188,7 @@ f_0 =
 \frac{1}{2\pi\sqrt{L_{\mathrm{eff}}C_{\mathrm{eff}}}}
 $$
 
-The central diamond is not the main current path. It acts mainly as a capacitive island.
+The central diamond acts mainly as a capacitive island.
 
 ---
 
@@ -247,7 +241,7 @@ g
 0.20\ \mathrm{mm}
 $$
 
-This may shift resonance. It should not erase the LC mechanism if fabrication stays close to design.
+This may shift the resonance, and the LC mechanism should survive if fabrication stays close to design.
 
 ---
 
@@ -282,9 +276,9 @@ Claim:
 
 > the unit cell has a physically interpretable resonance near the target band.
 
-Not claim:
+Still to measure:
 
-> the fabricated panel improves a measured blocked link.
+> the effect of the fabricated panel on a measured blocked link.
 
 ---
 
@@ -312,7 +306,7 @@ S_{21,\mathrm{with\ metasurface}}
 S_{21,\mathrm{blocked\ baseline}}
 $$
 
-If chamber distance is limited, the result should be framed as relative link recovery, not strict far-field gain.
+If chamber distance is limited, the result is reported as relative link recovery.
 
 Fraunhofer estimate for a 100 mm aperture:
 
@@ -334,18 +328,18 @@ The figure below shows the core argument:
 boundary → operator A → ambiguity → reconstruction
 ```
 
-It is a diagnostic, not deployment evidence.
+It is a diagnostic of the simulated operator.
 
 <div class="tool-embed">
-<div class="tool-label">Interactive — sensing matrix conditioning</div>
+<div class="tool-label">Interactive: sensing matrix conditioning</div>
 {% include sensing-matrix-viz.html %}
 </div>
 
 ---
 
-## Claim boundary
+## Summary
 
-Supported:
+Established:
 
 ```text
 controlled forward-model evidence
@@ -364,7 +358,7 @@ simulation-to-measurement correlation
 full chamber validation
 ```
 
-Not supported:
+Out of scope so far:
 
 ```text
 real port coverage improvement
@@ -378,12 +372,7 @@ deployment robustness
 
 Ongoing undergraduate thesis.
 
-**Claim level:** controlled forward-model evidence plus fabrication-ready metasurface design. No real-port deployment claim.
-
-**Related notes:**  
-[Simulation is not deployment evidence](/notes/simulation-not-deployment/)  
-[Good fits don't imply identifiability](/notes/good-fits/)  
-[Measurement is not control](/notes/measurement-not-control/)
+**Where it stands:** controlled forward-model evidence plus a fabrication-ready metasurface design.
 
 **Reading ledger:**  
 [EM simulation](/reading-ledger/#em-sim)  
