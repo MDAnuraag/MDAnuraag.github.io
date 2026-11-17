@@ -1,6 +1,6 @@
 ---
 layout: interactive
-title: Port Metasurface — RF Boundary and Operator
+title: Port Metasurface
 permalink: /work/port-metasurface/
 description: "Sensing-matrix study of blocking-wall geometry for 26 GHz NLoS reconstruction, and a loop-paddle-diamond passive panel designed for it."
 redirect_from:
